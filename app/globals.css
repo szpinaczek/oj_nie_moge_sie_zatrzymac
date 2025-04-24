@@ -25,3 +25,33 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+/* Custom styles for video player */
+.video-container {
+  position: relative;
+  width: 100%;
+  min-height: 480px; /* Minimum height for better visibility */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .video-container {
+    min-height: 540px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .video-container {
+    min-height: 600px;
+  }
+}
+
+.video-section {
+  width: 100%;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
