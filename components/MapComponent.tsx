@@ -1,7 +1,26 @@
+"use client";
 import { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, Polyline, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+
+// Define types for the map data and frames
+interface Frame {
+  time: number;
+  lat: number;
+  lng: number;
+  description: string;
+}
+
+interface MapData {
+  frames: Frame[];
+  route: [number, number][];
+}
+
+interface MapComponentProps {
+  currentTime: number;
+  onTimeUpdate: (time: number) => void;
+}
 
 const DefaultIcon = L.icon({
   iconUrl: "/images/marker-icon.png",
@@ -12,26 +31,26 @@ const DefaultIcon = L.icon({
   shadowSize: [41, 41]
 });
 
-const MapComponent = ({ currentTime, onTimeUpdate }) => {
-  const [mapData, setMapData] = useState(null);
-  const [currentPosition, setCurrentPosition] = useState(null);
+const MapComponent: React.FC<MapComponentProps> = ({ currentTime, onTimeUpdate }) => {
+  const [mapData, setMapData] = useState<MapData | null>(null);
+  const [currentPosition, setCurrentPosition] = useState<Frame | null>(null);
 
   useEffect(() => {
     fetch("/frames.json")
       .then(response => response.json())
-      .then(data => setMapData(data))
+      .then((data: MapData) => setMapData(data))
       .catch(error => console.error("Error loading map data:", error));
   }, []);
 
   useEffect(() => {
     if (!mapData) return;
-    const closestFrame = mapData.frames.reduce((prev, curr) => {
-      return Math.abs(curr.time - currentTime) < Math.abs(prev.time - currentTime) ? curr : prev;
-    });
-    setCurrentPosition(closestFrame);
+    const exactFrame = mapData.frames.find(frame => Math.floor(frame.time) === Math.floor(currentTime));
+    if (exactFrame) {
+      setCurrentPosition(exactFrame);
+    }
   }, [currentTime, mapData]);
 
-  const handlePolylineClick = (e) => {
+  const handlePolylineClick = (e: L.LeafletMouseEvent) => {
     if (!mapData) return;
     const { lat, lng } = e.latlng;
     const closestFrame = mapData.frames.reduce((prev, curr) => {
@@ -42,7 +61,7 @@ const MapComponent = ({ currentTime, onTimeUpdate }) => {
     onTimeUpdate(closestFrame.time);
   };
 
-  const MapUpdater = ({ position }) => {
+  const MapUpdater: React.FC<{ position: [number, number] }> = ({ position }) => {
     const map = useMap();
     useEffect(() => {
       if (position) {
@@ -69,7 +88,7 @@ const MapComponent = ({ currentTime, onTimeUpdate }) => {
         <Polyline
           positions={mapData.route}
           color="blue"
-          weight={3}
+          weight={5}
           opacity={0.7}
           eventHandlers={{ click: handlePolylineClick }}
         />

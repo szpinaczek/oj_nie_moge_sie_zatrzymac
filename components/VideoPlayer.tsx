@@ -1,6 +1,18 @@
+"use client";
 import React, { useRef, useEffect, forwardRef, useImperativeHandle } from 'react';
 
-const VideoPlayer = forwardRef(({ onTimeUpdate }, ref) => {
+// Define types for the props
+interface VideoPlayerProps {
+  onTimeUpdate?: (currentTime: number) => void;
+}
+
+// Define the ref methods
+export interface VideoPlayerHandle {
+  pauseVideo: () => void;
+  seekVideo: (time: number) => void;
+}
+
+const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpdate }, ref) => {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
