@@ -7,67 +7,67 @@
       "description": "Początek trasy"
     },
     {
-      "time": 116,
+      "time": 120,
       "lat": 51.8082329,
       "lng": 19.4707462,
       "description": "ul. Perlicza"
     },
     {
-      "time": 126,
+      "time": 129,
       "lat": 51.8081452,
       "lng": 19.4707579,
       "description": "ul. Perlicza"
     },
     {
-      "time": 139.8,
+      "time": 154,
       "lat": 51.8077782,
       "lng": 19.4697702,
       "description": "ul. Wałbrzyska"
     },
     {
-      "time": 142.8,
+      "time": 157,
       "lat": 51.8077028,
       "lng": 19.4696971,
       "description": "ul. Wałbrzyska"
     },
     {
-      "time": 155.4,
-      "lat": 51.8060314,
-      "lng": 19.4695995,
+      "time": 169,
+      "lat": 51.8074748,
+      "lng": 19.4691144,
       "description": "ul. Dziewanny"
     },
     {
-      "time": 180,
+      "time": 181,
       "lat": 51.8070223,
       "lng": 19.4690341,
       "description": "ul. Czeremchy, podwórko"
     },
     {
-      "time": 188.4,
+      "time": 194,
       "lat": 51.8065977,
       "lng": 19.4689046,
       "description": "ul. Czeremchy"
     },
     {
-      "time": 196.8,
+      "time": 210,
       "lat": 51.8060314,
       "lng": 19.4695995,
       "description": "ul. Warszawska"
     },
     {
-      "time": 202.2,
+      "time": 221,
       "lat": 51.805608,
       "lng": 19.4690281,
       "description": "ul. Warszawska"
     },
     {
-      "time": 207,
+      "time": 225,
       "lat": 51.805358,
       "lng": 19.4692891,
       "description": "ul. Warszawska, podwórko"
     },
     {
-      "time": 211,
+      "time": 238,
       "lat": 51.8051744,
       "lng": 19.4695018,
       "description": "ul. Warszawska, podwórko"

@@ -15,7 +15,8 @@
     "react": "^18",
     "react-dom": "^18",
     "react-leaflet": "^4.2.1",
-    "react-youtube": "^10.1.0"
+    "react-youtube": "^10.1.0",
+    "shadcn": "^2.5.0"
   },
   "devDependencies": {
     "@types/node": "^20",
