@@ -2,7 +2,7 @@
 import React, { useRef, useEffect, useState, forwardRef, useImperativeHandle } from 'react';
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
-import { Volume2, VolumeX } from 'lucide-react';
+import { Volume2, VolumeX, SkipBack, SkipForward, Play, Pause } from 'lucide-react';
 
 // Define types for the props
 interface VideoPlayerProps {
@@ -133,7 +133,7 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpd
       videoRef.current.pause();
       setIsPlaying(false);
       
-      const frameRate = 30; // Assuming 30 FPS
+      const frameRate = 25; // Assuming 25 FPS
       const step = 1 / frameRate;
       const newTime = videoRef.current.currentTime + (direction === 'forward' ? step : -step);
       
@@ -144,6 +144,23 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpd
       // Notify about frame change
       if (onFrameChange) {
         onFrameChange(newTime);
+      }
+      isUserSeeking.current = false;
+    }
+  };
+  
+  // Jump to specific time points (useful for navigating between key frames)
+  const jumpToTime = (time: number) => {
+    if (videoRef.current) {
+      videoRef.current.pause();
+      setIsPlaying(false);
+      
+      isUserSeeking.current = true;
+      videoRef.current.currentTime = time;
+      setCurrentTime(time);
+      
+      if (onFrameChange) {
+        onFrameChange(time);
       }
       isUserSeeking.current = false;
     }
@@ -171,6 +188,24 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpd
     return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
   };
 
+  // State for key frames
+  const [keyFrames, setKeyFrames] = useState<{time: number, description: string}[]>([]);
+  
+  // Load key frames from frames.json
+  useEffect(() => {
+    fetch("/frames.json")
+      .then(response => response.json())
+      .then(data => {
+        if (data && data.frames) {
+          setKeyFrames(data.frames.map((frame: any) => ({
+            time: frame.time,
+            description: frame.description
+          })));
+        }
+      })
+      .catch(error => console.error("Error loading key frames:", error));
+  }, []);
+
   return (
     <div className="flex flex-col items-center w-full">
       <video
@@ -186,61 +221,99 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpd
       {/* Progress bar and time display */}
       <div className="w-full mt-2 px-1">
         <div className="flex items-center space-x-2">
-          <span className="text-sm text-gray-500">{formatTime(currentTime)}</span>
-          <Slider
-            value={[currentTime]}
-            min={0}
-            max={duration}
-            step={0.01}
-            className="flex-grow"
-            onValueChange={handleSliderChange}
-          />
-          <span className="text-sm text-gray-500">{formatTime(duration)}</span>
+          <span className="text-sm text-muted-foreground">{formatTime(currentTime)}</span>
+          <div className="relative flex-grow">
+            <Slider
+              value={[currentTime]}
+              min={0}
+              max={duration}
+              step={0.01}
+              className="flex-grow"
+              onValueChange={handleSliderChange}
+            />
+            
+            {/* Key frame markers */}
+            <div className="absolute top-1/2 left-0 right-0 -translate-y-1/2 pointer-events-none">
+              {keyFrames.map((frame, index) => (
+                <div 
+                  key={index}
+                  className="absolute w-1 h-4 bg-red-500 cursor-pointer transform -translate-x-1/2 -translate-y-1/2 rounded-full pointer-events-auto"
+                  style={{ left: `${(frame.time / duration) * 100}%` }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    jumpToTime(frame.time);
+                  }}
+                  title={`${frame.description} (${formatTime(frame.time)})`}
+                />
+              ))}
+            </div>
+          </div>
+          <span className="text-sm text-muted-foreground">{formatTime(duration)}</span>
         </div>
       </div>
       
       {/* Control buttons */}
-      <div className="flex flex-wrap justify-center space-x-2 space-y-2 sm:space-y-0 mt-2">
+      <div className="flex flex-wrap justify-center gap-2 mt-2">
         <Button
           onClick={() => stepFrame('backward')}
-          className="px-3 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
+          variant="secondary"
           size="sm"
+          aria-label="Previous Frame"
         >
+          <SkipBack />
           Previous Frame
         </Button>
+        
         <Button
           onClick={togglePlayPause}
-          className="px-3 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition"
+          variant={isPlaying ? "destructive" : "default"}
           size="sm"
+          aria-label={isPlaying ? "Pause" : "Play"}
         >
+          {isPlaying ? <Pause /> : <Play />}
           {isPlaying ? 'Pause' : 'Play'}
         </Button>
+        
         <Button
           onClick={() => stepFrame('forward')}
-          className="px-3 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
+          variant="secondary"
           size="sm"
+          aria-label="Next Frame"
         >
+          <SkipForward />
           Next Frame
         </Button>
+        
         <Button
           onClick={toggleMute}
-          className="px-3 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition"
+          variant="outline"
           size="sm"
           aria-label={isMuted ? "Unmute" : "Mute"}
         >
-          {isMuted ? (
-            <>
-              <VolumeX className="mr-1 h-4 w-4" />
-              Unmute
-            </>
-          ) : (
-            <>
-              <Volume2 className="mr-1 h-4 w-4" />
-              Mute
-            </>
-          )}
+          {isMuted ? <VolumeX /> : <Volume2 />}
+          {isMuted ? 'Unmute' : 'Mute'}
         </Button>
       </div>
+      
+      {/* Key frames navigation */}
+      {keyFrames.length > 0 && (
+        <div className="w-full mt-4 overflow-x-auto">
+          <div className="text-sm font-medium mb-1">Key Locations:</div>
+          <div className="flex flex-wrap gap-1">
+            {keyFrames.map((frame, index) => (
+              <Button
+                key={index}
+                variant="outline"
+                size="sm"
+                className="text-xs"
+                onClick={() => jumpToTime(frame.time)}
+              >
+                {frame.description} ({formatTime(frame.time)})
+              </Button>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 });

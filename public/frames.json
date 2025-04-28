@@ -1,13 +1,13 @@
 {
   "frames": [
     {
-      "time": 11,
+      "time": 10,
       "lat": 51.8086928,
       "lng": 19.4710456,
       "description": "Początek trasy"
     },
     {
-      "time": 120,
+      "time": 118,
       "lat": 51.8082329,
       "lng": 19.4707462,
       "description": "ul. Perlicza"
