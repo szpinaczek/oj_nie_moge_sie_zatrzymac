@@ -1,22 +1,38 @@
 "use client";
-import { useState, useRef } from 'react';
-import VideoPlayer from '../components/VideoPlayer';
+import { useState, useRef, useEffect } from 'react';
+import VideoPlayer, { VideoPlayerHandle } from '../components/VideoPlayer';
 import MapComponent from '../components/MapComponent';
 
 const HomePage = () => {
   const [currentTime, setCurrentTime] = useState<number>(0);
-  const videoPlayerRef = useRef<{ pauseVideo: () => void; seekVideo: (time: number) => void }>(null);
+  const videoPlayerRef = useRef<VideoPlayerHandle>(null);
+  const isMapUpdating = useRef<boolean>(false);
 
   const handleTimeUpdate = (time: number) => {
-    setCurrentTime(time);
+    // Only update the current time if the map is not currently updating
+    // This prevents feedback loops between the video and map
+    if (!isMapUpdating.current) {
+      setCurrentTime(time);
+    }
   };
 
   const handleMapTimeUpdate = (time: number) => {
     if (videoPlayerRef.current) {
+      // Set flag to prevent feedback loops
+      isMapUpdating.current = true;
+      
+      // Pause video and seek to the selected time
       videoPlayerRef.current.pauseVideo();
       videoPlayerRef.current.seekVideo(time);
+      
+      // Update the current time state
+      setCurrentTime(time);
+      
+      // Reset the flag after a short delay
+      setTimeout(() => {
+        isMapUpdating.current = false;
+      }, 100);
     }
-    setCurrentTime(time);
   };
 
   return (
@@ -26,7 +42,10 @@ const HomePage = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div className="video-section">
           <h2 className="text-xl font-semibold mb-2">Video</h2>
-          <VideoPlayer ref={videoPlayerRef} onTimeUpdate={handleTimeUpdate} />
+          <VideoPlayer 
+            ref={videoPlayerRef} 
+            onTimeUpdate={handleTimeUpdate} 
+          />
         </div>
         
         <div className="map-section">
