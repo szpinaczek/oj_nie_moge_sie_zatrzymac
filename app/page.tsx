@@ -111,7 +111,7 @@ const HomePage = () => {
                 <tbody className="bg-white divide-y divide-gray-200">
                   {keyFrames.map((frame, index) => (
                     <tr key={index} className={currentTime >= frame.time && (index === keyFrames.length - 1 || currentTime < keyFrames[index + 1].time) ? "bg-blue-50" : ""}>
-                      <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-900">{formatTime(frame.time)} ({frame.time}s)</td>
+                      <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-900">{formatTime(frame.time)} ({Math.floor(frame.time)}s)</td>
                       <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-900">{frame.description}</td>
                       <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-500">{frame.lat.toFixed(6)}, {frame.lng.toFixed(6)}</td>
                       <td className="px-6 py-2 whitespace-nowrap text-sm">

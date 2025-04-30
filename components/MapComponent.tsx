@@ -3,8 +3,10 @@ import { MapContainer, TileLayer, Marker, Popup, Polyline, useMap } from 'react-
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
+// Tworzymy własną ikonę dla znacznika aktualnej pozycji
+// Tworzymy własną ikonę dla znacznika aktualnej pozycji
 const DefaultIcon = L.icon({
-  iconUrl: "/images/marker-icon.png",
+  iconUrl: "/images/marker-icon-red.png", // Zakładamy, że mamy czerwoną wersję ikony // Używamy standardowej ikony
   shadowUrl: "/images/marker-shadow.png",
   iconSize: [25, 41],
   iconAnchor: [12, 41],
@@ -190,8 +192,22 @@ const MapComponent: React.FC<MapComponentProps> = ({ currentTime, onTimeUpdate }
 
   const defaultCenter = mapData.route[0] || [51.8086928, 19.4710456];
 
+  // Create a custom icon for key frame markers
+  const KeyFrameIcon = L.divIcon({
+    className: 'key-frame-marker',
+    html: '<div class="w-4 h-4 bg-red-500 rounded-full border-2 border-white shadow-md"></div>',
+    iconSize: [16, 16],
+    iconAnchor: [8, 8]
+  });
+
   return (
     <div className="map-container w-full h-full">
+      <style jsx global>{`
+        .key-frame-marker {
+          background: transparent;
+          border: none;
+        }
+      `}</style>
       <MapContainer 
         center={defaultCenter} 
         zoom={15} 
@@ -203,11 +219,38 @@ const MapComponent: React.FC<MapComponentProps> = ({ currentTime, onTimeUpdate }
         />
         <Polyline
           positions={mapData.route}
-          color="blue"
+          color="red"
           weight={5}
           opacity={0.7}
           eventHandlers={{ click: handlePolylineClick }}
         />
+        
+        {/* Key frame markers */}
+        {mapData.frames.map((frame, index) => (
+          <Marker 
+            key={`keyframe-${index}`}
+            position={[frame.lat, frame.lng]} 
+            icon={KeyFrameIcon}
+            eventHandlers={{
+              click: () => onTimeUpdate(frame.time)
+            }}
+          >
+            <Popup>
+              <div className="p-1">
+                <h3 className="font-bold text-base">{frame.description}</h3>
+                <p className="text-sm">Time: {formatTime(frame.time)} ({frame.time}s)</p>
+                <button 
+                  className="mt-2 px-2 py-1 bg-red-500 text-white text-xs rounded hover:bg-red-600"
+                  onClick={() => onTimeUpdate(frame.time)}
+                >
+                  Jump to this point
+                </button>
+              </div>
+            </Popup>
+          </Marker>
+        ))}
+        
+        {/* Current position marker */}
         {currentPosition && (
           <Marker position={[currentPosition.lat, currentPosition.lng]} icon={DefaultIcon}>
             <Popup>
@@ -219,7 +262,7 @@ const MapComponent: React.FC<MapComponentProps> = ({ currentTime, onTimeUpdate }
                   <div className="mt-2 text-xs">
                     <div className="w-full bg-gray-200 rounded-full h-2.5">
                       <div 
-                        className="bg-blue-600 h-2.5 rounded-full" 
+                        className="bg-red-600 h-2.5 rounded-full" 
                         style={{ width: `${currentPosition.progress * 100}%` }}
                       ></div>
                     </div>
@@ -233,12 +276,32 @@ const MapComponent: React.FC<MapComponentProps> = ({ currentTime, onTimeUpdate }
             </Popup>
           </Marker>
         )}
+        
         {currentPosition && <MapUpdater position={[currentPosition.lat, currentPosition.lng]} />}
       </MapContainer>
       
+      {/* Map legend */}
+      <div className="absolute top-4 right-4 bg-white bg-opacity-90 p-2 rounded-md shadow-md z-[1000] text-sm">
+        <div className="font-semibold mb-1">Map Legend</div>
+        <div className="flex items-center mb-1">
+          <div className="w-4 h-4 bg-red-500 rounded-full border-2 border-white mr-2"></div>
+          <span>Key Points (clickable)</span>
+        </div>
+        <div className="flex items-center mb-1">
+          <div className="w-4 h-4 flex items-center justify-center">
+            <img src="/images/marker-icon-red.png" alt="Current position" className="h-full" />
+          </div>
+          <span className="ml-2">Current Position</span>
+        </div>
+        <div className="flex items-center">
+          <div className="w-4 h-1 bg-red-500 mr-2"></div>
+          <span>Route Path (clickable)</span>
+        </div>
+      </div>
+      
       {/* Map controls and info panel */}
       <div className="absolute bottom-4 left-4 right-4 bg-white bg-opacity-90 p-2 rounded-md shadow-md z-[1000] text-sm">
-        <div className="flex justify-between items-center">
+        <div className="flex flex-wrap justify-between items-center gap-2">
           <div>
             <span className="font-semibold">Current Time:</span> {formatTime(currentTime)}
           </div>
@@ -252,6 +315,9 @@ const MapComponent: React.FC<MapComponentProps> = ({ currentTime, onTimeUpdate }
               <span className="font-semibold">Location:</span> {currentPosition.description.split(' → ')[0]}
             </div>
           )}
+        </div>
+        <div className="mt-1 text-xs text-gray-600">
+          <span>💡 Tip: Click on the red markers or the red path to jump to specific points in the video</span>
         </div>
       </div>
     </div>

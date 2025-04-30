@@ -221,7 +221,7 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpd
       {/* Progress bar and time display */}
       <div className="w-full mt-2 px-1">
         <div className="flex items-center space-x-2">
-          <span className="text-sm text-muted-foreground">{formatTime(currentTime)}</span>
+          <span className="text-sm text-muted-foreground min-w-[100px] inline-block">{formatTime(currentTime)} ({Math.floor(currentTime)}s)</span>
           <div className="relative flex-grow">
             <Slider
               value={[currentTime]}
@@ -237,18 +237,18 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpd
               {keyFrames.map((frame, index) => (
                 <div 
                   key={index}
-                  className="absolute w-1 h-4 bg-red-500 cursor-pointer transform -translate-x-1/2 -translate-y-1/2 rounded-full pointer-events-auto"
+                  className="absolute w-3 h-3 bg-red-500 cursor-pointer transform -translate-x-1/2 -translate-y-1/2 rounded-full pointer-events-auto border-2 border-white shadow-sm hover:scale-125 transition-transform"
                   style={{ left: `${(frame.time / duration) * 100}%` }}
                   onClick={(e) => {
                     e.stopPropagation();
                     jumpToTime(frame.time);
                   }}
-                  title={`${frame.description} (${formatTime(frame.time)})`}
+                  title={`${frame.description} (${formatTime(frame.time)}, ${Math.floor(frame.time)}s)`}
                 />
               ))}
             </div>
           </div>
-          <span className="text-sm text-muted-foreground">{formatTime(duration)}</span>
+          <span className="text-sm text-muted-foreground min-w-[100px] inline-block text-right">{formatTime(duration)} ({Math.floor(duration)}s)</span>
         </div>
       </div>
       
@@ -298,19 +298,29 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpd
       {/* Key frames navigation */}
       {keyFrames.length > 0 && (
         <div className="w-full mt-4 overflow-x-auto">
-          <div className="text-sm font-medium mb-1">Key Locations:</div>
+          <div className="flex items-center mb-1">
+            <div className="text-sm font-medium">Key Locations:</div>
+            <div className="ml-2 text-xs text-gray-500">
+              (Click on a button to jump to that location)
+            </div>
+          </div>
           <div className="flex flex-wrap gap-1">
             {keyFrames.map((frame, index) => (
               <Button
                 key={index}
                 variant="outline"
                 size="sm"
-                className="text-xs"
+                className={`text-xs ${Math.abs(currentTime - frame.time) < 1 ? 'bg-red-100 border-red-300' : ''}`}
                 onClick={() => jumpToTime(frame.time)}
               >
-                {frame.description} ({formatTime(frame.time)})
+                <div className="w-2 h-2 bg-red-500 rounded-full mr-1.5"></div>
+                {frame.description} ({formatTime(frame.time)}, {Math.floor(frame.time)}s)
               </Button>
             ))}
+          </div>
+          <div className="mt-2 text-xs text-gray-500 flex items-center">
+            <div className="w-3 h-3 bg-red-500 rounded-full border-2 border-white mr-1.5"></div>
+            <span>Red markers on the timeline also indicate key points in the video</span>
           </div>
         </div>
       )}

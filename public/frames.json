@@ -31,7 +31,7 @@
       "description": "ul. Wałbrzyska"
     },
     {
-      "time": 169,
+      "time": 171,
       "lat": 51.8074748,
       "lng": 19.4691144,
       "description": "ul. Dziewanny"
@@ -62,15 +62,201 @@
     },
     {
       "time": 225,
-      "lat": 51.805358,
-      "lng": 19.4692891,
-      "description": "ul. Warszawska, podwórko"
+      "lat": 51.80535,
+      "lng": 19.46928,
+      "description": "ul. Warszawska, ogród"
     },
     {
-      "time": 238,
-      "lat": 51.8051744,
-      "lng": 19.4695018,
-      "description": "ul. Warszawska, podwórko"
+      "time": 229,
+      "lat": 51.80523,
+      "lng": 19.46954,
+      "description": "ul. Cementowa, ogród"
+    },
+    {
+      "time": 235,
+      "lat": 51.80496,
+      "lng": 19.46985,
+      "description": "ul. Cementowa"
+    },
+    {
+      "time": 243,
+      "lat": 51.804530, 
+      "lng": 19.470354,
+      "description": "ul. Deczyńskiego, ogród"
+    },
+    {
+      "time": 248,
+      "lat": 51.804314,
+      "lng": 19.470351,
+      "description": "ul. Deczyńskiego"
+    },
+    {
+      "time": 257,
+      "lat": 51.803665, 
+      "lng": 19.4703816,
+      "description": "ul. Powojowa"
+    },
+    {
+      "time": 267,
+      "lat": 51.802478,
+      "lng": 19.470263,
+      "description": "ul. Bluszczowa/Konwaliowa"
+    },
+    {
+      "time": 283,
+      "lat": 51.8015281,
+      "lng": 19.4702225,
+      "description": "ul. Admiralska"
+    },
+    {
+      "time": 293,
+      "lat": 51.80058,
+      "lng": 19.47013,
+      "description": "ul. Inflancka"
+    },
+    {
+      "time": 300,
+      "lat": 51.7998297,
+      "lng": 19.4700616,
+      "description": "ul. Inflancka, warsztaty PKS"
+    },
+    {
+      "time": 305,
+      "lat": 51.7997934,
+      "lng": 19.4710344,
+      "description": "ul. Inflancka, warsztaty PKS"
+    },
+    {
+      "time": 325,
+      "lat": 51.7972522,
+      "lng": 19.470777,
+      "description": "ul. Okopowa, warsztaty"
+    },
+    {
+      "time": 326,
+      "lat": 51.797229,
+      "lng": 19.4712397,
+      "description": "ul. Okopowa, warsztaty"
+    },
+    {
+      "time": 332,
+      "lat": 51.7963332,
+      "lng": 19.4711578,
+      "description": "ul. Okopowa"
+    },
+    {
+      "time": 345,
+      "lat": 51.7943624,
+      "lng": 19.4709855,
+      "description": "ul. Górnicza"
+    },
+    {
+      "time": 355,
+      "lat": 51.79338,
+      "lng": 19.46927,
+      "description": "Stadion KS 'Budowlani'"
+    },
+    {
+      "time": 368,
+      "lat": 51.7919341,
+      "lng": 19.4664589,
+      "description": "XXIV LO"
+    },
+    {
+      "time": 370,
+      "lat": 51.7919242,
+      "lng": 19.4657991,
+      "description": "ul. Marysińska"
+    },
+    {
+      "time": 374,
+      "lat": 51.7921012,
+      "lng": 19.4648645,
+      "description": "ul. Marynarska"
+    },
+    {
+      "time": 378,
+      "lat": 51.7921331,
+      "lng": 19.4632433,
+      "description": "ul. Szklana"
+    },
+    {
+      "time": 383,
+      "lat": 51.7921261,
+      "lng": 19.461357,
+      "description": "ul. Czarnieckiego"
+    },
+    {
+      "time": 389,
+      "lat": 51.7914608,
+      "lng": 19.4601313,
+      "description": "ul. Franciszkanska/Tokarzewskiego"
+    },
+    {
+      "time": 399,
+      "lat": 51.7890557,
+      "lng": 19.4595364,
+      "description": "ul. Franciszkanska/Zofii"
+    },
+    {
+      "time": 400,
+      "lat": 51.789069,
+      "lng": 19.4593541,
+      "description": "ul. Zofii"
+    },
+    {
+      "time": 401,
+      "lat": 51.7890159,
+      "lng": 19.4590617,
+      "description": "ul. Zofii"
+    },
+    {
+      "time": 402,
+      "lat": 51.7886973,
+      "lng": 19.4584636,
+      "description": "ul. Młynarska"
+    },
+    {
+      "time": 403,
+      "lat": 51.7885505,
+      "lng": 19.4580987,
+      "description": "ul. Pasterska"
+    },
+    {
+      "time": 407,
+      "lat": 51.7882068,
+      "lng": 19.4575466,
+      "description": "ul. Pasterska, tył kościoła"
+    },
+    {
+      "time": 409,
+      "lat": 51.7875879,
+      "lng": 19.4570853,
+      "description": "ul. Organizacji WiN"
+    },
+    {
+      "time": 410,
+      "lat": 51.7873921,
+      "lng": 19.4568975,
+      "description": "ul. Organizacji WiN"
+    },
+    {
+      "time": 413,
+      "lat": 51.7867859, 
+      "lng": 19.4563896,
+      "description": "ul. Zawiszy Czarnego"
+    },
+    {
+      "time": 414,
+      "lat": 51.7866698, 
+      "lng": 19.456116,
+      "description": "ul. Zawiszy Czarnego"
+    },
+    {
+      "time": 415,
+      "lat": 51.786167,
+      "lng": 19.4561433,
+      "description": "ul. Zawiszy Czarnego, podwórko"
     }
   ],
   "route": [
@@ -78,39 +264,33 @@
     [51.8082329, 19.4707462],
     [51.8081452, 19.4707579],
     [51.8077782, 19.4697702],
-
     [51.8077028, 19.4696971],
     [51.8074748, 19.4691144],
     [51.8074102, 19.4691007],
     [51.8070223, 19.4690341],
-
     [51.8070206, 19.4690753],
     [51.8069348, 19.4690496],
     [51.8069406, 19.469006],
     [51.8065977, 19.4689046],
-
     [51.8065774, 19.4690376],
     [51.8060314, 19.4695995],
     [51.805608, 19.4690281],
-    [51.805358, 19.4692891],
-
-    [51.8051744, 19.4695018],
-    [51.8048691, 19.4698398],
-    [51.8045275, 19.4702261],
-    [51.8043268, 19.4701952],
-
-    [51.8039338, 19.4703038],
+    [51.80535, 19.46928],
+    [51.80523, 19.46954],
+    [51.80496, 19.46985],    
+    [51.804530, 19.470354],
+    [51.804314, 19.470351], 
     [51.803665, 19.4703816],
+    [51.802478, 19.470263],
     [51.8015281, 19.4702225],
+    [51.80058, 19.47013],
     [51.7998297, 19.4700616],
-
     [51.7997934, 19.4710344],
     [51.7972522, 19.470777],
     [51.797229, 19.4712397],
     [51.7963332, 19.4711578],
     [51.7943624, 19.4709855],
-    [51.7938349, 19.4700548],
-    [51.792936, 19.4684696],
+    [51.79338, 19.46927],
     [51.7919341, 19.4664589],
     [51.7919242, 19.4657991],
     [51.7921012, 19.4648645],
@@ -129,6 +309,10 @@
     [51.7882034, 19.457721],
     [51.7882068, 19.4575466],
     [51.7875879, 19.4570853],
-    [51.7873921, 19.4568975]
+    [51.7873921, 19.4568975],
+    [51.7867909, 19.4565827],
+    [51.7867859, 19.4563896],
+    [51.7866698, 19.456116],
+    [51.786167, 19.4561433]
   ]
 }
