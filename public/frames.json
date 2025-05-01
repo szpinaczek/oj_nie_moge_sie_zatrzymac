@@ -257,6 +257,234 @@
       "lat": 51.786167,
       "lng": 19.4561433,
       "description": "ul. Zawiszy Czarnego, podwórko"
+    },
+    {
+      "time": 418,
+      "lat": 51.7855404,
+      "lng": 19.4565302,
+      "description": "ul. Joselewicza"
+    },
+    {
+      "time": 419,
+      "lat": 51.785166,
+      "lng": 19.4567429,
+      "description": "ul. Berlińskiego"
+    },
+    {
+      "time": 422,
+      "lat": 51.7844475,
+      "lng": 19.4568046,
+      "description": "ul. Berlińskiego, podwórko"
+    },
+    {
+      "time": 423,
+      "lat": 51.7841955,
+      "lng": 19.4568295,
+      "description": "ul. Wojska Polskiego, podwórko"
+    },
+    {
+      "time": 426,
+      "lat": 51.7832079,
+      "lng": 19.4572532,
+      "description": "ul. Wojska Polskiego, podwórko"
+    },
+    {
+      "time": 428,
+      "lat": 51.7826405,
+      "lng": 19.4575214,
+      "description": "ul. Bojowników Getta Warszawskiego"
+    },
+    {
+      "time": 430,
+      "lat": 51.7821708,
+      "lng": 19.4581685,
+      "description": "ul. Bojowników Getta Warszawskiego, podwórko"
+    },
+    {
+      "time": 432,
+      "lat": 51.7816398,
+      "lng": 19.4582543,
+      "description": "ul. Bojowników Getta Warszawskiego, podwórko"
+    },
+    {
+      "time": 433,
+      "lat": 51.7813061,
+      "lng": 19.4587001,
+      "description": "ul. Jakuba"
+    },
+    {
+      "time": 436,
+      "lat": 51.7807054,
+      "lng": 19.4588476,
+      "description": "ul. Wolborska"
+    },
+    {
+      "time": 441,
+      "lat": 51.7793601,
+      "lng": 19.4613781,
+      "description": "ul. Północna/Kilińskiego"
+    },
+    {
+      "time": 442,
+      "lat": 51.7792782,
+      "lng": 19.4615372,
+      "description": "ul. Kilińskiego"
+    },
+    {
+      "time": 447,
+      "lat": 51.7775191,
+      "lng": 19.4619664,
+      "description": "ul. Kilińskiego/Pomorska"
+    },
+    {
+      "time": 453,
+      "lat": 51.7754432,
+      "lng": 19.4622854,
+      "description": "ul. Rewolucji 1905 r."
+    },
+    {
+      "time": 454,
+      "lat": 51.7752324,
+      "lng": 19.4622304,
+      "description": "ul. Rewolucji 1905 r."
+    },
+    {
+      "time": 455,
+      "lat": 51.7746912,
+      "lng": 19.4623656,
+      "description": "ul. Kilińskiego"
+    },
+    {
+      "time": 456,
+      "lat": 51.7742563,
+      "lng": 19.4621403,
+      "description": "ul. Włókiennicza"
+    },
+    {
+      "time": 457,
+      "lat": 51.7739542, 
+      "lng": 19.4620179,
+      "description": "ul. Włókiennicza. podwórko"
+    },
+    {
+      "time": 458,
+      "lat": 51.7732323,
+      "lng": 19.4618221,
+      "description": "ul. Jaracza"
+    },
+    {
+      "time": 460,
+      "lat": 51.77287,
+      "lng": 19.4619,
+      "description": "Teatr im. Stefana Jaracza"
+    },
+    {
+      "time": 462,
+      "lat": 51.7722772,
+      "lng": 19.4620553,
+      "description": "Teatr im. Stefana Jaracza, podwórze"
+    },
+    {
+      "time": 463,
+      "lat": 51.7723535,
+      "lng": 19.4629887,
+      "description": "Teatr im. Stefana Jaracza, ul. Kilińskiego"
+    },
+    {
+      "time": 463,
+      "lat": 51.7723642,
+      "lng": 19.4631308,
+      "description": "ul. Kilińskiego"
+    },
+    {
+      "time": 465,
+      "lat": 51.77139,
+      "lng": 19.46336,
+      "description": "ul. Kilińskiego"
+    },
+    {
+      "time": 467,
+      "lat": 51.77096,
+      "lng": 19.4634,
+      "description": "ul. Kilińskiego/Narutowicza"
+    },
+    {
+      "time": 468,
+      "lat": 51.77026,
+      "lng": 19.46411,
+      "description": "ul. Kilińskiego"
+    },
+    {
+      "time": 469,
+      "lat": 51.7701,
+      "lng": 19.46452,
+      "description": "ul. Kilińskiego"
+    },
+    {
+      "time": 470,
+      "lat": 51.76996,
+      "lng": 19.46458,
+      "description": "ul. Kilińskiego, wejście do przejścia podziemnego"
+    },
+    {
+      "time": 471,
+      "lat": 51.76932,
+      "lng": 19.46491,
+      "description": "ul. Kilińskiego, przejście podziemne"
+    },
+    {
+      "time": 472,
+      "lat": 51.76907,
+      "lng": 19.46403,
+      "description": "ul. Traugutta, wejście do przejścia podziemnego"
+    },
+    {
+      "time": 473,
+      "lat": 51.76898,
+      "lng": 19.46266,
+      "description": "ul. Traugutta, pawilon Chemii"
+    },
+    {
+      "time": 476,
+      "lat": 51.7690012,
+      "lng": 19.4611114,
+      "description": "ul. Traugutta/Sienkiewicza"
+    },
+    {
+      "time": 477,
+      "lat": 51.76863,
+      "lng": 19.4603772,
+      "description": "ul. Sienkiewicza"
+    },
+    {
+      "time": 478,
+      "lat": 51.7682681,
+      "lng": 19.4599159,
+      "description": "ul. Moniuszki"
+    },
+    {
+      "time": 479,
+      "lat": 51.76819, 
+      "lng": 19.45901,
+      "description": "ul. Moniuszki, YMCA"
+    },
+    {
+      "time": 481,
+      "lat": 51.76815,
+      "lng": 19.45794,
+      "description": "ul. Moniuszki/Hotelowa"
+    },
+    {
+      "time": 482,
+      "lat": 51.76809,
+      "lng": 19.45723,
+      "description": "ul. Moniuszki, kawiarnia Honoratka"
+    },
+    {
+      "time": 483,
+      "lat": 51.76786,
+      "lng": 19.45649,
+      "description": "ul. Piotrkowska/Pasaż Rubinsteina"
     }
   ],
   "route": [
@@ -313,6 +541,49 @@
     [51.7867909, 19.4565827],
     [51.7867859, 19.4563896],
     [51.7866698, 19.456116],
-    [51.786167, 19.4561433]
+    [51.786167, 19.4561433],
+    [51.7855404, 19.4565302],
+    [51.785166, 19.4567429],
+    [51.7844475, 19.4568046],
+    [51.7841955, 19.4568295],
+    [51.7832079, 19.4572532],
+    [51.7826405, 19.4575214],
+    [51.7821708, 19.4581685],
+    [51.7816398, 19.4582543],
+    [51.781507, 19.4582809],
+    [51.7813061, 19.4587001],
+    [51.7807054, 19.4588476],
+    [51.7793601, 19.4613781],
+    [51.7792782, 19.4615372],
+    [51.7775191, 19.4619664],
+    [51.7770696, 19.4620655],
+    [51.7754432, 19.4622854],
+    [51.7752324, 19.4622304],
+    [51.7746912, 19.4623656],
+    [51.7744754, 19.4620759],
+    [51.7742563, 19.4621403],
+    [51.7742098, 19.4619723],
+    [51.7739542, 19.4620179],
+    [51.7738995, 19.4616451],
+    [51.7732323, 19.4618221],
+    [51.77287, 19.4619],
+    [51.7722772, 19.4620553],
+    [51.7723535, 19.4629887],
+    [51.7723642, 19.4631308],
+    [51.77139, 19.46336],
+    [51.77096, 19.4634],
+    [51.77026, 19.46411],
+    [51.7701, 19.46452],
+    [51.76996, 19.46458],
+    [51.76932, 19.46491],
+    [51.76907, 19.46403],
+    [51.76898, 19.46266],
+    [51.7690012, 19.4611114],
+    [51.76863, 19.4603772],
+    [51.7682681, 19.4599159],
+    [51.76819, 19.45901],
+    [51.76815, 19.45794],
+    [51.76809, 19.45723],
+    [51.76786, 19.45649]
   ]
 }
