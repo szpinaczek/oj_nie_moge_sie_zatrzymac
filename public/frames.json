@@ -100,7 +100,7 @@
       "time": 267,
       "lat": 51.802478,
       "lng": 19.470263,
-      "description": "ul. Bluszczowa/Konwaliowa"
+      "description": "ul. Bluszczowa/ul. Konwaliowa"
     },
     {
       "time": 283,
@@ -190,13 +190,13 @@
       "time": 389,
       "lat": 51.7914608,
       "lng": 19.4601313,
-      "description": "ul. Franciszkanska/Tokarzewskiego"
+      "description": "ul. Franciszkanska/ul. Tokarzewskiego"
     },
     {
       "time": 399,
       "lat": 51.7890557,
       "lng": 19.4595364,
-      "description": "ul. Franciszkanska/Zofii"
+      "description": "ul. Franciszkanska/ul. Zofii"
     },
     {
       "time": 400,
@@ -322,7 +322,7 @@
       "time": 441,
       "lat": 51.7793601,
       "lng": 19.4613781,
-      "description": "ul. Północna/Kilińskiego"
+      "description": "ul. Północna/ul. Kilińskiego"
     },
     {
       "time": 442,
@@ -334,7 +334,7 @@
       "time": 447,
       "lat": 51.7775191,
       "lng": 19.4619664,
-      "description": "ul. Kilińskiego/Pomorska"
+      "description": "ul. Kilińskiego/ul. Pomorska"
     },
     {
       "time": 453,
@@ -406,7 +406,7 @@
       "time": 467,
       "lat": 51.77096,
       "lng": 19.4634,
-      "description": "ul. Kilińskiego/Narutowicza"
+      "description": "ul. Kilińskiego/ul. Narutowicza"
     },
     {
       "time": 468,
@@ -448,7 +448,7 @@
       "time": 476,
       "lat": 51.7690012,
       "lng": 19.4611114,
-      "description": "ul. Traugutta/Sienkiewicza"
+      "description": "ul. Traugutta/ul. Sienkiewicza"
     },
     {
       "time": 477,
@@ -472,7 +472,7 @@
       "time": 481,
       "lat": 51.76815,
       "lng": 19.45794,
-      "description": "ul. Moniuszki/Hotelowa"
+      "description": "ul. Moniuszki/ul. Hotelowa"
     },
     {
       "time": 482,
@@ -484,7 +484,7 @@
       "time": 484,
       "lat": 51.76786,
       "lng": 19.45649,
-      "description": "ul. Piotrkowska/Pasaż Rubinsteina"
+      "description": "ul. Piotrkowska/ul. Pasaż Rubinsteina"
     },
     {
       "time": 485,
@@ -609,14 +609,50 @@
     {
       "time": 507,
       "lat": 51.76533,
-      "lng": 19.43919,
+      "lng": 19.43918,
       "description": "ul. Żeligowskiego"
     },
     {
       "time": 509,
-      "lat": 51.76705,
-      "lng": 19.43886,
-      "description": "ul. Żeligowskiego/6. Sierpnia"
+      "lat": 51.7668,
+      "lng": 19.43887,
+      "description": "ul. Żeligowskiego/ul. 6. Sierpnia"
+    },
+    {
+      "time": 510,
+      "lat": 51.76791,
+      "lng": 19.43883,
+      "description": "ul. Żeligowskiego"
+    },
+    {
+      "time": 512,
+      "lat": 51.76872,
+      "lng": 19.43868,
+      "description": "ul. Żeligowskiego/ul. Zielona"
+    },
+    {
+      "time": 514,
+      "lat": 51.77009,
+      "lng": 19.43841,
+      "description": "ul. Żeligowskiego/ul. Więckowskiego"
+    },
+    {
+      "time": 516,
+      "lat": 51.77118,
+      "lng": 19.4382,
+      "description": "ul. Żeligowskiego/al. 1 Maja"
+    },
+    {
+      "time": 519,
+      "lat": 51.77298,
+      "lng": 19.43772,
+      "description": "ul. Żeligowskiego/ul. Legionów (Zbigniew Rybczyński)"
+    },
+    {
+      "time": 521,
+      "lat": 51.77372,
+      "lng": 19.43921,
+      "description": "ul. Legionów/ul. św. Jerzego"
     }
   ],
   "route": [
@@ -737,8 +773,14 @@
     [51.76536, 19.44241],
     [51.76524, 19.44138],
     [51.76499, 19.43979],
-    [51.76533, 19.43919],
-    [51.76705, 19.43886]
+    [51.76533, 19.43918],
+    [51.7668, 19.43887],
+    [51.76791, 19.43883],
+    [51.76872, 19.43868],
+    [51.77009, 19.43841],
+    [51.77118, 19.4382],
+    [51.77298, 19.43772],
+    [51.77372, 19.43921]
 
 
   ]
