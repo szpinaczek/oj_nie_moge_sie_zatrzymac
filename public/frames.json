@@ -481,10 +481,142 @@
       "description": "ul. Moniuszki, kawiarnia Honoratka"
     },
     {
-      "time": 483,
+      "time": 484,
       "lat": 51.76786,
       "lng": 19.45649,
       "description": "ul. Piotrkowska/Pasaż Rubinsteina"
+    },
+    {
+      "time": 485,
+      "lat": 51.76755,
+      "lng": 19.4554,
+      "description": "Pasaż Rubinsteina, fontanna"
+    },
+    {
+      "time": 487,
+      "lat": 51.76732,
+      "lng": 19.45417,
+      "description": "Pasaż Rubinsteina/al. Kościuszki"
+    },
+    {
+      "time": 488,
+      "lat": 51.7671166,
+      "lng": 19.4537566,
+      "description": "al. Kościuszki"
+    },
+    {
+      "time": 489,
+      "lat": 51.7670287,
+      "lng": 19.4528232,
+      "description": "al. Kościuszki, zakłady Lido"
+    },
+    {
+      "time": 489,
+      "lat": 51.76678,
+      "lng": 19.45287,
+      "description": "al. Kościuszki, zakłady Lido"
+    },
+    {
+      "time": 490,
+      "lat": 51.76673,
+      "lng": 19.45232,
+      "description": "ul. Wólczańska"
+    },
+    {
+      "time": 493,
+      "lat": 51.76616,
+      "lng": 19.45022,
+      "description": "ul. Gdańska"
+    },
+    {
+      "time": 494,
+      "lat": 51.76611,
+      "lng": 19.44962,
+      "description": "ul. Gdańska"
+    },
+    {
+      "time": 495,
+      "lat": 51.76577,
+      "lng": 19.44797,
+      "description": "ul. Żeromskiego, zbór Braci Morawskich"
+    },
+    {
+      "time": 495,
+      "lat": 51.76595,
+      "lng": 19.44789,
+      "description": "ul. Żeromskiego, podwórko"
+    },
+    {
+      "time": 496,
+      "lat": 51.76601,
+      "lng": 19.44712,
+      "description": "ul. Żeromskiego"
+    },
+    {
+      "time": 497,
+      "lat": 51.76595,
+      "lng": 19.44662,
+      "description": "ul. Żeromskiego"
+    },
+    {
+      "time": 498,
+      "lat": 51.76573,
+      "lng": 19.44593,
+      "description": "ul. Żeromskiego, podwórko"
+    },
+    {
+      "time": 499,
+      "lat": 51.76571,
+      "lng": 19.4452,
+      "description": "ul. Lipowa"
+    },
+    {
+      "time": 500,
+      "lat": 51.76541,
+      "lng": 19.44441,
+      "description": "ul. Lipowa, podwórko"
+    },
+    {
+      "time": 501,
+      "lat": 51.76531,
+      "lng": 19.44352,
+      "description": "ul. Pogonowskiego"
+    },
+    {
+      "time": 501.5,
+      "lat": 51.76561,
+      "lng": 19.44324,
+      "description": "ul. Pogonowskiego"
+    },
+    {
+      "time": 502,
+      "lat": 51.76536,
+      "lng": 19.44241,
+      "description": "ul. Pogonowskiego, podwórko"
+    },
+    {
+      "time": 503,
+      "lat": 51.76524,
+      "lng": 19.44138,
+      "description": "ul. 28. Pułku Strzelców Kaniowskich"
+    },
+    {
+      "time": 505,
+      "lat": 51.76499,
+      "lng": 19.43979,
+      "description": "ul. Żeligowskiego"
+    },
+    {
+      "time": 507,
+      "lat": 51.76533,
+      "lng": 19.43919,
+      "description": "ul. Żeligowskiego"
+    },
+    {
+      "time": 509,
+      "lat": 51.76705,
+      "lng": 19.43886,
+      "description": "ul. Żeligowskiego/6. Sierpnia"
     }
   ],
   "route": [
@@ -584,6 +716,30 @@
     [51.76819, 19.45901],
     [51.76815, 19.45794],
     [51.76809, 19.45723],
-    [51.76786, 19.45649]
+    [51.76786, 19.45649],
+    [51.76755, 19.4554],
+    [51.76732, 19.45417],
+    [51.7671166, 19.4537566],
+    [51.7670287, 19.4528232],
+    [51.76678, 19.45287],
+    [51.76673, 19.45232],
+    [51.76616, 19.45022],
+    [51.76611, 19.44962],
+    [51.76577, 19.44797],
+    [51.76595, 19.44789],
+    [51.76601, 19.44712],
+    [51.76595, 19.44662],
+    [51.76573, 19.44593],
+    [51.76571, 19.4452],
+    [51.76541, 19.44441],
+    [51.76531, 19.44352],
+    [51.76561, 19.44324],
+    [51.76536, 19.44241],
+    [51.76524, 19.44138],
+    [51.76499, 19.43979],
+    [51.76533, 19.43919],
+    [51.76705, 19.43886]
+
+
   ]
 }
