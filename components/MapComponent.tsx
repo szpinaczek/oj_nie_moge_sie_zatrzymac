@@ -239,12 +239,12 @@ const MapComponent: React.FC<MapComponentProps> = ({ currentTime, onTimeUpdate }
               <div className="p-1">
                 <h3 className="font-bold text-base">{frame.description}</h3>
                 <p className="text-sm">Time: {formatTime(frame.time)} ({frame.time}s)</p>
-                <button 
+                {/*<button 
                   className="mt-2 px-2 py-1 bg-red-500 text-white text-xs rounded hover:bg-red-600"
                   onClick={() => onTimeUpdate(frame.time)}
                 >
                   Jump to this point
-                </button>
+                </button>*/}
               </div>
             </Popup>
           </Marker>

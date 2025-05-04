@@ -649,10 +649,112 @@
       "description": "ul. Żeligowskiego/ul. Legionów (Zbigniew Rybczyński)"
     },
     {
-      "time": 521,
+      "time": 522,
       "lat": 51.77372,
       "lng": 19.43921,
       "description": "ul. Legionów/ul. św. Jerzego"
+    },
+    {
+      "time": 525,
+      "lat": 51.77558,
+      "lng": 19.43759,
+      "description": "ul. św. Jerzego/ul. Cmentarna"
+    },
+    {
+      "time": 526,
+      "lat": 51.77594,
+      "lng": 19.43661,
+      "description": "ul. Ogrodowa"
+    },
+    {
+      "time": 529,
+      "lat": 51.77805,
+      "lng": 19.43599,
+      "description": "Cmentarz Stary, mauzoleum Heinzlów"
+    },
+    {
+      "time": 530,
+      "lat": 51.7792,
+      "lng": 19.43579,
+      "description": "Cmentarz Stary"
+    },
+    {
+      "time": 531,
+      "lat": 51.77953,
+      "lng": 19.43628,
+      "description": "Cmentarz Stary, ogrodzenie"
+    },
+    {
+      "time": 533,
+      "lat": 51.78081,
+      "lng": 19.43679,
+      "description": "ul. Drewnowska, ROD 'Krokus'"
+    },
+    {
+      "time": 535,
+      "lat": 51.78374,
+      "lng": 19.43824,
+      "description": "Skwer na Lutomierskiej"
+    },
+    {
+      "time": 537,
+      "lat": 51.78519,
+      "lng": 19.43807,
+      "description": "ul. Lutomierska"
+    },
+    {
+      "time": 540,
+      "lat": 51.78843,
+      "lng": 19.43841,
+      "description": "ul. Limanowskiego"
+    },
+    {
+      "time": 541,
+      "lat": 51.78912,
+      "lng": 19.4379,
+      "description": "ul. Ks. Brzóski"
+    },
+    {
+      "time": 543,
+      "lat": 51.79153,
+      "lng": 19.4392,
+      "description": "ul. Ks. Brzóski"
+    },
+    {
+      "time": 549,
+      "lat": 51.79669,
+      "lng": 19.44089,
+      "description": "ul. Ks. Brzóski/ul. Urzędnicza"
+    },
+    {
+      "time": 551,
+      "lat": 51.79737,
+      "lng": 19.44298,
+      "description": "ul. Pojezierska"
+    },
+    {
+      "time": 553,
+      "lat": 51.79714,
+      "lng": 19.44501,
+      "description": "ul. Zgierska"
+    },
+    {
+      "time": 554,
+      "lat": 51.79619,
+      "lng": 19.44546,
+      "description": "ul. Zgierska/ul. Murarska"
+    },
+    {
+      "time": 557,
+      "lat": 51.7934,
+      "lng": 19.44722,
+      "description": "ul. Zgierska/ul. Adwokacka"
+    },
+    {
+      "time": 561,
+      "lat": 51.78895,
+      "lng": 19.4502,
+      "description": "ul. Zgierska/ul. Zachodnia, koniec trasy"
     }
   ],
   "route": [
@@ -780,8 +882,25 @@
     [51.77009, 19.43841],
     [51.77118, 19.4382],
     [51.77298, 19.43772],
-    [51.77372, 19.43921]
-
-
+    [51.77372, 19.43921],
+    [51.77558, 19.43759],
+    [51.77594, 19.43661],
+    [51.77805, 19.43599],
+    [51.7792, 19.43579],
+    [51.77953, 19.43628],
+    [51.78081, 19.43679],
+    [51.78374, 19.43824],
+    [51.78519, 19.43807],
+    [51.78668, 19.43791],
+    [51.78843, 19.43841],
+    [51.78912, 19.4379],
+    [51.79153, 19.4392],
+    [51.79669, 19.44089],
+    [51.79737, 19.44298],
+    [51.79714, 19.44501],
+    [51.79651, 19.44524],
+    [51.79619, 19.44546],
+    [51.7934, 19.44722],
+    [51.78895, 19.4502]
   ]
 }
