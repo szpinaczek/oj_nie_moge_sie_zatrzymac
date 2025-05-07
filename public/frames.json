@@ -1,10 +1,10 @@
 {
   "frames": [
     {
-      "time": 10,
+      "time": 11,
       "lat": 51.8086928,
       "lng": 19.4710456,
-      "description": "Początek trasy"
+      "description": "Arturówek, początek trasy"
     },
     {
       "time": 118,
@@ -754,7 +754,7 @@
       "time": 561,
       "lat": 51.78895,
       "lng": 19.4502,
-      "description": "ul. Zgierska/ul. Zachodnia, koniec trasy"
+      "description": "ul. Zgierska 74, koniec trasy"
     }
   ],
   "route": [

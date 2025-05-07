@@ -51,65 +51,108 @@ body {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
+.dark .video-section {
+  background-color: #1f2937;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
 
+.dark .video-section .video-controls {
+  background-color: #374151;
+}
+
+.dark .video-section button {
+  color: #e5e7eb;
+}
+
+.dark .video-section button:hover {
+  background-color: #4b5563;
+}
+
+.dark .video-section .time-display {
+  color: #e5e7eb;
+}
+
+/* Slider styles */
+.dark .video-section .slider-track {
+  background-color: #374151;
+}
+
+.dark .video-section .slider-range {
+  background-color: #d93472;
+}
+
+.dark .video-section .slider-thumb {
+  background-color: #d93472;
+  border-color: #e5e7eb;
+}
+
+.dark .video-section .slider-thumb:hover {
+  background-color: #e11d48;
+}
 
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
+    --foreground: 222.2 84% 4.9%;
+
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
+    --card-foreground: 222.2 84% 4.9%;
+ 
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
-    --primary: 0 0% 9%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
-    --accent: 0 0% 96.1%;
-    --accent-foreground: 0 0% 9%;
+    --popover-foreground: 222.2 84% 4.9%;
+ 
+    --primary: 340 67% 53%;
+    --primary-foreground: 210 40% 98%;
+ 
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+ 
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+ 
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+ 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
-    --ring: 0 0% 3.9%;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 340 67% 53%;
+ 
     --radius: 0.5rem;
   }
+ 
   .dark {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 0 0% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
-    --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
-    --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+ 
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+ 
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+ 
+    --primary: 340 67% 53%;
+    --primary-foreground: 210 40% 98%;
+ 
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+ 
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+ 
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+ 
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-    --ring: 0 0% 83.1%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
+    --destructive-foreground: 210 40% 98%;
+ 
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 340 67% 53%;
   }
 }
-
-
 
 @layer base {
   * {
@@ -118,4 +161,170 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Custom styles for video player */
+.video-container {
+  position: relative;
+  width: 100%;
+  background: black;
+}
+
+.video-container video {
+  width: 100%;
+  height: auto;
+}
+
+/* Custom styles for map */
+.map-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+/* Custom styles for controls */
+.controls-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.video-container:hover .controls-container {
+  opacity: 1;
+}
+
+/* Custom styles for key frame markers */
+.key-frames-container {
+  @apply relative w-full h-6 mt-1 flex items-center;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+}
+
+.dark .key-frames-container {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.key-frames-container button.key-frame-marker {
+  @apply absolute cursor-pointer transition-all !important;
+  width: 1px !important;
+  height: 8px !important;
+  background-color: #d93472 !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.dark .key-frames-container button.key-frame-marker {
+  background-color: #d93472 !important;
+}
+
+.key-frames-container button.key-frame-marker:hover {
+  @apply z-10;
+  height: 12px !important;
+  background-color: #e11d48 !important;
+}
+
+/* Custom styles for route information */
+.route-info {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background-color: #f3f4f6;
+  border-radius: 0.5rem;
+}
+
+.dark .route-info {
+  background-color: #1f2937;
+}
+
+/* Custom styles for table */
+.table-container {
+  overflow-x: auto;
+  margin-top: 1rem;
+}
+
+.table-container table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-container th,
+.table-container td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.dark .table-container th,
+.dark .table-container td {
+  border-bottom-color: #374151;
+}
+
+/* Custom styles for buttons */
+.button-container {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+/* Custom styles for loading state */
+.loading-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 16rem;
+}
+
+.loading-text {
+  font-size: 1.125rem;
+  color: #6b7280;
+}
+
+.dark .loading-text {
+  color: #9ca3af;
+}
+
+/* Custom styles */
+.video-player {
+  @apply relative w-full;
+}
+
+.video-controls {
+  @apply absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity;
+}
+
+.route-info {
+  @apply mt-4 p-4 bg-white dark:bg-gray-800 rounded-lg;
+}
+
+.route-table {
+  @apply w-full border-collapse;
+}
+
+.route-table th,
+.route-table td {
+  @apply p-2 text-left border-b border-gray-200 dark:border-gray-700;
+}
+
+.route-table th {
+  @apply font-semibold text-gray-700 dark:text-gray-300;
+}
+
+.route-table tr:hover {
+  @apply bg-gray-50 dark:bg-gray-700;
+}
+
+.loading {
+  @apply flex items-center justify-center p-4;
+}
+
+.loading-spinner {
+  @apply animate-spin rounded-full h-8 w-8 border-4 border-primary border-t-transparent;
 }

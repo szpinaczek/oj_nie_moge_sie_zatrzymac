@@ -2,12 +2,16 @@
 import React, { useRef, useEffect, useState, forwardRef, useImperativeHandle } from 'react';
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
-import { Volume2, VolumeX, SkipBack, SkipForward, Play, Pause } from 'lucide-react';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { Separator } from '@/components/ui/separator';
+import { Volume2, VolumeX, SkipBack, SkipForward, Play, Pause, Maximize2, Minimize2, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 
 // Define types for the props
 interface VideoPlayerProps {
   onTimeUpdate?: (currentTime: number) => void;
   onFrameChange?: (time: number) => void;
+  onFullscreenChange?: (isFullscreen: boolean) => void;
 }
 
 // Define the ref methods
@@ -17,13 +21,66 @@ export interface VideoPlayerHandle {
   seekVideo: (time: number) => void;
 }
 
-const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpdate, onFrameChange }, ref) => {
+const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpdate, onFrameChange, onFullscreenChange }, ref) => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [showPoster, setShowPoster] = useState(true);
   const isUserSeeking = useRef(false);
+  const [showControls, setShowControls] = useState(true);
+  const controlsTimeoutRef = useRef<NodeJS.Timeout>();
+
+  // Handle keyboard shortcuts
+  useEffect(() => {
+    const handleKeyPress = (e: KeyboardEvent) => {
+      if (!videoRef.current) return;
+
+      switch (e.code) {
+        case 'Space':
+          e.preventDefault();
+          togglePlayPause();
+          break;
+        case 'ArrowLeft':
+          e.preventDefault();
+          stepFrame('backward');
+          break;
+        case 'ArrowRight':
+          e.preventDefault();
+          stepFrame('forward');
+          break;
+        case 'KeyF':
+          e.preventDefault();
+          toggleFullscreen();
+          break;
+        case 'KeyM':
+          e.preventDefault();
+          toggleMute();
+          break;
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, [currentTime]);
+
+  // Handle fullscreen changes
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(document.fullscreenElement !== null);
+    };
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
+  }, []);
+
+  const toggleFullscreen = () => {
+    setIsFullscreen(!isFullscreen);
+    onFullscreenChange?.(!isFullscreen);
+  };
 
   useEffect(() => {
     const video = videoRef.current;
@@ -37,10 +94,16 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpd
       
       const handlePlay = () => {
         setIsPlaying(true);
+        setTimeout(() => {
+          setShowPoster(false);
+        }, 300);
       };
       
       const handlePause = () => {
         setIsPlaying(false);
+        if (video.currentTime === 0) {
+          setShowPoster(true);
+        }
       };
       
       const handleVolumeChange = () => {
@@ -90,7 +153,7 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpd
         isUserSeeking.current = true;
         videoRef.current.currentTime = time;
         setCurrentTime(time);
-        // Notify about frame change only when seeking manually
+        setShowPoster(false);
         if (onFrameChange) {
           onFrameChange(time);
         }
@@ -127,6 +190,19 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpd
     }
   };
 
+  const seekVideo = (time: number) => {
+    if (videoRef.current) {
+      isUserSeeking.current = true;
+      videoRef.current.currentTime = time;
+      setCurrentTime(time);
+      setShowPoster(false);
+      if (onFrameChange) {
+        onFrameChange(time);
+      }
+      isUserSeeking.current = false;
+    }
+  };
+
   const stepFrame = (direction: 'forward' | 'backward') => {
     if (videoRef.current) {
       // Pause the video first
@@ -140,6 +216,7 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpd
       isUserSeeking.current = true;
       videoRef.current.currentTime = newTime;
       setCurrentTime(newTime);
+      setShowPoster(false);
       
       // Notify about frame change
       if (onFrameChange) {
@@ -158,6 +235,7 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpd
       isUserSeeking.current = true;
       videoRef.current.currentTime = time;
       setCurrentTime(time);
+      setShowPoster(false);
       
       if (onFrameChange) {
         onFrameChange(time);
@@ -181,11 +259,27 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpd
     }
   };
 
-  // Format time in MM:SS format
+  const handleTimeUpdate = () => {
+    if (videoRef.current) {
+      setCurrentTime(videoRef.current.currentTime);
+      if (onTimeUpdate) {
+        onTimeUpdate(videoRef.current.currentTime);
+      }
+    }
+  };
+
+  const handleDurationChange = () => {
+    if (videoRef.current) {
+      setDuration(videoRef.current.duration);
+    }
+  };
+
+  // Format time in MM:SS format with total seconds
   const formatTime = (timeInSeconds: number) => {
     const minutes = Math.floor(timeInSeconds / 60);
     const seconds = Math.floor(timeInSeconds % 60);
-    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    const totalSeconds = Math.floor(timeInSeconds);
+    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')} (${totalSeconds}s)`;
   };
 
   // State for key frames
@@ -207,123 +301,345 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpd
   }, []);
 
   return (
-    <div className="flex flex-col items-center w-full">
-      <video
-        ref={videoRef}
-        width="100%"
-        className="rounded-lg shadow-md"
-        onClick={togglePlayPause}
-      >
-        <source src="/onmsz_small.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
-      
-      {/* Progress bar and time display */}
-      <div className="w-full mt-2 px-1">
-        <div className="flex items-center space-x-2">
-          <span className="text-sm text-muted-foreground min-w-[100px] inline-block">{formatTime(currentTime)} ({Math.floor(currentTime)}s)</span>
-          <div className="relative flex-grow">
-            <Slider
-              value={[currentTime]}
-              min={0}
-              max={duration}
-              step={0.01}
-              className="flex-grow"
-              onValueChange={handleSliderChange}
-            />
+    <div className="flex flex-col w-full">
+      {/* Video container */}
+      <div className="relative w-full aspect-video bg-black rounded-lg overflow-hidden">
+        {!isFullscreen && (
+          <>
+            <video
+              ref={videoRef}
+              width="100%"
+              className="w-full h-full object-contain"
+              poster="/images/splash-screen.jpg"
+              onClick={togglePlayPause}
+              onTimeUpdate={handleTimeUpdate}
+              onDurationChange={handleDurationChange}
+              onPlay={() => setShowPoster(false)}
+              onPause={() => {
+                if (videoRef.current?.currentTime === 0) {
+                  setShowPoster(true);
+                }
+              }}
+            >
+              <source src="/onmsz_medium.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
             
-            {/* Key frame markers */}
-            <div className="absolute top-1/2 left-0 right-0 -translate-y-1/2 pointer-events-none">
-              {keyFrames.map((frame, index) => (
-                <div 
-                  key={index}
-                  className="absolute w-3 h-3 bg-red-500 cursor-pointer transform -translate-x-1/2 -translate-y-1/2 rounded-full pointer-events-auto border-2 border-white shadow-sm hover:scale-125 transition-transform"
-                  style={{ left: `${(frame.time / duration) * 100}%` }}
+            {/* Splash screen overlay */}
+            {showPoster && (
+              <div 
+                className="absolute inset-0 bg-black/50 flex items-center justify-center transition-opacity duration-300"
+                style={{ opacity: showPoster ? 1 : 0 }}
+              >
+                <Button
+                  size="lg"
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground"
                   onClick={(e) => {
                     e.stopPropagation();
-                    jumpToTime(frame.time);
+                    togglePlayPause();
                   }}
-                  title={`${frame.description} (${formatTime(frame.time)}, ${Math.floor(frame.time)}s)`}
+                >
+                  <Play className="h-6 w-6" />
+                </Button>
+              </div>
+            )}
+          </>
+        )}
+      </div>
+
+      {/* Video controls below video */}
+      <div className="w-full bg-gray-100 dark:bg-gray-800 p-4 rounded-b-lg shadow-md">
+        <div className="flex items-center space-x-2">
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button variant="ghost" size="icon" onClick={togglePlayPause} className="hover:bg-gray-200 dark:hover:bg-gray-700">
+                  {isPlaying ? <Pause className="h-5 w-5" /> : <Play className="h-5 w-5" />}
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>{isPlaying ? 'Pauza' : 'Odtwarzaj'}</p>
+              </TooltipContent>
+            </Tooltip>
+
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button variant="ghost" size="icon" onClick={() => seekVideo(currentTime - 10)} className="hover:bg-gray-200 dark:hover:bg-gray-700">
+                  <SkipBack className="h-5 w-5" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>10 sekund wstecz</p>
+              </TooltipContent>
+            </Tooltip>
+
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button variant="ghost" size="icon" onClick={() => stepFrame('backward')} className="hover:bg-gray-200 dark:hover:bg-gray-700">
+                  <ChevronLeft className="h-5 w-5" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Poprzednia klatka</p>
+              </TooltipContent>
+            </Tooltip>
+
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button variant="ghost" size="icon" onClick={() => stepFrame('forward')} className="hover:bg-gray-200 dark:hover:bg-gray-700">
+                  <ChevronRight className="h-5 w-5" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Następna klatka</p>
+              </TooltipContent>
+            </Tooltip>
+
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button variant="ghost" size="icon" onClick={() => seekVideo(currentTime + 10)} className="hover:bg-gray-200 dark:hover:bg-gray-700">
+                  <SkipForward className="h-5 w-5" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>10 sekund do przodu</p>
+              </TooltipContent>
+            </Tooltip>
+
+            <Separator orientation="vertical" className="h-6" />
+
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button variant="ghost" size="icon" onClick={toggleMute} className="hover:bg-gray-200 dark:hover:bg-gray-700">
+                  {isMuted ? <VolumeX className="h-5 w-5" /> : <Volume2 className="h-5 w-5" />}
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>{isMuted ? 'Włącz dźwięk' : 'Wycisz'}</p>
+              </TooltipContent>
+            </Tooltip>
+
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button variant="ghost" size="icon" onClick={toggleFullscreen} className="hover:bg-gray-200 dark:hover:bg-gray-700">
+                  {isFullscreen ? <Minimize2 className="h-5 w-5" /> : <Maximize2 className="h-5 w-5" />}
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>{isFullscreen ? 'Wyłącz pełny ekran' : 'Pełny ekran'}</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+          
+          <span className="text-sm min-w-[100px] time-display">{formatTime(currentTime)} / {formatTime(duration)}</span>
+        </div>
+        
+        <div className="w-full mt-2">
+          <Slider
+            value={[currentTime]}
+            min={0}
+            max={duration}
+            step={0.01}
+            className="flex-grow slider-track"
+            onValueChange={handleSliderChange}
+          />
+        </div>
+            
+        {/* Key frame markers */}
+        <div className="key-frames-container">
+          {keyFrames.map((frame, index) => (
+            <TooltipProvider key={index}>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <button 
+                    className="key-frame-marker"
+                    style={{ left: `${(frame.time / duration) * 100}%` }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      jumpToTime(frame.time);
+                    }}
+                  />
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>{frame.description} ({formatTime(frame.time)})</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          ))}
+        </div>
+      </div>
+      
+      {/* Fullscreen Dialog */}
+      <Dialog open={isFullscreen} onOpenChange={setIsFullscreen}>
+        <DialogContent className="max-w-[80vw] w-[80vw] p-0 bg-black border-none">
+          <DialogTitle className="sr-only">Odtwarzacz wideo</DialogTitle>
+          <div className="relative w-full aspect-video">
+            {isFullscreen && (
+              <>
+                <video
+                  ref={videoRef}
+                  width="100%"
+                  className="w-full h-full object-contain"
+                  poster="/images/splash-screen.jpg"
+                  onClick={togglePlayPause}
+                  onTimeUpdate={handleTimeUpdate}
+                  onDurationChange={handleDurationChange}
+                  onPlay={() => setShowPoster(false)}
+                  onPause={() => {
+                    if (videoRef.current?.currentTime === 0) {
+                      setShowPoster(true);
+                    }
+                  }}
+                >
+                  <source src="/onmsz_medium.mp4" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+                
+                {/* Splash screen overlay in dialog */}
+                {showPoster && (
+                  <div 
+                    className="absolute inset-0 bg-black/50 flex items-center justify-center transition-opacity duration-300"
+                    style={{ opacity: showPoster ? 1 : 0 }}
+                  >
+                    <Button
+                      size="lg"
+                      className="bg-primary hover:bg-primary/90 text-primary-foreground"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        togglePlayPause();
+                      }}
+                    >
+                      <Play className="h-6 w-6" />
+                    </Button>
+                  </div>
+                )}
+              </>
+            )}
+
+            {/* Video controls in dialog - always visible */}
+            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
+              <div className="flex items-center space-x-2">
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button variant="ghost" size="icon" onClick={togglePlayPause} className="text-white hover:bg-white/20">
+                        {isPlaying ? <Pause className="h-5 w-5" /> : <Play className="h-5 w-5" />}
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>{isPlaying ? 'Pauza' : 'Odtwarzaj'}</p>
+                    </TooltipContent>
+                  </Tooltip>
+
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button variant="ghost" size="icon" onClick={() => seekVideo(currentTime - 10)} className="text-white hover:bg-white/20">
+                        <SkipBack className="h-5 w-5" />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>10 sekund wstecz</p>
+                    </TooltipContent>
+                  </Tooltip>
+
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button variant="ghost" size="icon" onClick={() => stepFrame('backward')} className="text-white hover:bg-white/20">
+                        <ChevronLeft className="h-5 w-5" />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Poprzednia klatka</p>
+                    </TooltipContent>
+                  </Tooltip>
+
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button variant="ghost" size="icon" onClick={() => stepFrame('forward')} className="text-white hover:bg-white/20">
+                        <ChevronRight className="h-5 w-5" />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Następna klatka</p>
+                    </TooltipContent>
+                  </Tooltip>
+
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button variant="ghost" size="icon" onClick={() => seekVideo(currentTime + 10)} className="text-white hover:bg-white/20">
+                        <SkipForward className="h-5 w-5" />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>10 sekund do przodu</p>
+                    </TooltipContent>
+                  </Tooltip>
+
+                  <Separator orientation="vertical" className="h-6 bg-white/30" />
+
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button variant="ghost" size="icon" onClick={toggleMute} className="text-white hover:bg-white/20">
+                        {isMuted ? <VolumeX className="h-5 w-5" /> : <Volume2 className="h-5 w-5" />}
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>{isMuted ? 'Włącz dźwięk' : 'Wycisz'}</p>
+                    </TooltipContent>
+                  </Tooltip>
+
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button variant="ghost" size="icon" onClick={toggleFullscreen} className="text-white hover:bg-white/20">
+                        {isFullscreen ? <Minimize2 className="h-5 w-5" /> : <Maximize2 className="h-5 w-5" />}
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>{isFullscreen ? 'Wyłącz pełny ekran' : 'Pełny ekran'}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+                
+                <span className="text-sm min-w-[100px] time-display text-white">{formatTime(currentTime)} / {formatTime(duration)}</span>
+              </div>
+              
+              <div className="w-full mt-2">
+                <Slider
+                  value={[currentTime]}
+                  min={0}
+                  max={duration}
+                  step={0.01}
+                  className="flex-grow slider-track"
+                  onValueChange={handleSliderChange}
                 />
-              ))}
+              </div>
+                  
+              {/* Key frame markers */}
+              <div className="key-frames-container">
+                {keyFrames.map((frame, index) => (
+                  <TooltipProvider key={index}>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <button 
+                          className="key-frame-marker"
+                          style={{ left: `${(frame.time / duration) * 100}%` }}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            jumpToTime(frame.time);
+                          }}
+                        />
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>{frame.description} ({formatTime(frame.time)})</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                ))}
+              </div>
             </div>
           </div>
-          <span className="text-sm text-muted-foreground min-w-[100px] inline-block text-right">{formatTime(duration)} ({Math.floor(duration)}s)</span>
-        </div>
-      </div>
-      
-      {/* Control buttons */}
-      <div className="flex flex-wrap justify-center gap-2 mt-2">
-        <Button
-          onClick={() => stepFrame('backward')}
-          variant="secondary"
-          size="sm"
-          aria-label="Previous Frame"
-        >
-          <SkipBack />
-          Previous Frame
-        </Button>
-        
-        <Button
-          onClick={togglePlayPause}
-          variant={isPlaying ? "destructive" : "default"}
-          size="sm"
-          aria-label={isPlaying ? "Pause" : "Play"}
-        >
-          {isPlaying ? <Pause /> : <Play />}
-          {isPlaying ? 'Pause' : 'Play'}
-        </Button>
-        
-        <Button
-          onClick={() => stepFrame('forward')}
-          variant="secondary"
-          size="sm"
-          aria-label="Next Frame"
-        >
-          <SkipForward />
-          Next Frame
-        </Button>
-        
-        <Button
-          onClick={toggleMute}
-          variant="outline"
-          size="sm"
-          aria-label={isMuted ? "Unmute" : "Mute"}
-        >
-          {isMuted ? <VolumeX /> : <Volume2 />}
-          {isMuted ? 'Unmute' : 'Mute'}
-        </Button>
-      </div>
-      
-      {/* Key frames navigation */}
-      {keyFrames.length > 0 && (
-        <div className="w-full mt-4 overflow-x-auto">
-          <div className="flex items-center mb-1">
-            <div className="text-sm font-medium">Key Locations:</div>
-            <div className="ml-2 text-xs text-gray-500">
-              (Click on a button to jump to that location)
-            </div>
-          </div>
-          <div className="flex flex-wrap gap-1">
-            {keyFrames.map((frame, index) => (
-              <Button
-                key={index}
-                variant="outline"
-                size="sm"
-                className={`text-xs ${Math.abs(currentTime - frame.time) < 1 ? 'bg-red-100 border-red-300' : ''}`}
-                onClick={() => jumpToTime(frame.time)}
-              >
-                <div className="w-2 h-2 bg-red-500 rounded-full mr-1.5"></div>
-                {frame.description} ({formatTime(frame.time)}, {Math.floor(frame.time)}s)
-              </Button>
-            ))}
-          </div>
-          <div className="mt-2 text-xs text-gray-500 flex items-center">
-            <div className="w-3 h-3 bg-red-500 rounded-full border-2 border-white mr-1.5"></div>
-            <span>Red markers on the timeline also indicate key points in the video</span>
-          </div>
-        </div>
-      )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 });
