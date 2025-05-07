@@ -4,757 +4,1143 @@
       "time": 11,
       "lat": 51.8086928,
       "lng": 19.4710456,
-      "description": "Arturówek, początek trasy"
+      "description": {
+        "pl": "Arturówek, początek trasy",
+        "en": "Arturówek, route start"
+      },
+      "info": {
+        "pl": "Zaczynamy w Arturówku",
+        "en": "Starting point of our route. This is where we begin our journey."
+      }
     },
     {
       "time": 118,
       "lat": 51.8082329,
       "lng": 19.4707462,
-      "description": "ul. Perlicza"
+      "description": {
+        "pl": "ul. Perlicza",
+        "en": "Perlicza Street"
+      },
+      "info": {
+        "pl": "Dziś w tym miejscu znajduje się stacja Łódź Arturówek",
+        "en": "We've reached the first checkpoint. Time for a short break."
+      }
     },
     {
       "time": 129,
       "lat": 51.8081452,
       "lng": 19.4707579,
-      "description": "ul. Perlicza"
+      "description": {
+        "pl": "ul. Perlicza",
+        "en": "Perlicza Street"
+      }
     },
     {
       "time": 154,
       "lat": 51.8077782,
       "lng": 19.4697702,
-      "description": "ul. Wałbrzyska"
+      "description": {
+        "pl": "ul. Wałbrzyska",
+        "en": "Wałbrzyska Street"
+      }
     },
     {
       "time": 157,
       "lat": 51.8077028,
       "lng": 19.4696971,
-      "description": "ul. Wałbrzyska"
+      "description": {
+        "pl": "ul. Wałbrzyska",
+        "en": "Wałbrzyska Street"
+      }
     },
     {
       "time": 171,
       "lat": 51.8074748,
       "lng": 19.4691144,
-      "description": "ul. Dziewanny"
+      "description": {
+        "pl": "ul. Dziewanny",
+        "en": "Dziewanny Street"
+      }
     },
     {
       "time": 181,
       "lat": 51.8070223,
       "lng": 19.4690341,
-      "description": "ul. Czeremchy, podwórko"
+      "description": {
+        "pl": "ul. Czeremchy, podwórko",
+        "en": "Czeremchy Street, backyard"
+      }
     },
     {
       "time": 194,
       "lat": 51.8065977,
       "lng": 19.4689046,
-      "description": "ul. Czeremchy"
+      "description": {
+        "pl": "ul. Czeremchy",
+        "en": "Czeremchy Street"
+      }
     },
     {
       "time": 210,
       "lat": 51.8060314,
       "lng": 19.4695995,
-      "description": "ul. Warszawska"
+      "description": {
+        "pl": "ul. Warszawska",
+        "en": "Warszawska Street"
+      }
     },
     {
       "time": 221,
       "lat": 51.805608,
       "lng": 19.4690281,
-      "description": "ul. Warszawska"
+      "description": {
+        "pl": "ul. Warszawska",
+        "en": "Warszawska Street"
+      }
     },
     {
       "time": 225,
       "lat": 51.80535,
       "lng": 19.46928,
-      "description": "ul. Warszawska, ogród"
+      "description": {
+        "pl": "ul. Warszawska, ogród",
+        "en": "Warszawska Street, garden"
+      }
     },
     {
       "time": 229,
       "lat": 51.80523,
       "lng": 19.46954,
-      "description": "ul. Cementowa, ogród"
+      "description": {
+        "pl": "ul. Cementowa, ogród",
+        "en": "Cementowa Street, garden"
+      }
     },
     {
       "time": 235,
       "lat": 51.80496,
       "lng": 19.46985,
-      "description": "ul. Cementowa"
+      "description": {
+        "pl": "ul. Cementowa",
+        "en": "Cementowa Street"
+      }
     },
     {
       "time": 243,
-      "lat": 51.804530, 
+      "lat": 51.804530,
       "lng": 19.470354,
-      "description": "ul. Deczyńskiego, ogród"
+      "description": {
+        "pl": "ul. Deczyńskiego, ogród",
+        "en": "Deczyńskiego Street, garden"
+      }
     },
     {
       "time": 248,
       "lat": 51.804314,
       "lng": 19.470351,
-      "description": "ul. Deczyńskiego"
+      "description": {
+        "pl": "ul. Deczyńskiego",
+        "en": "Deczyńskiego Street"
+      }
     },
     {
       "time": 257,
-      "lat": 51.803665, 
+      "lat": 51.803665,
       "lng": 19.4703816,
-      "description": "ul. Powojowa"
+      "description": {
+        "pl": "ul. Powojowa",
+        "en": "Powojowa Street"
+      }
     },
     {
       "time": 267,
       "lat": 51.802478,
       "lng": 19.470263,
-      "description": "ul. Bluszczowa/ul. Konwaliowa"
+      "description": {
+        "pl": "ul. Bluszczowa/ul. Konwaliowa",
+        "en": "Bluszczowa/Konwaliowa Street"
+      }
     },
     {
       "time": 283,
       "lat": 51.8015281,
       "lng": 19.4702225,
-      "description": "ul. Admiralska"
+      "description": {
+        "pl": "ul. Admiralska",
+        "en": "Admiralska Street"
+      }
     },
     {
       "time": 293,
       "lat": 51.80058,
       "lng": 19.47013,
-      "description": "ul. Inflancka"
+      "description": {
+        "pl": "ul. Inflancka",
+        "en": "Inflancka Street"
+      }
     },
     {
       "time": 300,
       "lat": 51.7998297,
       "lng": 19.4700616,
-      "description": "ul. Inflancka, warsztaty PKS"
+      "description": {
+        "pl": "ul. Inflancka, warsztaty PKS",
+        "en": "Inflancka Street, PKS workshops"
+      }
     },
     {
       "time": 305,
       "lat": 51.7997934,
       "lng": 19.4710344,
-      "description": "ul. Inflancka, warsztaty PKS"
+      "description": {
+        "pl": "ul. Inflancka, warsztaty PKS",
+        "en": "Inflancka Street, PKS workshops"
+      }
     },
     {
       "time": 325,
       "lat": 51.7972522,
       "lng": 19.470777,
-      "description": "ul. Okopowa, warsztaty"
+      "description": {
+        "pl": "ul. Okopowa, warsztaty",
+        "en": "Okopowa Street, workshops"
+      }
     },
     {
       "time": 326,
       "lat": 51.797229,
       "lng": 19.4712397,
-      "description": "ul. Okopowa, warsztaty"
+      "description": {
+        "pl": "ul. Okopowa, warsztaty",
+        "en": "Okopowa Street, workshops"
+      }
     },
     {
       "time": 332,
       "lat": 51.7963332,
       "lng": 19.4711578,
-      "description": "ul. Okopowa"
+      "description": {
+        "pl": "ul. Okopowa",
+        "en": "Okopowa Street"
+      }
     },
     {
       "time": 345,
       "lat": 51.7943624,
       "lng": 19.4709855,
-      "description": "ul. Górnicza"
+      "description": {
+        "pl": "ul. Górnicza",
+        "en": "Górnicza Street"
+      }
     },
     {
       "time": 355,
       "lat": 51.79338,
       "lng": 19.46927,
-      "description": "Stadion KS 'Budowlani'"
+      "description": {
+        "pl": "Stadion KS 'Budowlani'",
+        "en": "KS 'Budowlani' Stadium"
+      }
     },
     {
       "time": 368,
       "lat": 51.7919341,
       "lng": 19.4664589,
-      "description": "XXIV LO"
+      "description": {
+        "pl": "XXIV LO",
+        "en": "XXIV High School"
+      }
     },
     {
       "time": 370,
       "lat": 51.7919242,
       "lng": 19.4657991,
-      "description": "ul. Marysińska"
+      "description": {
+        "pl": "ul. Marysińska",
+        "en": "Marysińska Street"
+      }
     },
     {
       "time": 374,
       "lat": 51.7921012,
       "lng": 19.4648645,
-      "description": "ul. Marynarska"
+      "description": {
+        "pl": "ul. Marynarska",
+        "en": "Marynarska Street"
+      }
     },
     {
       "time": 378,
       "lat": 51.7921331,
       "lng": 19.4632433,
-      "description": "ul. Szklana"
+      "description": {
+        "pl": "ul. Szklana",
+        "en": "Szklana Street"
+      }
     },
     {
       "time": 383,
       "lat": 51.7921261,
       "lng": 19.461357,
-      "description": "ul. Czarnieckiego"
+      "description": {
+        "pl": "ul. Czarnieckiego",
+        "en": "Czarnieckiego Street"
+      }
     },
     {
       "time": 389,
       "lat": 51.7914608,
       "lng": 19.4601313,
-      "description": "ul. Franciszkanska/ul. Tokarzewskiego"
+      "description": {
+        "pl": "ul. Franciszkanska/ul. Tokarzewskiego",
+        "en": "Franciszkanska/Tokarzewskiego Street"
+      }
     },
     {
       "time": 399,
       "lat": 51.7890557,
       "lng": 19.4595364,
-      "description": "ul. Franciszkanska/ul. Zofii"
+      "description": {
+        "pl": "ul. Franciszkanska/ul. Zofii",
+        "en": "Franciszkanska/Zofii Street"
+      }
     },
     {
       "time": 400,
       "lat": 51.789069,
       "lng": 19.4593541,
-      "description": "ul. Zofii"
+      "description": {
+        "pl": "ul. Zofii",
+        "en": "Zofii Street"
+      }
     },
     {
       "time": 401,
       "lat": 51.7890159,
       "lng": 19.4590617,
-      "description": "ul. Zofii"
+      "description": {
+        "pl": "ul. Zofii",
+        "en": "Zofii Street"
+      }
     },
     {
       "time": 402,
       "lat": 51.7886973,
       "lng": 19.4584636,
-      "description": "ul. Młynarska"
+      "description": {
+        "pl": "ul. Młynarska",
+        "en": "Młynarska Street"
+      }
     },
     {
       "time": 403,
       "lat": 51.7885505,
       "lng": 19.4580987,
-      "description": "ul. Pasterska"
+      "description": {
+        "pl": "ul. Pasterska",
+        "en": "Pasterska Street"
+      }
     },
     {
       "time": 407,
       "lat": 51.7882068,
       "lng": 19.4575466,
-      "description": "ul. Pasterska, tył kościoła"
+      "description": {
+        "pl": "ul. Pasterska, tył kościoła",
+        "en": "Pasterska Street, back of the church"
+      }
     },
     {
       "time": 409,
       "lat": 51.7875879,
       "lng": 19.4570853,
-      "description": "ul. Organizacji WiN"
+      "description": {
+        "pl": "ul. Organizacji WiN",
+        "en": "Organizacji WiN Street"
+      }
     },
     {
       "time": 410,
       "lat": 51.7873921,
       "lng": 19.4568975,
-      "description": "ul. Organizacji WiN"
+      "description": {
+        "pl": "ul. Organizacji WiN",
+        "en": "Organizacji WiN Street"
+      }
     },
     {
       "time": 413,
-      "lat": 51.7867859, 
+      "lat": 51.7867859,
       "lng": 19.4563896,
-      "description": "ul. Zawiszy Czarnego"
+      "description": {
+        "pl": "ul. Zawiszy Czarnego",
+        "en": "Zawiszy Czarnego Street"
+      }
     },
     {
       "time": 414,
-      "lat": 51.7866698, 
+      "lat": 51.7866698,
       "lng": 19.456116,
-      "description": "ul. Zawiszy Czarnego"
+      "description": {
+        "pl": "ul. Zawiszy Czarnego",
+        "en": "Zawiszy Czarnego Street"
+      }
     },
     {
       "time": 415,
       "lat": 51.786167,
       "lng": 19.4561433,
-      "description": "ul. Zawiszy Czarnego, podwórko"
+      "description": {
+        "pl": "ul. Zawiszy Czarnego, podwórko",
+        "en": "Zawiszy Czarnego Street, backyard"
+      }
     },
     {
       "time": 418,
       "lat": 51.7855404,
       "lng": 19.4565302,
-      "description": "ul. Joselewicza"
+      "description": {
+        "pl": "ul. Joselewicza",
+        "en": "Joselewicza Street"
+      }
     },
     {
       "time": 419,
       "lat": 51.785166,
       "lng": 19.4567429,
-      "description": "ul. Berlińskiego"
+      "description": {
+        "pl": "ul. Berlińskiego",
+        "en": "Berlińskiego Street"
+      }
     },
     {
       "time": 422,
       "lat": 51.7844475,
       "lng": 19.4568046,
-      "description": "ul. Berlińskiego, podwórko"
+      "description": {
+        "pl": "ul. Berlińskiego, podwórko",
+        "en": "Berlińskiego Street, backyard"
+      }
     },
     {
       "time": 423,
       "lat": 51.7841955,
       "lng": 19.4568295,
-      "description": "ul. Wojska Polskiego, podwórko"
+      "description": {
+        "pl": "ul. Wojska Polskiego, podwórko",
+        "en": "Wojska Polskiego Street, backyard"
+      }
     },
     {
       "time": 426,
       "lat": 51.7832079,
       "lng": 19.4572532,
-      "description": "ul. Wojska Polskiego, podwórko"
+      "description": {
+        "pl": "ul. Wojska Polskiego, podwórko",
+        "en": "Wojska Polskiego Street, backyard"
+      }
     },
     {
       "time": 428,
       "lat": 51.7826405,
       "lng": 19.4575214,
-      "description": "ul. Bojowników Getta Warszawskiego"
+      "description": {
+        "pl": "ul. Bojowników Getta Warszawskiego",
+        "en": "Bojowników Getta Warszawskiego Street"
+      }
     },
     {
       "time": 430,
       "lat": 51.7821708,
       "lng": 19.4581685,
-      "description": "ul. Bojowników Getta Warszawskiego, podwórko"
+      "description": {
+        "pl": "ul. Bojowników Getta Warszawskiego, podwórko",
+        "en": "Bojowników Getta Warszawskiego Street, backyard"
+      }
     },
     {
       "time": 432,
       "lat": 51.7816398,
       "lng": 19.4582543,
-      "description": "ul. Bojowników Getta Warszawskiego, podwórko"
+      "description": {
+        "pl": "ul. Bojowników Getta Warszawskiego, podwórko",
+        "en": "Bojowników Getta Warszawskiego Street, backyard"
+      }
     },
     {
       "time": 433,
       "lat": 51.7813061,
       "lng": 19.4587001,
-      "description": "ul. Jakuba"
+      "description": {
+        "pl": "ul. Jakuba",
+        "en": "Jakuba Street"
+      }
     },
     {
       "time": 436,
       "lat": 51.7807054,
       "lng": 19.4588476,
-      "description": "ul. Wolborska"
+      "description": {
+        "pl": "ul. Wolborska",
+        "en": "Wolborska Street"
+      }
     },
     {
       "time": 441,
       "lat": 51.7793601,
       "lng": 19.4613781,
-      "description": "ul. Północna/ul. Kilińskiego"
+      "description": {
+        "pl": "ul. Północna/ul. Kilińskiego",
+        "en": "Północna/Kilińskiego Street"
+      }
     },
     {
       "time": 442,
       "lat": 51.7792782,
       "lng": 19.4615372,
-      "description": "ul. Kilińskiego"
+      "description": {
+        "pl": "ul. Kilińskiego",
+        "en": "Kilińskiego Street"
+      }
     },
     {
       "time": 447,
       "lat": 51.7775191,
       "lng": 19.4619664,
-      "description": "ul. Kilińskiego/ul. Pomorska"
+      "description": {
+        "pl": "ul. Kilińskiego/ul. Pomorska",
+        "en": "Kilińskiego/Pomorska Street"
+      }
     },
     {
       "time": 453,
       "lat": 51.7754432,
       "lng": 19.4622854,
-      "description": "ul. Rewolucji 1905 r."
+      "description": {
+        "pl": "ul. Rewolucji 1905 r.",
+        "en": "Revolution of 1905 Street"
+      }
     },
     {
       "time": 454,
       "lat": 51.7752324,
       "lng": 19.4622304,
-      "description": "ul. Rewolucji 1905 r."
+      "description": {
+        "pl": "ul. Rewolucji 1905 r.",
+        "en": "Revolution of 1905 Street"
+      }
     },
     {
       "time": 455,
       "lat": 51.7746912,
       "lng": 19.4623656,
-      "description": "ul. Kilińskiego"
+      "description": {
+        "pl": "ul. Kilińskiego",
+        "en": "Kilińskiego Street"
+      }
     },
     {
       "time": 456,
       "lat": 51.7742563,
       "lng": 19.4621403,
-      "description": "ul. Włókiennicza"
+      "description": {
+        "pl": "ul. Włókiennicza",
+        "en": "Włókiennicza Street"
+      }
     },
     {
       "time": 457,
-      "lat": 51.7739542, 
+      "lat": 51.7739542,
       "lng": 19.4620179,
-      "description": "ul. Włókiennicza. podwórko"
+      "description": {
+        "pl": "ul. Włókiennicza, podwórko",
+        "en": "Włókiennicza Street, backyard"
+      }
     },
     {
       "time": 458,
       "lat": 51.7732323,
       "lng": 19.4618221,
-      "description": "ul. Jaracza"
+      "description": {
+        "pl": "ul. Jaracza",
+        "en": "Jaracza Street"
+      }
     },
     {
       "time": 460,
       "lat": 51.77287,
       "lng": 19.4619,
-      "description": "Teatr im. Stefana Jaracza"
+      "description": {
+        "pl": "Teatr im. Stefana Jaracza",
+        "en": "Stefan Jaracz Theatre"
+      }
     },
     {
       "time": 462,
       "lat": 51.7722772,
       "lng": 19.4620553,
-      "description": "Teatr im. Stefana Jaracza, podwórze"
+      "description": {
+        "pl": "Teatr im. Stefana Jaracza, podwórze",
+        "en": "Stefan Jaracz Theatre, courtyard"
+      }
     },
     {
       "time": 463,
       "lat": 51.7723535,
       "lng": 19.4629887,
-      "description": "Teatr im. Stefana Jaracza, ul. Kilińskiego"
+      "description": {
+        "pl": "Teatr im. Stefana Jaracza, ul. Kilińskiego",
+        "en": "Stefan Jaracz Theatre, Kilińskiego Street"
+      }
     },
     {
       "time": 463,
       "lat": 51.7723642,
       "lng": 19.4631308,
-      "description": "ul. Kilińskiego"
+      "description": {
+        "pl": "ul. Kilińskiego",
+        "en": "Kilińskiego Street"
+      }
     },
     {
       "time": 465,
       "lat": 51.77139,
       "lng": 19.46336,
-      "description": "ul. Kilińskiego"
+      "description": {
+        "pl": "ul. Kilińskiego",
+        "en": "Kilińskiego Street"
+      }
     },
     {
       "time": 467,
       "lat": 51.77096,
       "lng": 19.4634,
-      "description": "ul. Kilińskiego/ul. Narutowicza"
+      "description": {
+        "pl": "ul. Kilińskiego/ul. Narutowicza",
+        "en": "Kilińskiego/Narutowicza Street"
+      }
     },
     {
       "time": 468,
       "lat": 51.77026,
       "lng": 19.46411,
-      "description": "ul. Kilińskiego"
+      "description": {
+        "pl": "ul. Kilińskiego",
+        "en": "Kilińskiego Street"
+      }
     },
     {
       "time": 469,
       "lat": 51.7701,
       "lng": 19.46452,
-      "description": "ul. Kilińskiego"
+      "description": {
+        "pl": "ul. Kilińskiego",
+        "en": "Kilińskiego Street"
+      }
     },
     {
       "time": 470,
       "lat": 51.76996,
       "lng": 19.46458,
-      "description": "ul. Kilińskiego, wejście do przejścia podziemnego"
+      "description": {
+        "pl": "ul. Kilińskiego, wejście do przejścia podziemnego",
+        "en": "Kilińskiego Street, underground passage entrance"
+      }
     },
     {
       "time": 471,
       "lat": 51.76932,
       "lng": 19.46491,
-      "description": "ul. Kilińskiego, przejście podziemne"
+      "description": {
+        "pl": "ul. Kilińskiego, przejście podziemne",
+        "en": "Kilińskiego Street, underground passage"
+      }
     },
     {
       "time": 472,
       "lat": 51.76907,
       "lng": 19.46403,
-      "description": "ul. Traugutta, wejście do przejścia podziemnego"
+      "description": {
+        "pl": "ul. Traugutta, wejście do przejścia podziemnego",
+        "en": "Traugutta Street, underground passage entrance"
+      }
     },
     {
       "time": 473,
       "lat": 51.76898,
       "lng": 19.46266,
-      "description": "ul. Traugutta, pawilon Chemii"
+      "description": {
+        "pl": "ul. Traugutta, pawilon Chemii",
+        "en": "Traugutta Street, Chemistry Pavilion"
+      }
     },
     {
       "time": 476,
       "lat": 51.7690012,
       "lng": 19.4611114,
-      "description": "ul. Traugutta/ul. Sienkiewicza"
+      "description": {
+        "pl": "ul. Traugutta/ul. Sienkiewicza",
+        "en": "Traugutta/Sienkiewicza Street"
+      }
     },
     {
       "time": 477,
       "lat": 51.76863,
       "lng": 19.4603772,
-      "description": "ul. Sienkiewicza"
+      "description": {
+        "pl": "ul. Sienkiewicza",
+        "en": "Sienkiewicza Street"
+      }
     },
     {
       "time": 478,
       "lat": 51.7682681,
       "lng": 19.4599159,
-      "description": "ul. Moniuszki"
+      "description": {
+        "pl": "ul. Moniuszki",
+        "en": "Moniuszki Street"
+      }
     },
     {
       "time": 479,
-      "lat": 51.76819, 
+      "lat": 51.76819,
       "lng": 19.45901,
-      "description": "ul. Moniuszki, YMCA"
+      "description": {
+        "pl": "ul. Moniuszki, YMCA",
+        "en": "Moniuszki Street, YMCA"
+      }
     },
     {
       "time": 481,
       "lat": 51.76815,
       "lng": 19.45794,
-      "description": "ul. Moniuszki/ul. Hotelowa"
+      "description": {
+        "pl": "ul. Moniuszki/ul. Hotelowa",
+        "en": "Moniuszki/Hotelowa Street"
+      }
     },
     {
       "time": 482,
       "lat": 51.76809,
       "lng": 19.45723,
-      "description": "ul. Moniuszki, kawiarnia Honoratka"
+      "description": {
+        "pl": "ul. Moniuszki, kawiarnia Honoratka",
+        "en": "Moniuszki Street, Honoratka Cafe"
+      }
     },
     {
       "time": 484,
       "lat": 51.76786,
       "lng": 19.45649,
-      "description": "ul. Piotrkowska/ul. Pasaż Rubinsteina"
+      "description": {
+        "pl": "ul. Piotrkowska/ul. Pasaż Rubinsteina",
+        "en": "Piotrkowska Street/Rubinstein Passage"
+      }
     },
     {
       "time": 485,
       "lat": 51.76755,
       "lng": 19.4554,
-      "description": "Pasaż Rubinsteina, fontanna"
+      "description": {
+        "pl": "Pasaż Rubinsteina, fontanna",
+        "en": "Rubinstein Passage, fountain"
+      }
     },
     {
       "time": 487,
       "lat": 51.76732,
       "lng": 19.45417,
-      "description": "Pasaż Rubinsteina/al. Kościuszki"
+      "description": {
+        "pl": "Pasaż Rubinsteina/al. Kościuszki",
+        "en": "Rubinstein Passage/Kościuszki Avenue"
+      }
     },
     {
       "time": 488,
       "lat": 51.7671166,
       "lng": 19.4537566,
-      "description": "al. Kościuszki"
+      "description": {
+        "pl": "al. Kościuszki",
+        "en": "Kościuszki Avenue"
+      }
     },
     {
       "time": 489,
       "lat": 51.7670287,
       "lng": 19.4528232,
-      "description": "al. Kościuszki, zakłady Lido"
+      "description": {
+        "pl": "al. Kościuszki, zakłady Lido",
+        "en": "Kościuszki Avenue, Lido factory"
+      }
     },
     {
       "time": 489,
       "lat": 51.76678,
       "lng": 19.45287,
-      "description": "al. Kościuszki, zakłady Lido"
+      "description": {
+        "pl": "al. Kościuszki, zakłady Lido",
+        "en": "Kościuszki Avenue, Lido factory"
+      }
     },
     {
       "time": 490,
       "lat": 51.76673,
       "lng": 19.45232,
-      "description": "ul. Wólczańska"
+      "description": {
+        "pl": "ul. Wólczańska",
+        "en": "Wólczańska Street"
+      }
     },
     {
       "time": 493,
       "lat": 51.76616,
       "lng": 19.45022,
-      "description": "ul. Gdańska"
+      "description": {
+        "pl": "ul. Gdańska",
+        "en": "Gdańska Street"
+      }
     },
     {
       "time": 494,
       "lat": 51.76611,
       "lng": 19.44962,
-      "description": "ul. Gdańska"
+      "description": {
+        "pl": "ul. Gdańska",
+        "en": "Gdańska Street"
+      }
     },
     {
       "time": 495,
       "lat": 51.76577,
       "lng": 19.44797,
-      "description": "ul. Żeromskiego, zbór Braci Morawskich"
+      "description": {
+        "pl": "ul. Żeromskiego, zbór Braci Morawskich",
+        "en": "Żeromskiego Street, Moravian Brethren Church"
+      }
     },
     {
       "time": 495,
       "lat": 51.76595,
       "lng": 19.44789,
-      "description": "ul. Żeromskiego, podwórko"
+      "description": {
+        "pl": "ul. Żeromskiego, podwórko",
+        "en": "Żeromskiego Street, backyard"
+      }
     },
     {
       "time": 496,
       "lat": 51.76601,
       "lng": 19.44712,
-      "description": "ul. Żeromskiego"
+      "description": {
+        "pl": "ul. Żeromskiego",
+        "en": "Żeromskiego Street"
+      }
     },
     {
       "time": 497,
       "lat": 51.76595,
       "lng": 19.44662,
-      "description": "ul. Żeromskiego"
+      "description": {
+        "pl": "ul. Żeromskiego",
+        "en": "Żeromskiego Street"
+      }
     },
     {
       "time": 498,
       "lat": 51.76573,
       "lng": 19.44593,
-      "description": "ul. Żeromskiego, podwórko"
+      "description": {
+        "pl": "ul. Żeromskiego, podwórko",
+        "en": "Żeromskiego Street, backyard"
+      }
     },
     {
       "time": 499,
       "lat": 51.76571,
       "lng": 19.4452,
-      "description": "ul. Lipowa"
+      "description": {
+        "pl": "ul. Lipowa",
+        "en": "Lipowa Street"
+      }
     },
     {
       "time": 500,
       "lat": 51.76541,
       "lng": 19.44441,
-      "description": "ul. Lipowa, podwórko"
+      "description": {
+        "pl": "ul. Lipowa, podwórko",
+        "en": "Lipowa Street, backyard"
+      }
     },
     {
       "time": 501,
       "lat": 51.76531,
       "lng": 19.44352,
-      "description": "ul. Pogonowskiego"
+      "description": {
+        "pl": "ul. Pogonowskiego",
+        "en": "Pogonowskiego Street"
+      }
     },
     {
       "time": 501.5,
       "lat": 51.76561,
       "lng": 19.44324,
-      "description": "ul. Pogonowskiego"
+      "description": {
+        "pl": "ul. Pogonowskiego",
+        "en": "Pogonowskiego Street"
+      }
     },
     {
       "time": 502,
       "lat": 51.76536,
       "lng": 19.44241,
-      "description": "ul. Pogonowskiego, podwórko"
+      "description": {
+        "pl": "ul. Pogonowskiego, podwórko",
+        "en": "Pogonowskiego Street, backyard"
+      }
     },
     {
       "time": 503,
       "lat": 51.76524,
       "lng": 19.44138,
-      "description": "ul. 28. Pułku Strzelców Kaniowskich"
+      "description": {
+        "pl": "ul. 28. Pułku Strzelców Kaniowskich",
+        "en": "28th Kaniów Rifle Regiment Street"
+      }
     },
     {
       "time": 505,
       "lat": 51.76499,
       "lng": 19.43979,
-      "description": "ul. Żeligowskiego"
+      "description": {
+        "pl": "ul. Żeligowskiego",
+        "en": "Żeligowskiego Street"
+      }
     },
     {
       "time": 507,
       "lat": 51.76533,
       "lng": 19.43918,
-      "description": "ul. Żeligowskiego"
+      "description": {
+        "pl": "ul. Żeligowskiego",
+        "en": "Żeligowskiego Street"
+      }
     },
     {
       "time": 509,
       "lat": 51.7668,
       "lng": 19.43887,
-      "description": "ul. Żeligowskiego/ul. 6. Sierpnia"
+      "description": {
+        "pl": "ul. Żeligowskiego/ul. 6. Sierpnia",
+        "en": "Żeligowskiego/6th August Street"
+      }
     },
     {
       "time": 510,
       "lat": 51.76791,
       "lng": 19.43883,
-      "description": "ul. Żeligowskiego"
+      "description": {
+        "pl": "ul. Żeligowskiego",
+        "en": "Żeligowskiego Street"
+      }
     },
     {
       "time": 512,
       "lat": 51.76872,
       "lng": 19.43868,
-      "description": "ul. Żeligowskiego/ul. Zielona"
+      "description": {
+        "pl": "ul. Żeligowskiego/ul. Zielona",
+        "en": "Żeligowskiego/Zielona Street"
+      }
     },
     {
       "time": 514,
       "lat": 51.77009,
       "lng": 19.43841,
-      "description": "ul. Żeligowskiego/ul. Więckowskiego"
+      "description": {
+        "pl": "ul. Żeligowskiego/ul. Więckowskiego",
+        "en": "Żeligowskiego/Więckowskiego Street"
+      }
     },
     {
       "time": 516,
       "lat": 51.77118,
       "lng": 19.4382,
-      "description": "ul. Żeligowskiego/al. 1 Maja"
+      "description": {
+        "pl": "ul. Żeligowskiego/al. 1 Maja",
+        "en": "Żeligowskiego/1st May Avenue"
+      }
     },
     {
       "time": 519,
       "lat": 51.77298,
       "lng": 19.43772,
-      "description": "ul. Żeligowskiego/ul. Legionów (Zbigniew Rybczyński)"
+      "description": {
+        "pl": "ul. Żeligowskiego/ul. Legionów (Zbigniew Rybczyński)",
+        "en": "Żeligowskiego/Legionów Street (Zbigniew Rybczyński)"
+      }
     },
     {
       "time": 522,
       "lat": 51.77372,
       "lng": 19.43921,
-      "description": "ul. Legionów/ul. św. Jerzego"
+      "description": {
+        "pl": "ul. Legionów/ul. św. Jerzego",
+        "en": "Legionów/St. George Street"
+      }
     },
     {
       "time": 525,
       "lat": 51.77558,
       "lng": 19.43759,
-      "description": "ul. św. Jerzego/ul. Cmentarna"
+      "description": {
+        "pl": "ul. św. Jerzego/ul. Cmentarna",
+        "en": "St. George/Cemetery Street"
+      }
     },
     {
       "time": 526,
       "lat": 51.77594,
       "lng": 19.43661,
-      "description": "ul. Ogrodowa"
+      "description": {
+        "pl": "ul. Ogrodowa",
+        "en": "Ogrodowa Street"
+      }
     },
     {
       "time": 529,
       "lat": 51.77805,
       "lng": 19.43599,
-      "description": "Cmentarz Stary, mauzoleum Heinzlów"
+      "description": {
+        "pl": "Cmentarz Stary, mauzoleum Heinzlów",
+        "en": "Old Cemetery, Heinzl Mausoleum"
+      }
     },
     {
       "time": 530,
       "lat": 51.7792,
       "lng": 19.43579,
-      "description": "Cmentarz Stary"
+      "description": {
+        "pl": "Cmentarz Stary",
+        "en": "Old Cemetery"
+      }
     },
     {
       "time": 531,
       "lat": 51.77953,
       "lng": 19.43628,
-      "description": "Cmentarz Stary, ogrodzenie"
+      "description": {
+        "pl": "Cmentarz Stary, ogrodzenie",
+        "en": "Old Cemetery, fence"
+      }
     },
     {
       "time": 533,
       "lat": 51.78081,
       "lng": 19.43679,
-      "description": "ul. Drewnowska, ROD 'Krokus'"
+      "description": {
+        "pl": "ul. Drewnowska, ROD 'Krokus'",
+        "en": "Drewnowska Street, 'Krokus' Allotment Gardens"
+      }
     },
     {
       "time": 535,
       "lat": 51.78374,
       "lng": 19.43824,
-      "description": "Skwer na Lutomierskiej"
+      "description": {
+        "pl": "Skwer na Lutomierskiej",
+        "en": "Lutomierska Square"
+      }
     },
     {
       "time": 537,
       "lat": 51.78519,
       "lng": 19.43807,
-      "description": "ul. Lutomierska"
+      "description": {
+        "pl": "ul. Lutomierska",
+        "en": "Lutomierska Street"
+      }
     },
     {
       "time": 540,
       "lat": 51.78843,
       "lng": 19.43841,
-      "description": "ul. Limanowskiego"
+      "description": {
+        "pl": "ul. Limanowskiego",
+        "en": "Limanowskiego Street"
+      }
     },
     {
       "time": 541,
       "lat": 51.78912,
       "lng": 19.4379,
-      "description": "ul. Ks. Brzóski"
+      "description": {
+        "pl": "ul. Ks. Brzóski",
+        "en": "Fr. Brzóski Street"
+      }
     },
     {
       "time": 543,
       "lat": 51.79153,
       "lng": 19.4392,
-      "description": "ul. Ks. Brzóski"
+      "description": {
+        "pl": "ul. Ks. Brzóski",
+        "en": "Fr. Brzóski Street"
+      }
     },
     {
       "time": 549,
       "lat": 51.79669,
       "lng": 19.44089,
-      "description": "ul. Ks. Brzóski/ul. Urzędnicza"
+      "description": {
+        "pl": "ul. Ks. Brzóski/ul. Urzędnicza",
+        "en": "Fr. Brzóski/Urzędnicza Street"
+      }
     },
     {
       "time": 551,
       "lat": 51.79737,
       "lng": 19.44298,
-      "description": "ul. Pojezierska"
+      "description": {
+        "pl": "ul. Pojezierska",
+        "en": "Pojezierska Street"
+      }
     },
     {
       "time": 553,
       "lat": 51.79714,
       "lng": 19.44501,
-      "description": "ul. Zgierska"
+      "description": {
+        "pl": "ul. Zgierska",
+        "en": "Zgierska Street"
+      }
     },
     {
       "time": 554,
       "lat": 51.79619,
       "lng": 19.44546,
-      "description": "ul. Zgierska/ul. Murarska"
+      "description": {
+        "pl": "ul. Zgierska/ul. Murarska",
+        "en": "Zgierska/Murarska Street"
+      }
     },
     {
       "time": 557,
       "lat": 51.7934,
       "lng": 19.44722,
-      "description": "ul. Zgierska/ul. Adwokacka"
+      "description": {
+        "pl": "ul. Zgierska/ul. Adwokacka",
+        "en": "Zgierska/Adwokacka Street"
+      }
     },
     {
       "time": 561,
       "lat": 51.78895,
       "lng": 19.4502,
-      "description": "ul. Zgierska 74, koniec trasy"
+      "description": {
+        "pl": "ul. Zgierska 74, koniec trasy",
+        "en": "Zgierska Street 74, route end"
+      }
     }
   ],
   "route": [

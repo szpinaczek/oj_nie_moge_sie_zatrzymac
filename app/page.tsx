@@ -5,6 +5,12 @@ import MapComponent from '../components/MapComponent';
 import { Button } from '@/components/ui/button';
 import { Moon, Sun } from 'lucide-react';
 import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
   Table,
   TableBody,
   TableCell,
@@ -18,14 +24,35 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { LanguageProvider, useLanguage } from './i18n/LanguageContext';
+import { getTranslation } from './i18n/translations';
+import { FlagIcons } from './components/FlagIcons';
+import L from 'leaflet';
 
 interface MapComponentHandle {
   seekToTime: (time: number) => void;
 }
 
-const HomePage = () => {
+interface FrameData {
+  time: number;
+  lat: number;
+  lng: number;
+  description: {
+    pl: string;
+    en: string;
+  };
+  info?: {
+    pl: string;
+    en: string;
+  };
+  distance?: number;
+  totalDistance?: number;
+}
+
+const HomePageContent = () => {
+  const { language, setLanguage } = useLanguage();
   const [currentTime, setCurrentTime] = useState<number>(0);
-  const [keyFrames, setKeyFrames] = useState<any[]>([]);
+  const [keyFrames, setKeyFrames] = useState<FrameData[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
   const videoPlayerRef = useRef<VideoPlayerHandle>(null);
@@ -57,7 +84,34 @@ const HomePage = () => {
       .then(response => response.json())
       .then(data => {
         if (data && data.frames) {
-          setKeyFrames(data.frames);
+          // Oblicz odległości między punktami
+          const frames = data.frames.map((frame: FrameData, index: number) => {
+            if (index === 0) {
+              return { ...frame, distance: 0, totalDistance: 0 };
+            }
+            
+            const prevFrame = data.frames[index - 1];
+            const distance = L.latLng(prevFrame.lat, prevFrame.lng)
+              .distanceTo(L.latLng(frame.lat, frame.lng));
+            
+            // Oblicz całkowitą odległość od początku trasy
+            const totalDistance = data.frames
+              .slice(0, index + 1)
+              .reduce((sum: number, f: FrameData, i: number) => {
+                if (i === 0) return 0;
+                const prev = data.frames[i - 1];
+                return sum + L.latLng(prev.lat, prev.lng)
+                  .distanceTo(L.latLng(f.lat, f.lng));
+              }, 0);
+            
+            return {
+              ...frame,
+              distance: Math.round(distance),
+              totalDistance: Math.round(totalDistance)
+            };
+          });
+          
+          setKeyFrames(frames);
         }
         setIsLoading(false);
       })
@@ -104,6 +158,14 @@ const HomePage = () => {
     return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
   };
 
+  // Format distance in meters or kilometers
+  const formatDistance = (meters: number) => {
+    if (meters >= 1000) {
+      return `${(meters / 1000).toFixed(1)} km`;
+    }
+    return `${meters} m`;
+  };
+
   // Function to scroll to a specific row
   const scrollToRow = (index: number) => {
     if (!tableContainerRef.current || !rowRefs.current[index]) return;
@@ -132,58 +194,99 @@ const HomePage = () => {
     <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-200">
       <div className="container mx-auto px-4 py-8">
         <div className="flex justify-between items-center mb-6">
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Video and Map Synchronization</h1>
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setIsDarkMode(!isDarkMode)}
-            className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
-          >
-            {isDarkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-          </Button>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+            {getTranslation('title', language)}
+          </h1>
+          <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1 bg-gray-100 dark:bg-gray-800 rounded-lg p-1">
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setLanguage('pl')}
+                className={`h-8 w-8 ${language === 'pl' ? 'bg-white dark:bg-gray-700' : ''}`}
+              >
+                <FlagIcons.pl />
+              </Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setLanguage('en')}
+                className={`h-8 w-8 ${language === 'en' ? 'bg-white dark:bg-gray-700' : ''}`}
+              >
+                <FlagIcons.en />
+              </Button>
+            </div>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setIsDarkMode(!isDarkMode)}
+              className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+            >
+              {isDarkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+            </Button>
+          </div>
         </div>
 
         <div className="flex flex-col lg:flex-row gap-8">
-          {/* Video section - 70% width */}
+          {/* Video section */}
           <div className="video-section w-full lg:w-[70%]">
-            <h2 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">Video</h2>
+            {/* <h2 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">
+              {getTranslation('video', language)}
+            </h2> */}
             <VideoPlayer
               ref={videoPlayerRef}
               onTimeUpdate={handleTimeUpdate}
               onFrameChange={handleTimeUpdate}
               onFullscreenChange={handleFullscreenChange}
+              language={language}
             />
           </div>
 
-          {/* Map section - 40% width */}
-          <div className="map-section w-full lg:w-[40%]">
-            <h2 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">Map</h2>
-            <div className="h-[480px] md:h-[540px] lg:h-[600px] bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden relative">
+          {/* Map section */}
+          <div className="map-section w-full lg:w-[30%]">
+            {/* <h2 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">
+              {getTranslation('map', language)}
+            </h2> */}
+            <div className="h-full bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden relative">
               <MapComponent
+                ref={mapRef}
                 currentTime={currentTime}
                 onTimeUpdate={handleMapTimeUpdate}
-                ref={mapRef}
+                language={language}
               />
             </div>
           </div>
         </div>
 
         <div className="mt-6 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
-          <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Route Information</h3>
+          <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">
+            {getTranslation('routeInfo', language)}
+          </h3>
           <div className="flex gap-6">
             {/* Table section */}
             <div className="flex-1">
               <div 
                 ref={tableContainerRef}
-                className="h-[400px] overflow-y-auto rounded-md border border-gray-200 dark:border-gray-700 scrollbar-thin scrollbar-thumb-gray-400 dark:scrollbar-thumb-gray-600 scrollbar-track-transparent"
+                className="h-[400px] overflow-y-auto rounded-md border border-gray-200 dark:border-gray-700 scrollbar-thin scrollbar-thumb-gray-400 dark:scrollbar-thumb-gray-600 scrollbar-track-transparent hover:scrollbar-thumb-gray-500 dark:hover:scrollbar-thumb-gray-500"
               >
                 <Table>
                   <TableHeader className="sticky top-0 bg-gray-100 dark:bg-gray-800 z-10">
                     <TableRow>
-                      <TableHead className="w-[100px] text-gray-900 dark:text-gray-100">Time</TableHead>
-                      <TableHead className="text-gray-900 dark:text-gray-100">Location</TableHead>
-                      <TableHead className="w-[200px] text-gray-900 dark:text-gray-100">Coordinates</TableHead>
-                      <TableHead className="w-[100px] text-right text-gray-900 dark:text-gray-100">Actions</TableHead>
+                      <TableHead className="w-[100px] text-gray-900 dark:text-gray-100">
+                        {getTranslation('time', language)}
+                      </TableHead>
+                      <TableHead className="text-gray-900 dark:text-gray-100">
+                        {getTranslation('location', language)}
+                      </TableHead>
+                      <TableHead className="w-[200px] text-gray-900 dark:text-gray-100">
+                        {getTranslation('coordinates', language)}
+                      </TableHead>
+                      <TableHead className="w-[150px] text-gray-900 dark:text-gray-100">
+                        {getTranslation('distance', language)}
+                      </TableHead>
+                      <TableHead className="w-[100px] text-right text-gray-900 dark:text-gray-100">
+                        {getTranslation('actions', language)}
+                      </TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -204,9 +307,14 @@ const HomePage = () => {
                             ({Math.floor(frame.time)}s)
                           </span>
                         </TableCell>
-                        <TableCell className="text-gray-900 dark:text-gray-100">{frame.description}</TableCell>
+                        <TableCell className="text-gray-900 dark:text-gray-100">
+                          {frame.description[language]}
+                        </TableCell>
                         <TableCell className="text-sm text-gray-600 dark:text-gray-300">
                           {frame.lat.toFixed(6)}, {frame.lng.toFixed(6)}
+                        </TableCell>
+                        <TableCell className="text-sm text-gray-600 dark:text-gray-300">
+                          {formatDistance(frame.totalDistance || 0)}
                         </TableCell>
                         <TableCell className="text-right">
                           <Button
@@ -220,7 +328,7 @@ const HomePage = () => {
                               }
                             }}
                           >
-                            Jump to
+                            {getTranslation('jumpTo', language)}
                           </Button>
                         </TableCell>
                       </TableRow>
@@ -234,7 +342,9 @@ const HomePage = () => {
             <div className="w-[300px]">
               <Card className="h-[400px]">
                 <CardHeader>
-                  <CardTitle className="text-lg">Additional Information</CardTitle>
+                  <CardTitle className="text-lg">
+                    {getTranslation('additionalInfo', language)}
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
                   {(() => {
@@ -245,7 +355,7 @@ const HomePage = () => {
                     if (!currentFrame?.info) {
                       return (
                         <div className="text-gray-500 dark:text-gray-400 italic">
-                          No additional information available for this frame
+                          {getTranslation('noInfo', language)}
                         </div>
                       );
                     }
@@ -253,7 +363,7 @@ const HomePage = () => {
                     return (
                       <div className="prose dark:prose-invert max-w-none">
                         <p className="text-gray-900 dark:text-gray-100">
-                          {currentFrame.info}
+                          {currentFrame.info[language]}
                         </p>
                       </div>
                     );
@@ -265,6 +375,14 @@ const HomePage = () => {
         </div>
       </div>
     </div>
+  );
+};
+
+const HomePage = () => {
+  return (
+    <LanguageProvider>
+      <HomePageContent />
+    </LanguageProvider>
   );
 };
 

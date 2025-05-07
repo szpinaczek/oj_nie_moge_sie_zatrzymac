@@ -27,16 +27,18 @@ export interface MapComponentHandle {
   seekToTime: (time: number) => void;
 }
 
-interface MapComponentProps {
-  currentTime: number;
-  onTimeUpdate: (time: number) => void;
-}
-
 interface FrameData {
   time: number;
   lat: number;
   lng: number;
-  description: string;
+  description: {
+    pl: string;
+    en: string;
+  };
+  info?: {
+    pl: string;
+    en: string;
+  };
 }
 
 interface MapData {
@@ -53,10 +55,15 @@ interface InterpolatedPosition {
   progress: number;
 }
 
-const MapComponent = forwardRef<MapComponentHandle, MapComponentProps>(({ currentTime, onTimeUpdate }, ref) => {
+interface MapComponentProps {
+  currentTime: number;
+  onTimeUpdate: (time: number) => void;
+  language: 'pl' | 'en';
+}
+
+const MapComponent = forwardRef<MapComponentHandle, MapComponentProps>(({ currentTime, onTimeUpdate, language }, ref) => {
   const [mapData, setMapData] = useState<MapData | null>(null);
   const [currentPosition, setCurrentPosition] = useState<InterpolatedPosition | null>(null);
-  const [isFullscreen, setIsFullscreen] = useState(false);
   const lastUpdateTime = useRef<number>(0);
   const mapRef = useRef<L.Map | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -70,7 +77,7 @@ const MapComponent = forwardRef<MapComponentHandle, MapComponentProps>(({ curren
       return {
         lat: frames[0].lat,
         lng: frames[0].lng,
-        description: frames[0].description,
+        description: frames[0].description[language],
         prevFrame: null,
         nextFrame: frames[0],
         progress: 0
@@ -82,7 +89,7 @@ const MapComponent = forwardRef<MapComponentHandle, MapComponentProps>(({ curren
       return {
         lat: lastFrame.lat,
         lng: lastFrame.lng,
-        description: lastFrame.description,
+        description: lastFrame.description[language],
         prevFrame: lastFrame,
         nextFrame: null,
         progress: 1
@@ -113,7 +120,7 @@ const MapComponent = forwardRef<MapComponentHandle, MapComponentProps>(({ curren
     return {
       lat,
       lng,
-      description: `${prevFrame.description} → ${nextFrame.description}`,
+      description: `${prevFrame.description[language]} → ${nextFrame.description[language]}`,
       prevFrame,
       nextFrame,
       progress
@@ -228,29 +235,6 @@ const MapComponent = forwardRef<MapComponentHandle, MapComponentProps>(({ curren
     }
   };
 
-  const toggleFullscreen = async () => {
-    if (!containerRef.current) return;
-
-    try {
-      if (!document.fullscreenElement) {
-        await containerRef.current.requestFullscreen();
-      } else {
-        await document.exitFullscreen();
-      }
-    } catch (error) {
-      console.error('Error toggling fullscreen:', error);
-    }
-  };
-
-  useEffect(() => {
-    const handleFullscreenChange = () => {
-      setIsFullscreen(document.fullscreenElement !== null);
-    };
-
-    document.addEventListener('fullscreenchange', handleFullscreenChange);
-    return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
-  }, []);
-
   if (!mapData) {
     return <div className="h-full w-full flex items-center justify-center bg-gray-100 rounded-lg">Loading map data...</div>;
   }
@@ -258,11 +242,12 @@ const MapComponent = forwardRef<MapComponentHandle, MapComponentProps>(({ curren
   const defaultCenter = mapData.route[0] || [51.8086928, 19.4710456];
 
   return (
-    <div ref={containerRef} className={`relative w-full h-full ${isFullscreen ? 'fixed inset-0 z-50 bg-white dark:bg-gray-900' : ''}`}>
+    <div ref={containerRef} className="relative w-full h-full">
       <MapContainer
         center={[52.2297, 21.0122]}
         zoom={13}
         className="w-full h-full"
+        style={{ height: '100%' }}
         whenReady={() => {
           if (mapRef.current) {
             mapRef.current = mapRef.current;
@@ -290,9 +275,9 @@ const MapComponent = forwardRef<MapComponentHandle, MapComponentProps>(({ curren
         
         {/* Route markers */}
         {mapData?.frames.map((frame, index) => (
-          <Marker
+          <Marker 
             key={index}
-            position={[frame.lat, frame.lng]}
+            position={[frame.lat, frame.lng]} 
             icon={KeyFrameIcon}
             eventHandlers={{
               click: () => {
@@ -321,26 +306,14 @@ const MapComponent = forwardRef<MapComponentHandle, MapComponentProps>(({ curren
       </MapContainer>
       
       {/* Map controls */}
-      <div className="absolute top-4 right-4 flex flex-col gap-2">
+      <div className="absolute top-4 right-4 flex flex-col gap-2 z-[1000]">
         <Button
           variant="outline"
           size="icon"
-          className="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700"
+          className="bg-white/90 dark:bg-gray-800/90 hover:bg-white dark:hover:bg-gray-800 text-gray-900 dark:text-gray-100"
           onClick={resetView}
         >
           <Home className="h-4 w-4" />
-        </Button>
-        <Button
-          variant="outline"
-          size="icon"
-          className="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700"
-          onClick={toggleFullscreen}
-        >
-          {isFullscreen ? (
-            <Minimize2 className="h-4 w-4" />
-          ) : (
-            <Maximize2 className="h-4 w-4" />
-          )}
         </Button>
       </div>
     </div>

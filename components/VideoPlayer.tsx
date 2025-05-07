@@ -12,6 +12,7 @@ interface VideoPlayerProps {
   onTimeUpdate?: (currentTime: number) => void;
   onFrameChange?: (time: number) => void;
   onFullscreenChange?: (isFullscreen: boolean) => void;
+  language?: 'pl' | 'en';
 }
 
 // Define the ref methods
@@ -21,7 +22,7 @@ export interface VideoPlayerHandle {
   seekVideo: (time: number) => void;
 }
 
-const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpdate, onFrameChange, onFullscreenChange }, ref) => {
+const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpdate, onFrameChange, onFullscreenChange, language = 'pl' }, ref) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -349,89 +350,93 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpd
 
       {/* Video controls below video */}
       <div className="w-full bg-gray-100 dark:bg-gray-800 p-4 rounded-b-lg shadow-md">
-        <div className="flex items-center space-x-2">
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button variant="ghost" size="icon" onClick={togglePlayPause} className="hover:bg-gray-200 dark:hover:bg-gray-700">
-                  {isPlaying ? <Pause className="h-5 w-5" /> : <Play className="h-5 w-5" />}
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>{isPlaying ? 'Pauza' : 'Odtwarzaj'}</p>
-              </TooltipContent>
-            </Tooltip>
+        <div className="flex items-center justify-between w-full">
+          <div className="flex items-center space-x-2">
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button variant="ghost" size="icon" onClick={togglePlayPause} className="hover:bg-gray-200 dark:hover:bg-gray-700">
+                    {isPlaying ? <Pause className="h-5 w-5" /> : <Play className="h-5 w-5" />}
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>{isPlaying ? 'Pauza' : 'Odtwarzaj'}</p>
+                </TooltipContent>
+              </Tooltip>
 
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button variant="ghost" size="icon" onClick={() => seekVideo(currentTime - 10)} className="hover:bg-gray-200 dark:hover:bg-gray-700">
-                  <SkipBack className="h-5 w-5" />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>10 sekund wstecz</p>
-              </TooltipContent>
-            </Tooltip>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button variant="ghost" size="icon" onClick={() => seekVideo(currentTime - 10)} className="hover:bg-gray-200 dark:hover:bg-gray-700">
+                    <SkipBack className="h-5 w-5" />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>10 sekund wstecz</p>
+                </TooltipContent>
+              </Tooltip>
 
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button variant="ghost" size="icon" onClick={() => stepFrame('backward')} className="hover:bg-gray-200 dark:hover:bg-gray-700">
-                  <ChevronLeft className="h-5 w-5" />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>Poprzednia klatka</p>
-              </TooltipContent>
-            </Tooltip>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button variant="ghost" size="icon" onClick={() => stepFrame('backward')} className="hover:bg-gray-200 dark:hover:bg-gray-700">
+                    <ChevronLeft className="h-5 w-5" />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Poprzednia klatka</p>
+                </TooltipContent>
+              </Tooltip>
 
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button variant="ghost" size="icon" onClick={() => stepFrame('forward')} className="hover:bg-gray-200 dark:hover:bg-gray-700">
-                  <ChevronRight className="h-5 w-5" />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>Następna klatka</p>
-              </TooltipContent>
-            </Tooltip>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button variant="ghost" size="icon" onClick={() => stepFrame('forward')} className="hover:bg-gray-200 dark:hover:bg-gray-700">
+                    <ChevronRight className="h-5 w-5" />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Następna klatka</p>
+                </TooltipContent>
+              </Tooltip>
 
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button variant="ghost" size="icon" onClick={() => seekVideo(currentTime + 10)} className="hover:bg-gray-200 dark:hover:bg-gray-700">
-                  <SkipForward className="h-5 w-5" />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>10 sekund do przodu</p>
-              </TooltipContent>
-            </Tooltip>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button variant="ghost" size="icon" onClick={() => seekVideo(currentTime + 10)} className="hover:bg-gray-200 dark:hover:bg-gray-700">
+                    <SkipForward className="h-5 w-5" />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>10 sekund do przodu</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          </div>
 
-            <Separator orientation="vertical" className="h-6" />
+          <div className="flex items-center space-x-2">
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button variant="ghost" size="icon" onClick={toggleMute} className="hover:bg-gray-200 dark:hover:bg-gray-700">
+                    {isMuted ? <VolumeX className="h-5 w-5" /> : <Volume2 className="h-5 w-5" />}
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>{isMuted ? 'Włącz dźwięk' : 'Wycisz'}</p>
+                </TooltipContent>
+              </Tooltip>
 
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button variant="ghost" size="icon" onClick={toggleMute} className="hover:bg-gray-200 dark:hover:bg-gray-700">
-                  {isMuted ? <VolumeX className="h-5 w-5" /> : <Volume2 className="h-5 w-5" />}
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>{isMuted ? 'Włącz dźwięk' : 'Wycisz'}</p>
-              </TooltipContent>
-            </Tooltip>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button variant="ghost" size="icon" onClick={toggleFullscreen} className="hover:bg-gray-200 dark:hover:bg-gray-700">
+                    {isFullscreen ? <Minimize2 className="h-5 w-5" /> : <Maximize2 className="h-5 w-5" />}
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>{isFullscreen ? 'Wyłącz pełny ekran' : 'Pełny ekran'}</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
 
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button variant="ghost" size="icon" onClick={toggleFullscreen} className="hover:bg-gray-200 dark:hover:bg-gray-700">
-                  {isFullscreen ? <Minimize2 className="h-5 w-5" /> : <Maximize2 className="h-5 w-5" />}
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>{isFullscreen ? 'Wyłącz pełny ekran' : 'Pełny ekran'}</p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-          
-          <span className="text-sm min-w-[100px] time-display">{formatTime(currentTime)} / {formatTime(duration)}</span>
+            <span className="text-sm min-w-[100px] time-display text-gray-600 dark:text-gray-400">{formatTime(currentTime)} / {formatTime(duration)}</span>
+          </div>
         </div>
         
         <div className="w-full mt-2">
@@ -461,7 +466,7 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpd
                   />
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p>{frame.description} ({formatTime(frame.time)})</p>
+                  <p>{frame.description[language]} ({formatTime(frame.time)})</p>
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
@@ -471,7 +476,7 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpd
       
       {/* Fullscreen Dialog */}
       <Dialog open={isFullscreen} onOpenChange={setIsFullscreen}>
-        <DialogContent className="max-w-[80vw] w-[80vw] p-0 bg-black border-none">
+        <DialogContent className="max-w-[80vw] w-[80vw] p-0 bg-black border-none z-[2000]">
           <DialogTitle className="sr-only">Odtwarzacz wideo</DialogTitle>
           <div className="relative w-full aspect-video">
             {isFullscreen && (
@@ -518,89 +523,93 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpd
 
             {/* Video controls in dialog - always visible */}
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-              <div className="flex items-center space-x-2">
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Button variant="ghost" size="icon" onClick={togglePlayPause} className="text-white hover:bg-white/20">
-                        {isPlaying ? <Pause className="h-5 w-5" /> : <Play className="h-5 w-5" />}
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>{isPlaying ? 'Pauza' : 'Odtwarzaj'}</p>
-                    </TooltipContent>
-                  </Tooltip>
+              <div className="flex items-center justify-between w-full">
+                <div className="flex items-center space-x-2">
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button variant="ghost" size="icon" onClick={togglePlayPause} className="text-white hover:bg-white/20">
+                          {isPlaying ? <Pause className="h-5 w-5" /> : <Play className="h-5 w-5" />}
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>{isPlaying ? 'Pauza' : 'Odtwarzaj'}</p>
+                      </TooltipContent>
+                    </Tooltip>
 
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Button variant="ghost" size="icon" onClick={() => seekVideo(currentTime - 10)} className="text-white hover:bg-white/20">
-                        <SkipBack className="h-5 w-5" />
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>10 sekund wstecz</p>
-                    </TooltipContent>
-                  </Tooltip>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button variant="ghost" size="icon" onClick={() => seekVideo(currentTime - 10)} className="text-white hover:bg-white/20">
+                          <SkipBack className="h-5 w-5" />
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>10 sekund wstecz</p>
+                      </TooltipContent>
+                    </Tooltip>
 
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Button variant="ghost" size="icon" onClick={() => stepFrame('backward')} className="text-white hover:bg-white/20">
-                        <ChevronLeft className="h-5 w-5" />
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>Poprzednia klatka</p>
-                    </TooltipContent>
-                  </Tooltip>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button variant="ghost" size="icon" onClick={() => stepFrame('backward')} className="text-white hover:bg-white/20">
+                          <ChevronLeft className="h-5 w-5" />
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>Poprzednia klatka</p>
+                      </TooltipContent>
+                    </Tooltip>
 
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Button variant="ghost" size="icon" onClick={() => stepFrame('forward')} className="text-white hover:bg-white/20">
-                        <ChevronRight className="h-5 w-5" />
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>Następna klatka</p>
-                    </TooltipContent>
-                  </Tooltip>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button variant="ghost" size="icon" onClick={() => stepFrame('forward')} className="text-white hover:bg-white/20">
+                          <ChevronRight className="h-5 w-5" />
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>Następna klatka</p>
+                      </TooltipContent>
+                    </Tooltip>
 
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Button variant="ghost" size="icon" onClick={() => seekVideo(currentTime + 10)} className="text-white hover:bg-white/20">
-                        <SkipForward className="h-5 w-5" />
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>10 sekund do przodu</p>
-                    </TooltipContent>
-                  </Tooltip>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button variant="ghost" size="icon" onClick={() => seekVideo(currentTime + 10)} className="text-white hover:bg-white/20">
+                          <SkipForward className="h-5 w-5" />
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>10 sekund do przodu</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                </div>
 
-                  <Separator orientation="vertical" className="h-6 bg-white/30" />
+                <div className="flex items-center space-x-2">
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button variant="ghost" size="icon" onClick={toggleMute} className="text-white hover:bg-white/20">
+                          {isMuted ? <VolumeX className="h-5 w-5" /> : <Volume2 className="h-5 w-5" />}
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>{isMuted ? 'Włącz dźwięk' : 'Wycisz'}</p>
+                      </TooltipContent>
+                    </Tooltip>
 
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Button variant="ghost" size="icon" onClick={toggleMute} className="text-white hover:bg-white/20">
-                        {isMuted ? <VolumeX className="h-5 w-5" /> : <Volume2 className="h-5 w-5" />}
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>{isMuted ? 'Włącz dźwięk' : 'Wycisz'}</p>
-                    </TooltipContent>
-                  </Tooltip>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button variant="ghost" size="icon" onClick={toggleFullscreen} className="text-white hover:bg-white/20">
+                          {isFullscreen ? <Minimize2 className="h-5 w-5" /> : <Maximize2 className="h-5 w-5" />}
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>{isFullscreen ? 'Wyłącz pełny ekran' : 'Pełny ekran'}</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
 
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Button variant="ghost" size="icon" onClick={toggleFullscreen} className="text-white hover:bg-white/20">
-                        {isFullscreen ? <Minimize2 className="h-5 w-5" /> : <Maximize2 className="h-5 w-5" />}
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>{isFullscreen ? 'Wyłącz pełny ekran' : 'Pełny ekran'}</p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-                
-                <span className="text-sm min-w-[100px] time-display text-white">{formatTime(currentTime)} / {formatTime(duration)}</span>
+                  <span className="text-sm min-w-[100px] time-display text-white ml-auto">{formatTime(currentTime)} / {formatTime(duration)}</span>
+                </div>
               </div>
               
               <div className="w-full mt-2">
@@ -612,29 +621,6 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpd
                   className="flex-grow slider-track"
                   onValueChange={handleSliderChange}
                 />
-              </div>
-                  
-              {/* Key frame markers */}
-              <div className="key-frames-container">
-                {keyFrames.map((frame, index) => (
-                  <TooltipProvider key={index}>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <button 
-                          className="key-frame-marker"
-                          style={{ left: `${(frame.time / duration) * 100}%` }}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            jumpToTime(frame.time);
-                          }}
-                        />
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>{frame.description} ({formatTime(frame.time)})</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
-                ))}
               </div>
             </div>
           </div>
