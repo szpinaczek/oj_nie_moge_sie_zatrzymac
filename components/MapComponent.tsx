@@ -42,6 +42,30 @@ const mapStyles = `
   .dark .leaflet-control-home svg {
     stroke: white;
   }
+  .leaflet-control-zoom a {
+    background-color: white !important;
+    color: black !important;
+    border: 2px solid rgba(0,0,0,0.2) !important;
+  }
+  .dark .leaflet-control-zoom a {
+    background-color: #1f2937 !important;
+    color: white !important;
+    border-color: rgba(255,255,255,0.2) !important;
+  }
+  .leaflet-control-attribution {
+    background-color: rgba(255,255,255,0.8) !important;
+    color: black !important;
+  }
+  .dark .leaflet-control-attribution {
+    background-color: rgba(31,41,55,0.8) !important;
+    color: white !important;
+  }
+  .leaflet-control-attribution a {
+    color: #2563eb !important;
+  }
+  .dark .leaflet-control-attribution a {
+    color: #60a5fa !important;
+  }
 `;
 
 // Create custom dot marker icon
@@ -89,12 +113,21 @@ const createHomeControl = (initialPosition: [number, number], initialZoom: numbe
   return new HomeControl();
 };
 
+// Helper function to interpolate between two points
+const interpolatePosition = (start: {lat: number, lng: number}, end: {lat: number, lng: number}, progress: number) => {
+  return {
+    lat: start.lat + (end.lat - start.lat) * progress,
+    lng: start.lng + (end.lng - start.lng) * progress
+  };
+};
+
 const MapComponent = forwardRef<MapComponentHandle, MapComponentProps>(
   ({ mapData, currentTime, onTimeUpdate, language }, ref) => {
     const mapRef = useRef<L.Map>(null);
     const [currentPosition, setCurrentPosition] = useState<{lat: number, lng: number} | null>(null);
     const initialPosition: [number, number] = [mapData.frames[0].lat, mapData.frames[0].lng];
     const initialZoom = 18;
+    const animationFrameRef = useRef<number>();
 
     useImperativeHandle(ref, () => ({
       seekToTime: (time: number) => {
@@ -112,13 +145,58 @@ const MapComponent = forwardRef<MapComponentHandle, MapComponentProps>(
 
     useEffect(() => {
       if (mapRef.current) {
-        const frame = mapData.frames.find(
-          (f) => currentTime >= f.time && (f === mapData.frames[mapData.frames.length - 1] || currentTime < mapData.frames[mapData.frames.indexOf(f) + 1].time)
-        );
-        if (frame) {
-          mapRef.current.setView([frame.lat, frame.lng], 18);
-          setCurrentPosition({ lat: frame.lat, lng: frame.lng });
-        }
+        const findFramesForTime = (time: number) => {
+          const nextFrameIndex = mapData.frames.findIndex(
+            (f) => time < f.time
+          );
+          if (nextFrameIndex === -1) {
+            return {
+              start: mapData.frames[mapData.frames.length - 1],
+              end: mapData.frames[mapData.frames.length - 1],
+              progress: 1
+            };
+          }
+          if (nextFrameIndex === 0) {
+            return {
+              start: mapData.frames[0],
+              end: mapData.frames[0],
+              progress: 0
+            };
+          }
+          const endFrame = mapData.frames[nextFrameIndex];
+          const startFrame = mapData.frames[nextFrameIndex - 1];
+          const progress = (time - startFrame.time) / (endFrame.time - startFrame.time);
+          return { start: startFrame, end: endFrame, progress };
+        };
+
+        const animate = () => {
+          const { start, end, progress } = findFramesForTime(currentTime);
+          const position = interpolatePosition(
+            { lat: start.lat, lng: start.lng },
+            { lat: end.lat, lng: end.lng },
+            progress
+          );
+          setCurrentPosition(position);
+          
+          // Only update view if marker is outside visible bounds
+          if (mapRef.current) {
+            const bounds = mapRef.current.getBounds();
+            const markerLatLng = L.latLng(position.lat, position.lng);
+            if (!bounds.contains(markerLatLng)) {
+              mapRef.current.setView([position.lat, position.lng], mapRef.current.getZoom());
+            }
+          }
+          
+          animationFrameRef.current = requestAnimationFrame(animate);
+        };
+
+        animationFrameRef.current = requestAnimationFrame(animate);
+
+        return () => {
+          if (animationFrameRef.current) {
+            cancelAnimationFrame(animationFrameRef.current);
+          }
+        };
       }
     }, [currentTime, mapData.frames]);
 
@@ -129,6 +207,8 @@ const MapComponent = forwardRef<MapComponentHandle, MapComponentProps>(
           ref={mapRef}
           center={initialPosition}
           zoom={initialZoom}
+          // minZoom={15}
+          // maxZoom={20}
           style={{ height: "100%", width: "100%" }}
           whenReady={() => {
             if (mapRef.current) {
