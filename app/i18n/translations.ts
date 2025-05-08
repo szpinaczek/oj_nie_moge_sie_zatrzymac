@@ -2,7 +2,7 @@ export type Language = 'pl' | 'en';
 
 export const translations = {
   pl: {
-    title: 'Trasa ONMSZ',
+    title: 'Oj! Nie mogę się zatrzymać!',
     video: 'Wideo',
     map: 'Mapa',
     routeInfo: 'Informacje o trasie',
@@ -21,7 +21,7 @@ export const translations = {
     exitFullscreen: 'Wyłącz pełny ekran'
   },
   en: {
-    title: 'ONMSZ Route',
+    title: 'Oh! I can\'t stop!',
     video: 'Video',
     map: 'Map',
     routeInfo: 'Route Information',
