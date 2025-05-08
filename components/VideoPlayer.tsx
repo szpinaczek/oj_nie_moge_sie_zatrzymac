@@ -356,7 +356,7 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpd
             min={0}
             max={duration}
             step={0.01}
-            className="flex-grow slider-track"
+            className="flex-grow slider-track bg-gray-300 dark:bg-white/30"
             onValueChange={handleSliderChange}
           />
           {/* Key frame markers - visible only on desktop */}
@@ -366,7 +366,7 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpd
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <button 
-                      className="absolute top-0 bottom-0 w-0.5 bg-white/50 hover:bg-white hover:scale-x-150 transition-transform origin-center pointer-events-auto"
+                      className="absolute top-0 bottom-0 w-0.5 bg-gray-600 dark:bg-white/50 hover:bg-gray-800 dark:hover:bg-white hover:scale-x-150 transition-transform origin-center pointer-events-auto"
                       style={{ left: `${(frame.time / duration) * 100}%` }}
                       onClick={(e) => {
                         e.stopPropagation();
