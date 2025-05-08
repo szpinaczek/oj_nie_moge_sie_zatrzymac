@@ -20,6 +20,7 @@ export interface VideoPlayerHandle {
   pauseVideo: () => void;
   playVideo: () => void;
   seekVideo: (time: number) => void;
+  currentTime: number;
 }
 
 const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpdate, onFrameChange, onFullscreenChange, language = 'pl' }, ref) => {
@@ -160,7 +161,8 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpd
         }
         isUserSeeking.current = false;
       }
-    }
+    },
+    currentTime: currentTime
   }));
 
   const togglePlayPause = () => {
@@ -307,11 +309,11 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpd
       <div className="relative w-full aspect-video bg-black rounded-lg overflow-hidden">
         {!isFullscreen && (
           <>
-            <video
-              ref={videoRef}
+      <video
+        ref={videoRef}
               className="w-full h-full object-contain"
               poster="/images/splash-screen2.jpg"
-              onClick={togglePlayPause}
+        onClick={togglePlayPause}
               onTimeUpdate={handleTimeUpdate}
               onDurationChange={handleDurationChange}
               onPlay={() => setShowPoster(false)}
@@ -322,9 +324,9 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpd
               }}
             >
               <source src="/onmsz_medium_compressed.mp4" type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
-            
+        Your browser does not support the video tag.
+      </video>
+      
             {/* Splash screen overlay */}
             {showPoster && (
               <div 
@@ -351,27 +353,27 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpd
       <div className="w-full bg-gray-100 dark:bg-gray-800 p-4 rounded-b-lg shadow-md">
         {/* Progress bar */}
         <div className="w-full mb-4 relative">
-          <Slider
-            value={[currentTime]}
-            min={0}
-            max={duration}
-            step={0.01}
+            <Slider
+              value={[currentTime]}
+              min={0}
+              max={duration}
+              step={0.01}
             className="flex-grow slider-track bg-gray-300 dark:bg-white/30"
-            onValueChange={handleSliderChange}
-          />
+              onValueChange={handleSliderChange}
+            />
           {/* Key frame markers - visible only on desktop */}
           <div className="hidden lg:block absolute inset-0 pointer-events-none">
-            {keyFrames.map((frame, index) => (
+              {keyFrames.map((frame, index) => (
               <TooltipProvider key={index}>
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <button 
                       className="absolute top-0 bottom-0 w-0.5 bg-gray-600 dark:bg-white/50 hover:bg-gray-800 dark:hover:bg-white hover:scale-x-150 transition-transform origin-center pointer-events-auto"
-                      style={{ left: `${(frame.time / duration) * 100}%` }}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        jumpToTime(frame.time);
-                      }}
+                  style={{ left: `${(frame.time / duration) * 100}%` }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    jumpToTime(frame.time);
+                  }}
                     />
                   </TooltipTrigger>
                   <TooltipContent>
@@ -379,8 +381,8 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpd
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
-            ))}
-          </div>
+              ))}
+            </div>
         </div>
 
         {/* Time display */}
@@ -522,7 +524,7 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpd
                     className="absolute inset-0 bg-black/50 flex items-center justify-center transition-opacity duration-300"
                     style={{ opacity: showPoster ? 1 : 0 }}
                   >
-                    <Button
+        <Button
                       size="lg"
                       className="bg-primary hover:bg-primary/90 text-primary-foreground"
                       onClick={(e) => {
@@ -531,7 +533,7 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpd
                       }}
                     >
                       <Play className="h-6 w-6" />
-                    </Button>
+        </Button>
                   </div>
                 )}
               </>
@@ -560,14 +562,14 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpd
                     <TooltipProvider>
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <Button
+        <Button
                             variant="ghost"
                             size="icon"
                             className="h-8 w-8 text-white hover:text-white/80"
-                            onClick={togglePlayPause}
-                          >
+          onClick={togglePlayPause}
+        >
                             {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
-                          </Button>
+        </Button>
                         </TooltipTrigger>
                         <TooltipContent>
                           <p>{isPlaying ? 'Pause' : 'Play'}</p>
@@ -578,14 +580,14 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpd
                     <TooltipProvider>
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <Button
+        <Button
                             variant="ghost"
                             size="icon"
                             className="h-8 w-8 text-white hover:text-white/80"
                             onClick={() => seekVideo(currentTime - 10)}
                           >
                             <SkipBack className="h-4 w-4" />
-                          </Button>
+        </Button>
                         </TooltipTrigger>
                         <TooltipContent>
                           <p>10 sekund wstecz</p>
@@ -598,11 +600,11 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpd
                     <TooltipProvider>
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <Button
+        <Button
                             variant="ghost"
                             size="icon"
                             className="h-8 w-8 text-white hover:text-white/80"
-                            onClick={toggleMute}
+          onClick={toggleMute}
                           >
                             {isMuted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
                           </Button>
@@ -623,7 +625,7 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpd
                             onClick={toggleFullscreen}
                           >
                             <Maximize2 className="h-4 w-4" />
-                          </Button>
+        </Button>
                         </TooltipTrigger>
                         <TooltipContent>
                           <p>Fullscreen</p>
@@ -632,7 +634,7 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpd
                     </TooltipProvider>
                   </div>
                 </div>
-              </div>
+      </div>
             </div>
           </div>
         </DialogContent>

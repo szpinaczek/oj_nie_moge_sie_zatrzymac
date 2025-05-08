@@ -1,7 +1,6 @@
 "use client";
 import { useState, useRef, useEffect } from 'react';
 import VideoPlayer, { VideoPlayerHandle } from '../components/VideoPlayer';
-import MapComponent from '../components/MapComponent';
 import { Button } from '@/components/ui/button';
 import { Moon, Sun } from 'lucide-react';
 import {
@@ -28,6 +27,10 @@ import { LanguageProvider, useLanguage } from './i18n/LanguageContext';
 import { getTranslation } from './i18n/translations';
 import { FlagIcons } from './components/FlagIcons';
 import L from 'leaflet';
+import dynamic from 'next/dynamic';
+import { useTheme } from 'next-themes';
+import type { MapData, Language } from '@/types/map';
+import { AboutSection } from '@/components/AboutSection';
 
 interface MapComponentHandle {
   seekToTime: (time: number) => void;
@@ -49,6 +52,15 @@ interface FrameData {
   totalDistance?: number;
 }
 
+const MapComponent = dynamic(() => import('@/components/MapComponent'), {
+  ssr: false,
+  loading: () => (
+    <div className="h-full w-full flex items-center justify-center bg-gray-100 dark:bg-gray-800">
+      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+    </div>
+  ),
+});
+
 const HomePageContent = () => {
   const { language, setLanguage } = useLanguage();
   const [currentTime, setCurrentTime] = useState<number>(0);
@@ -62,6 +74,8 @@ const HomePageContent = () => {
   const tableContainerRef = useRef<HTMLDivElement>(null);
   const rowRefs = useRef<(HTMLTableRowElement | null)[]>([]);
   const tableRef = useRef<HTMLDivElement>(null);
+  const [mapData, setMapData] = useState<MapData | null>(null);
+  const { theme } = useTheme();
 
   // Handle dark mode
   useEffect(() => {
@@ -190,6 +204,69 @@ const HomePageContent = () => {
     }
   }, [currentTime, keyFrames]);
 
+  useEffect(() => {
+    if (videoPlayerRef.current) {
+      videoPlayerRef.current.currentTime = currentTime;
+    }
+  }, [currentTime]);
+
+  useEffect(() => {
+    const loadFramesData = async () => {
+      try {
+        const response = await fetch('/frames.json');
+        const data = await response.json();
+        
+        // Calculate distances between frames
+        const framesWithDistances = data.frames.map((frame: any, index: number) => {
+          if (index === 0) {
+            return { ...frame, distance: 0, totalDistance: 0 };
+          }
+          
+          const prevFrame = data.frames[index - 1];
+          const distance = calculateDistance(
+            prevFrame.lat,
+            prevFrame.lng,
+            frame.lat,
+            frame.lng
+          );
+          
+          const totalDistance = data.frames
+            .slice(0, index)
+            .reduce((sum: number, f: any) => sum + (f.distance || 0), 0);
+            
+          return { ...frame, distance, totalDistance };
+        });
+        
+        // Prepare route data
+        const route = framesWithDistances.map((frame: any) => [frame.lat, frame.lng]);
+        
+        setMapData({
+          frames: framesWithDistances,
+          route
+        });
+      } catch (error) {
+        console.error('Error loading frames data:', error);
+      }
+    };
+
+    loadFramesData();
+  }, []);
+
+  const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: number) => {
+    const R = 6371; // Earth's radius in km
+    const dLat = toRad(lat2 - lat1);
+    const dLon = toRad(lon2 - lon1);
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return R * c;
+  };
+
+  const toRad = (value: number) => {
+    return (value * Math.PI) / 180;
+  };
+
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-200">
       <div className="container mx-auto px-4 py-8">
@@ -227,33 +304,39 @@ const HomePageContent = () => {
           </div>
         </div>
 
+        <div className="mb-8">
+          <AboutSection language={language} />
+        </div>
+
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Video section */}
           <div className="video-section w-full lg:w-auto">
             <div className="max-w-[1280px] mx-auto">
-              <VideoPlayer
-                ref={videoPlayerRef}
-                onTimeUpdate={handleTimeUpdate}
+              <VideoPlayer 
+                ref={videoPlayerRef} 
+                onTimeUpdate={handleTimeUpdate} 
                 onFrameChange={handleTimeUpdate}
                 onFullscreenChange={handleFullscreenChange}
                 language={language}
               />
             </div>
-          </div>
-
+            </div>
+            
           {/* Map section */}
           <div className="map-section w-full lg:flex-1">
             <div className="h-[300px] md:h-[400px] lg:h-full bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden relative">
-              <MapComponent
-                ref={mapRef}
-                currentTime={currentTime}
-                onTimeUpdate={handleMapTimeUpdate}
-                language={language}
-              />
+              {mapData && (
+                <MapComponent
+                  mapData={mapData}
+                  currentTime={currentTime}
+                  onTimeUpdate={handleMapTimeUpdate}
+                  language={language}
+                />
+              )}
+            </div>
             </div>
           </div>
-        </div>
-        
+          
         <div className="mt-6 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
           <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">
             {getTranslation('routeInfo', language)}
@@ -286,7 +369,7 @@ const HomePageContent = () => {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {keyFrames.map((frame, index) => (
+                  {keyFrames.map((frame, index) => (
                       <TableRow 
                         key={index}
                         ref={(el) => {
@@ -317,9 +400,9 @@ const HomePageContent = () => {
                             variant="ghost"
                             size="sm"
                             className="text-primary hover:text-primary/80 dark:text-primary-foreground dark:hover:text-primary-foreground/80"
-                            onClick={() => {
-                              if (videoPlayerRef.current) {
-                                videoPlayerRef.current.seekVideo(frame.time);
+                          onClick={() => {
+                            if (videoPlayerRef.current) {
+                              videoPlayerRef.current.seekVideo(frame.time);
                                 scrollToRow(index);
                               }
                             }}

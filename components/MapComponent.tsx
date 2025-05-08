@@ -1,11 +1,58 @@
-import React, { useState, useEffect, useRef, forwardRef, useImperativeHandle } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, Polyline, useMap } from 'react-leaflet';
-import L from 'leaflet';
-import 'leaflet/dist/leaflet.css';
-import { Button } from '@/components/ui/button';
-import { Home, Maximize2, Minimize2 } from 'lucide-react';
+"use client";
 
-// Tworzymy własną ikonę dla znacznika aktualnej pozycji
+import { useEffect, useRef, forwardRef, useImperativeHandle, useState } from "react";
+import { MapContainer, TileLayer, Marker, Polyline } from "react-leaflet";
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
+import { MapComponentProps, MapComponentHandle, MapData } from "@/types/map";
+
+// Add styles for map controls
+const mapStyles = `
+  .leaflet-control-container .leaflet-control {
+    z-index: 1000 !important;
+  }
+  .leaflet-control-zoom {
+    z-index: 1000 !important;
+  }
+  .leaflet-control-attribution {
+    z-index: 1000 !important;
+  }
+  .leaflet-control-home {
+    background: white;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: 2px solid rgba(0,0,0,0.2);
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+  .leaflet-control-home:hover {
+    background: #f4f4f4;
+  }
+  .dark .leaflet-control-home {
+    background: #1f2937;
+    border-color: rgba(255,255,255,0.2);
+  }
+  .dark .leaflet-control-home:hover {
+    background: #374151;
+  }
+  .dark .leaflet-control-home svg {
+    stroke: white;
+  }
+`;
+
+// Create custom dot marker icon
+const DotIcon = L.divIcon({
+  className: 'custom-dot-marker',
+  html: '<div class="w-3 h-3 bg-[#d93472] rounded-full border-2 border-white shadow-md"></div>',
+  iconSize: [12, 12],
+  iconAnchor: [6, 6]
+});
+
+// Create current position marker icon
 const CurrentPositionIcon = L.icon({
   iconUrl: "/images/marker-icon-red.png",
   shadowUrl: "/images/marker-shadow.png",
@@ -15,309 +62,131 @@ const CurrentPositionIcon = L.icon({
   shadowSize: [41, 41]
 });
 
-// Ikona dla punktów kluczowych (kropka)
-const KeyFrameIcon = L.divIcon({
-  className: 'key-frame-marker',
-  html: '<div class="w-3 h-3 bg-primary rounded-full border-2 border-white shadow-md"></div>',
-  iconSize: [12, 12],
-  iconAnchor: [6, 6]
-});
-
-export interface MapComponentHandle {
-  seekToTime: (time: number) => void;
-}
-
-interface FrameData {
-  time: number;
-  lat: number;
-  lng: number;
-  description: {
-    pl: string;
-    en: string;
-  };
-  info?: {
-    pl: string;
-    en: string;
-  };
-}
-
-interface MapData {
-  frames: FrameData[];
-  route: [number, number][];
-}
-
-interface InterpolatedPosition {
-  lat: number;
-  lng: number;
-  description: string;
-  prevFrame: FrameData | null;
-  nextFrame: FrameData | null;
-  progress: number;
-}
-
-interface MapComponentProps {
-  currentTime: number;
-  onTimeUpdate: (time: number) => void;
-  language: 'pl' | 'en';
-}
-
-const MapComponent = forwardRef<MapComponentHandle, MapComponentProps>(({ currentTime, onTimeUpdate, language }, ref) => {
-  const [mapData, setMapData] = useState<MapData | null>(null);
-  const [currentPosition, setCurrentPosition] = useState<InterpolatedPosition | null>(null);
-  const lastUpdateTime = useRef<number>(0);
-  const mapRef = useRef<L.Map | null>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  // Calculate interpolated position based on current time
-  const calculateInterpolatedPosition = (time: number, frames: FrameData[]): InterpolatedPosition | null => {
-    if (frames.length === 0) return null;
-    
-    // If time is before the first frame or after the last frame
-    if (time <= frames[0].time) {
-      return {
-        lat: frames[0].lat,
-        lng: frames[0].lng,
-        description: frames[0].description[language],
-        prevFrame: null,
-        nextFrame: frames[0],
-        progress: 0
-      };
-    }
-    
-    if (time >= frames[frames.length - 1].time) {
-      const lastFrame = frames[frames.length - 1];
-      return {
-        lat: lastFrame.lat,
-        lng: lastFrame.lng,
-        description: lastFrame.description[language],
-        prevFrame: lastFrame,
-        nextFrame: null,
-        progress: 1
-      };
-    }
-    
-    // Find the frames before and after the current time
-    let prevFrameIndex = 0;
-    for (let i = 0; i < frames.length - 1; i++) {
-      if (frames[i].time <= time && frames[i + 1].time > time) {
-        prevFrameIndex = i;
-        break;
-      }
-    }
-    
-    const prevFrame = frames[prevFrameIndex];
-    const nextFrame = frames[prevFrameIndex + 1];
-    
-    // Calculate progress between the two frames (0 to 1)
-    const totalDuration = nextFrame.time - prevFrame.time;
-    const elapsed = time - prevFrame.time;
-    const progress = totalDuration > 0 ? elapsed / totalDuration : 0;
-    
-    // Linear interpolation between the two positions
-    const lat = prevFrame.lat + (nextFrame.lat - prevFrame.lat) * progress;
-    const lng = prevFrame.lng + (nextFrame.lng - prevFrame.lng) * progress;
-    
-    return {
-      lat,
-      lng,
-      description: `${prevFrame.description[language]} → ${nextFrame.description[language]}`,
-      prevFrame,
-      nextFrame,
-      progress
-    };
-  };
-
-  useImperativeHandle(ref, () => ({
-    seekToTime: (time: number) => {
-      if (!mapData || mapData.frames.length === 0) return;
+// Create custom Home control
+const createHomeControl = (initialPosition: [number, number], initialZoom: number) => {
+  const HomeControl = L.Control.extend({
+    options: {
+      position: 'topleft'
+    },
+    onAdd: function(map: L.Map) {
+      const container = L.DomUtil.create('div', 'leaflet-control leaflet-control-home');
+      container.innerHTML = `
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+      `;
+      container.title = 'Reset view';
       
-      const interpolatedPosition = calculateInterpolatedPosition(time, mapData.frames);
-      if (interpolatedPosition && mapRef.current) {
-        mapRef.current.setView([interpolatedPosition.lat, interpolatedPosition.lng], mapRef.current.getZoom());
-      }
-    }
-  }));
-
-  // Load map data
-  useEffect(() => {
-    fetch("/frames.json")
-      .then(response => response.json())
-      .then(data => setMapData(data))
-      .catch(error => console.error("Error loading map data:", error));
-  }, []);
-
-  // Update marker position based on current time
-  useEffect(() => {
-    if (!mapData || mapData.frames.length === 0) return;
-    
-    const interpolatedPosition = calculateInterpolatedPosition(currentTime, mapData.frames);
-    if (interpolatedPosition) {
-      setCurrentPosition(interpolatedPosition);
+      container.onclick = function() {
+        map.setView(initialPosition, initialZoom);
+      };
       
-      // Znajdź najbliższy punkt kluczowy
-      const currentFrame = mapData.frames.find(frame => frame.time >= currentTime) || mapData.frames[mapData.frames.length - 1];
-      if (currentFrame) {
-        // Aktualizuj widok mapy, aby pokazać aktualną pozycję
+      return container;
+    }
+  });
+
+  return new HomeControl();
+};
+
+const MapComponent = forwardRef<MapComponentHandle, MapComponentProps>(
+  ({ mapData, currentTime, onTimeUpdate, language }, ref) => {
+    const mapRef = useRef<L.Map>(null);
+    const [currentPosition, setCurrentPosition] = useState<{lat: number, lng: number} | null>(null);
+    const initialPosition: [number, number] = [mapData.frames[0].lat, mapData.frames[0].lng];
+    const initialZoom = 18;
+
+    useImperativeHandle(ref, () => ({
+      seekToTime: (time: number) => {
         if (mapRef.current) {
-          mapRef.current.setView([interpolatedPosition.lat, interpolatedPosition.lng], mapRef.current.getZoom());
-        }
-      }
-    }
-  }, [currentTime, mapData]);
-
-  const handlePolylineClick = (e: L.LeafletMouseEvent) => {
-    if (!mapData || !mapData.frames.length) return;
-    
-    const { lat, lng } = e.latlng;
-    
-    // Find the closest frame to the clicked position
-    const closestFrame = mapData.frames.reduce((prev, curr) => {
-      const prevDistance = Math.sqrt(Math.pow(prev.lat - lat, 2) + Math.pow(prev.lng - lng, 2));
-      const currDistance = Math.sqrt(Math.pow(curr.lat - lat, 2) + Math.pow(curr.lng - lng, 2));
-      return currDistance < prevDistance ? curr : prev;
-    });
-    
-    // Prevent rapid consecutive updates
-    const now = Date.now();
-    if (now - lastUpdateTime.current > 300) {
-      lastUpdateTime.current = now;
-      onTimeUpdate(closestFrame.time);
-    }
-  };
-
-  // Format time in MM:SS format
-  const formatTime = (timeInSeconds: number) => {
-    const minutes = Math.floor(timeInSeconds / 60);
-    const seconds = Math.floor(timeInSeconds % 60);
-    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-  };
-
-  const MapUpdater = ({ position }: { position: [number, number] }) => {
-    const map = useMap();
-    
-    useEffect(() => {
-      mapRef.current = map;
-      
-      if (position) {
-        // Only follow the marker if it's getting close to the edge of the visible area
-        const bounds = map.getBounds();
-        const point = L.latLng(position[0], position[1]);
-        
-        // Calculate how close the point is to the edge (as a percentage of the visible area)
-        const visibleWidth = bounds.getEast() - bounds.getWest();
-        const visibleHeight = bounds.getNorth() - bounds.getSouth();
-        
-        const distanceToEast = bounds.getEast() - point.lng;
-        const distanceToWest = point.lng - bounds.getWest();
-        const distanceToNorth = bounds.getNorth() - point.lat;
-        const distanceToSouth = point.lat - bounds.getSouth();
-        
-        const edgeThreshold = 0.2; // 20% of the visible area
-        
-        if (
-          distanceToEast < visibleWidth * edgeThreshold ||
-          distanceToWest < visibleWidth * edgeThreshold ||
-          distanceToNorth < visibleHeight * edgeThreshold ||
-          distanceToSouth < visibleHeight * edgeThreshold
-        ) {
-          map.setView(position, map.getZoom(), { animate: true, duration: 0.5 });
-        }
-      }
-    }, [map, position]);
-    
-    return null;
-  };
-
-  const resetView = () => {
-    if (mapRef.current && mapData) {
-      const bounds = L.latLngBounds(mapData.route);
-      mapRef.current.fitBounds(bounds, { padding: [50, 50] });
-    }
-  };
-
-  if (!mapData) {
-    return <div className="h-full w-full flex items-center justify-center bg-gray-100 rounded-lg">Loading map data...</div>;
-  }
-
-  const defaultCenter = mapData.route[0] || [51.8086928, 19.4710456];
-
-  return (
-    <div ref={containerRef} className="relative w-full h-full">
-      <MapContainer
-        center={[52.2297, 21.0122]}
-        zoom={13}
-        className="w-full h-full"
-        style={{ height: '100%' }}
-        whenReady={() => {
-          if (mapRef.current) {
-            mapRef.current = mapRef.current;
+          const frame = mapData.frames.find(
+            (f) => time >= f.time && (f === mapData.frames[mapData.frames.length - 1] || time < mapData.frames[mapData.frames.indexOf(f) + 1].time)
+          );
+          if (frame) {
+            mapRef.current.setView([frame.lat, frame.lng], 18);
+            setCurrentPosition({ lat: frame.lat, lng: frame.lng });
           }
-        }}
-      >
-        <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        />
-        
-        {/* Remaining route line */}
-        <Polyline
-          positions={mapData.route}
-          pathOptions={{
-            color: '#d93472',
-            weight: 3,
-            opacity: 0.7,
-            lineJoin: 'round'
+        }
+      },
+    }));
+
+    useEffect(() => {
+      if (mapRef.current) {
+        const frame = mapData.frames.find(
+          (f) => currentTime >= f.time && (f === mapData.frames[mapData.frames.length - 1] || currentTime < mapData.frames[mapData.frames.indexOf(f) + 1].time)
+        );
+        if (frame) {
+          mapRef.current.setView([frame.lat, frame.lng], 18);
+          setCurrentPosition({ lat: frame.lat, lng: frame.lng });
+        }
+      }
+    }, [currentTime, mapData.frames]);
+
+    return (
+      <div className="relative w-full h-full">
+        <style>{mapStyles}</style>
+        <MapContainer
+          ref={mapRef}
+          center={initialPosition}
+          zoom={initialZoom}
+          style={{ height: "100%", width: "100%" }}
+          whenReady={() => {
+            if (mapRef.current) {
+              mapRef.current.setView(initialPosition, initialZoom);
+              setCurrentPosition({ lat: initialPosition[0], lng: initialPosition[1] });
+              // Add Home control after map is ready
+              const homeControl = createHomeControl(initialPosition, initialZoom);
+              homeControl.addTo(mapRef.current);
+            }
           }}
-          eventHandlers={{
-            click: handlePolylineClick
-          }}
-        />
-        
-        {/* Route markers */}
-        {mapData?.frames.map((frame, index) => (
-          <Marker 
-            key={index}
-            position={[frame.lat, frame.lng]} 
-            icon={KeyFrameIcon}
+        >
+          <TileLayer
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          />
+          <Polyline
+            positions={mapData.route}
+            color="#d93472"
+            weight={3}
+            opacity={0.7}
             eventHandlers={{
-              click: () => {
-                const now = Date.now();
-                if (now - lastUpdateTime.current > 300) {
-                  lastUpdateTime.current = now;
+              click: (e) => {
+                const clickedLatLng = e.latlng;
+                const frame = mapData.frames.find(
+                  (f) =>
+                    Math.abs(f.lat - clickedLatLng.lat) < 0.0001 &&
+                    Math.abs(f.lng - clickedLatLng.lng) < 0.0001
+                );
+                if (frame) {
                   onTimeUpdate(frame.time);
                 }
-              }
+              },
             }}
           />
-        ))}
-        
-        {/* Current position marker */}
-        {currentPosition && (
-          <Marker
-            position={[currentPosition.lat, currentPosition.lng]}
-            icon={CurrentPositionIcon}
-          />
-        )}
-        
-        {/* Map updater component */}
-        {currentPosition && (
-          <MapUpdater position={[currentPosition.lat, currentPosition.lng]} />
-        )}
-      </MapContainer>
-      
-      {/* Map controls */}
-      <div className="absolute top-4 right-4 flex flex-col gap-2 z-[1000]">
-        <Button
-          variant="outline"
-          size="icon"
-          className="bg-white/90 dark:bg-gray-800/90 hover:bg-white dark:hover:bg-gray-800 text-gray-900 dark:text-gray-100"
-          onClick={resetView}
-        >
-          <Home className="h-4 w-4" />
-        </Button>
+          {mapData.frames.map((frame, index) => (
+            <Marker
+              key={index}
+              position={[frame.lat, frame.lng]}
+              icon={DotIcon}
+              eventHandlers={{
+                click: () => {
+                  onTimeUpdate(frame.time);
+                },
+              }}
+            />
+          ))}
+          {currentPosition && (
+            <Marker
+              position={[currentPosition.lat, currentPosition.lng]}
+              icon={CurrentPositionIcon}
+            />
+          )}
+        </MapContainer>
       </div>
-    </div>
-  );
-});
+    );
+  }
+);
+
+MapComponent.displayName = "MapComponent";
 
 export default MapComponent;
