@@ -31,6 +31,7 @@ import dynamic from 'next/dynamic';
 import { useTheme } from 'next-themes';
 import type { MapData, Language } from '@/types/map';
 import { AboutSection } from '@/components/AboutSection';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 interface MapComponentHandle {
   seekToTime: (time: number) => void;
@@ -71,11 +72,12 @@ const HomePageContent = () => {
   const mapRef = useRef<MapComponentHandle>(null);
   const isMapUpdating = useRef<boolean>(false);
   const isVideoUpdating = useRef<boolean>(false);
-  const tableContainerRef = useRef<HTMLDivElement>(null);
+  const scrollViewportRef = useRef<HTMLDivElement>(null);
   const rowRefs = useRef<(HTMLTableRowElement | null)[]>([]);
   const tableRef = useRef<HTMLDivElement>(null);
   const [mapData, setMapData] = useState<MapData | null>(null);
   const { theme } = useTheme();
+  const videoSectionRef = useRef<HTMLDivElement>(null);
 
   // Handle dark mode
   useEffect(() => {
@@ -155,6 +157,13 @@ const HomePageContent = () => {
       if (videoPlayerRef.current) {
         videoPlayerRef.current.seekVideo(time);
       }
+      // Find and scroll to the corresponding row
+      const currentIndex = keyFrames.findIndex((frame, index) => 
+        time >= frame.time && (index === keyFrames.length - 1 || time < keyFrames[index + 1].time)
+      );
+      if (currentIndex !== -1) {
+        scrollToRow(currentIndex);
+      }
       setTimeout(() => {
         isMapUpdating.current = false;
       }, 50);
@@ -175,20 +184,20 @@ const HomePageContent = () => {
   // Format distance in meters or kilometers
   const formatDistance = (meters: number) => {
     if (meters >= 1000) {
-      return `${(meters / 1000).toFixed(1)} km`;
+      return `${(meters / 1000).toFixed(2)} km`;
     }
     return `${meters} m`;
   };
 
   // Function to scroll to a specific row
   const scrollToRow = (index: number) => {
-    if (!tableContainerRef.current || !rowRefs.current[index]) return;
+    if (!scrollViewportRef.current || !rowRefs.current[index]) return;
 
-    const container = tableContainerRef.current;
+    const viewport = scrollViewportRef.current;
     const row = rowRefs.current[index];
     
-    // Simply scroll the row to the top of the container
-    container.scrollTo({
+    // Scroll the row to the top of the viewport
+    viewport.scrollTo({
       top: row.offsetTop,
       behavior: 'smooth'
     });
@@ -267,6 +276,21 @@ const HomePageContent = () => {
     return (value * Math.PI) / 180;
   };
 
+  // Fix for TypeScript error with refs
+  const setRowRef = (index: number) => (el: HTMLTableRowElement | null) => {
+    rowRefs.current[index] = el;
+  };
+
+  // Function to scroll to video section
+  const scrollToVideo = () => {
+    if (videoSectionRef.current) {
+      videoSectionRef.current.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-200">
       <div className="container mx-auto px-4 py-8">
@@ -310,7 +334,7 @@ const HomePageContent = () => {
 
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Video section */}
-          <div className="video-section w-full lg:w-auto">
+          <div className="video-section w-full lg:w-auto" ref={videoSectionRef}>
             <div className="max-w-[1280px] mx-auto">
               <VideoPlayer 
                 ref={videoPlayerRef} 
@@ -320,8 +344,8 @@ const HomePageContent = () => {
                 language={language}
               />
             </div>
-            </div>
-            
+          </div>
+          
           {/* Map section */}
           <div className="map-section w-full lg:flex-1">
             <div className="h-[300px] md:h-[400px] lg:h-full bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden relative">
@@ -337,95 +361,96 @@ const HomePageContent = () => {
             </div>
           </div>
           
-        <div className="mt-6 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
-          <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">
+        <div className="mt-6 p-6 bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm rounded-lg border border-gray-200 dark:border-gray-800">
+          <h3 className="text-2xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">
             {getTranslation('routeInfo', language)}
           </h3>
           <div className="flex flex-col lg:flex-row gap-6">
             {/* Table section */}
             <div className="flex-1">
-              <div 
-                ref={tableContainerRef}
-                className="h-[300px] md:h-[400px] overflow-y-auto rounded-md border border-gray-200 dark:border-gray-700 scrollbar-thin scrollbar-thumb-gray-400 dark:scrollbar-thumb-gray-600 scrollbar-track-transparent hover:scrollbar-thumb-gray-500 dark:hover:scrollbar-thumb-gray-500"
-              >
-                <Table>
-                  <TableHeader className="sticky top-0 bg-gray-100 dark:bg-gray-800 z-10">
-                    <TableRow>
-                      <TableHead className="w-[100px] text-gray-900 dark:text-gray-100">
-                        {getTranslation('time', language)}
-                      </TableHead>
-                      <TableHead className="text-gray-900 dark:text-gray-100">
-                        {getTranslation('location', language)}
-                      </TableHead>
-                      <TableHead className="hidden md:table-cell w-[200px] text-gray-900 dark:text-gray-100">
-                        {getTranslation('coordinates', language)}
-                      </TableHead>
-                      <TableHead className="w-[150px] text-gray-900 dark:text-gray-100">
-                        {getTranslation('distance', language)}
-                      </TableHead>
-                      <TableHead className="w-[100px] text-right text-gray-900 dark:text-gray-100">
-                        {getTranslation('actions', language)}
-                      </TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                  {keyFrames.map((frame, index) => (
-                      <TableRow 
-                        key={index}
-                        ref={(el) => {
-                          rowRefs.current[index] = el;
-                        }}
-                        className={currentTime >= frame.time && (index === keyFrames.length - 1 || currentTime < keyFrames[index + 1].time)
-                          ? "bg-primary/10 dark:bg-primary/20"
-                          : "hover:bg-gray-50 dark:hover:bg-gray-700/50"
-                        }
-                      >
-                        <TableCell className="font-medium text-gray-900 dark:text-gray-100">
-                          {formatTime(frame.time)}
-                          <span className="text-sm text-gray-500 dark:text-gray-400 ml-2">
-                            ({Math.floor(frame.time)}s)
-                          </span>
-                        </TableCell>
-                        <TableCell className="text-gray-900 dark:text-gray-100">
-                          {frame.description[language]}
-                        </TableCell>
-                        <TableCell className="hidden md:table-cell text-sm text-gray-600 dark:text-gray-300">
-                          {frame.lat.toFixed(6)}, {frame.lng.toFixed(6)}
-                        </TableCell>
-                        <TableCell className="text-sm text-gray-600 dark:text-gray-300">
-                          {formatDistance(frame.totalDistance || 0)}
-                        </TableCell>
-                        <TableCell className="text-right">
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            className="text-primary hover:text-primary/80 dark:text-primary-foreground dark:hover:text-primary-foreground/80"
-                          onClick={() => {
-                            if (videoPlayerRef.current) {
-                              videoPlayerRef.current.seekVideo(frame.time);
-                                scrollToRow(index);
-                              }
-                            }}
+              <Card className="border-none bg-transparent">
+                <CardContent className="p-0">
+                  <div 
+                    ref={scrollViewportRef}
+                    className="w-full overflow-y-auto max-h-[400px] pr-4 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-thumb]:bg-gray-700 [&::-webkit-scrollbar-thumb]:rounded-full"
+                  >
+                    <Table>
+                      <TableHeader className="sticky top-0 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm z-10 border-b border-gray-200 dark:border-gray-800">
+                        <TableRow className="hover:bg-transparent">
+                          <TableHead className="w-[100px] text-gray-900 dark:text-gray-100 font-semibold">
+                            {getTranslation('time', language)}
+                          </TableHead>
+                          <TableHead className="text-gray-900 dark:text-gray-100 font-semibold">
+                            {getTranslation('location', language)}
+                          </TableHead>
+                          <TableHead className="hidden md:table-cell w-[200px] text-gray-900 dark:text-gray-100 font-semibold">
+                            {getTranslation('coordinates', language)}
+                          </TableHead>
+                          <TableHead className="w-[150px] text-gray-900 dark:text-gray-100 font-semibold">
+                            {getTranslation('distance', language)}
+                          </TableHead>
+                          <TableHead className="w-[100px] text-right text-gray-900 dark:text-gray-100 font-semibold">
+                            {getTranslation('actions', language)}
+                          </TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {keyFrames.map((frame, index) => (
+                          <TableRow 
+                            key={index}
+                            ref={setRowRef(index)}
+                            className={`hover:bg-gray-50/50 dark:hover:bg-gray-800/30 transition-colors border-b border-gray-100 dark:border-gray-800/50 ${
+                              currentTime >= frame.time && (index === keyFrames.length - 1 || currentTime < keyFrames[index + 1].time)
+                                ? "bg-primary/10 dark:bg-primary/20"
+                                : ""
+                            }`}
                           >
-                            {getTranslation('jumpTo', language)}
-                          </Button>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </div>
+                            <TableCell className="font-medium text-gray-900 dark:text-gray-100">
+                              {formatTime(frame.time)}
+                            </TableCell>
+                            <TableCell className="text-gray-700 dark:text-gray-300">
+                              {frame.description[language]}
+                            </TableCell>
+                            <TableCell className="hidden md:table-cell text-gray-700 dark:text-gray-300">
+                              {frame.lat.toFixed(6)}, {frame.lng.toFixed(6)}
+                            </TableCell>
+                            <TableCell className="text-gray-700 dark:text-gray-300">
+                              {formatDistance(frame.totalDistance || 0)}
+                            </TableCell>
+                            <TableCell className="text-right">
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                className="text-primary hover:text-primary/80 dark:text-primary-foreground dark:hover:text-primary-foreground/80 transition-colors"
+                                onClick={() => {
+                                  if (videoPlayerRef.current) {
+                                    videoPlayerRef.current.seekVideo(frame.time);
+                                    scrollToRow(index);
+                                    scrollToVideo();
+                                  }
+                                }}
+                              >
+                                {getTranslation('jumpTo', language)}
+                              </Button>
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
 
             {/* Description section */}
             <div className="w-full lg:w-[300px]">
-              <Card className="h-[300px] md:h-[400px]">
-                <CardHeader>
-                  <CardTitle className="text-lg">
+              <Card className="h-[400px] border border-gray-200 dark:border-gray-800 bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm">
+                <CardHeader className="border-b border-gray-200 dark:border-gray-800">
+                  <CardTitle className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
                     {getTranslation('additionalInfo', language)}
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="p-6">
                   {(() => {
                     const currentFrame = keyFrames.find((frame, index) => 
                       currentTime >= frame.time && (index === keyFrames.length - 1 || currentTime < keyFrames[index + 1].time)
@@ -441,7 +466,7 @@ const HomePageContent = () => {
 
                     return (
                       <div className="prose dark:prose-invert max-w-none">
-                        <p className="text-gray-900 dark:text-gray-100">
+                        <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
                           {currentFrame.info[language]}
                         </p>
                       </div>
