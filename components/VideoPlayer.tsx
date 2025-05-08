@@ -23,6 +23,15 @@ export interface VideoPlayerHandle {
   currentTime: number;
 }
 
+// Add this type definition before the VideoPlayer component
+interface KeyFrame {
+  time: number;
+  description: {
+    pl: string;
+    en: string;
+  };
+}
+
 const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpdate, onFrameChange, onFullscreenChange, language = 'pl' }, ref) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -35,6 +44,9 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpd
   const isUserSeeking = useRef(false);
   const [showControls, setShowControls] = useState(true);
   const controlsTimeoutRef = useRef<NodeJS.Timeout>();
+
+  // State for key frames
+  const [keyFrames, setKeyFrames] = useState<KeyFrame[]>([]);
 
   // Handle keyboard shortcuts
   useEffect(() => {
@@ -285,23 +297,31 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpd
     return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')} (${totalSeconds}s)`;
   };
 
-  // State for key frames
-  const [keyFrames, setKeyFrames] = useState<{time: number, description: string}[]>([]);
-  
   // Load key frames from frames.json
   useEffect(() => {
     fetch("/frames.json")
       .then(response => response.json())
-      .then(data => {
+      .then((data: { frames: { time: number; description_pl: string; description_en: string }[] }) => {
         if (data && data.frames) {
-          setKeyFrames(data.frames.map((frame: any) => ({
+          setKeyFrames(data.frames.map((frame) => ({
             time: frame.time,
-            description: frame.description
+            description: {
+              pl: frame.description_pl,
+              en: frame.description_en
+            }
           })));
         }
       })
       .catch(error => console.error("Error loading key frames:", error));
   }, []);
+
+  const handleProgressBarClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const percentage = x / rect.width;
+    const newTime = percentage * duration;
+    seekVideo(newTime);
+  };
 
   return (
     <div className="flex flex-col w-full">
@@ -549,7 +569,7 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpd
                 </div>
                 
                 {/* Progress bar */}
-                <div className="relative h-1 bg-white/30 rounded-full cursor-pointer" onClick={handleSliderChange}>
+                <div className="relative h-1 bg-white/30 rounded-full cursor-pointer" onClick={handleProgressBarClick}>
                   <div 
                     className="absolute h-full bg-white rounded-full"
                     style={{ width: `${(currentTime / duration) * 100}%` }}
