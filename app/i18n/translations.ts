@@ -2,7 +2,7 @@ export type Language = "pl" | "en";
 
 const translations = {
   pl: {
-    title: "Trasa",
+    title: "Oj! Nie mogę się zatrzymać - interaktywna mapa śladami filmu",
     map: "Mapa",
     time: "Czas",
     video: "Wideo",
@@ -50,7 +50,7 @@ const translations = {
     locationTodayValue: "Studio Se-ma-for nadal działa, kontynuując tradycję polskiej animacji i realizując nowe projekty."
   },
   en: {
-    title: "Route",
+    title: "Oh! I Cannot Stop - interactive map following the film",
     map: "Map",
     time: "Time",
     video: "Video",

@@ -295,7 +295,7 @@ const HomePageContent = () => {
     <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-200">
       <div className="container mx-auto px-4">
         {/* Sticky header */}
-        <div className="sticky top-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border-b border-gray-200 dark:border-gray-800 py-4 -mx-4 px-4">
+        <div className="sticky top-0 z-[1000] bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border-b border-gray-200 dark:border-gray-800 py-4 -mx-4 px-4">
           <div className="flex justify-between items-center">
             <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
               {getTranslation('title', language)}
@@ -393,8 +393,7 @@ const HomePageContent = () => {
                             <TableHead className="w-[150px] text-gray-900 dark:text-gray-100 font-semibold">
                               {getTranslation('distance', language)}
                             </TableHead>
-                            <TableHead className="w-[100px] text-right text-gray-900 dark:text-gray-100 font-semibold">
-                              {getTranslation('actions', language)}
+                            <TableHead className="w-[100px] text-right">
                             </TableHead>
                           </TableRow>
                         </TableHeader>
@@ -447,7 +446,7 @@ const HomePageContent = () => {
               </div>
 
               {/* Description section */}
-              <div className="w-full lg:w-[300px]">
+              <div className="w-full lg:w-[550px]">
                 <Card className="h-[400px] border border-gray-200 dark:border-gray-800 bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm">
                   <CardHeader className="border-b border-gray-200 dark:border-gray-800">
                     <CardTitle className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
