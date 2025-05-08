@@ -11,7 +11,7 @@ export const translations = {
     coordinates: 'Współrzędne',
     distance: 'Odległość',
     actions: 'Akcje',
-    jumpTo: 'Skocz do',
+    jumpTo: 'Przejdź',
     noInfo: 'Brak dodatkowych informacji',
     additionalInfo: 'Dodatkowe informacje',
     loading: 'Ładowanie...',

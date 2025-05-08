@@ -229,25 +229,21 @@ const HomePageContent = () => {
 
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Video section */}
-          <div className="video-section w-full lg:w-[70%]">
-            {/* <h2 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">
-              {getTranslation('video', language)}
-            </h2> */}
-            <VideoPlayer
-              ref={videoPlayerRef}
-              onTimeUpdate={handleTimeUpdate}
-              onFrameChange={handleTimeUpdate}
-              onFullscreenChange={handleFullscreenChange}
-              language={language}
-            />
+          <div className="video-section w-full lg:w-auto">
+            <div className="max-w-[1280px] mx-auto">
+              <VideoPlayer
+                ref={videoPlayerRef}
+                onTimeUpdate={handleTimeUpdate}
+                onFrameChange={handleTimeUpdate}
+                onFullscreenChange={handleFullscreenChange}
+                language={language}
+              />
+            </div>
           </div>
 
           {/* Map section */}
-          <div className="map-section w-full lg:w-[30%]">
-            {/* <h2 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">
-              {getTranslation('map', language)}
-            </h2> */}
-            <div className="h-full bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden relative">
+          <div className="map-section w-full lg:flex-1">
+            <div className="h-[300px] md:h-[400px] lg:h-full bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden relative">
               <MapComponent
                 ref={mapRef}
                 currentTime={currentTime}
@@ -257,17 +253,17 @@ const HomePageContent = () => {
             </div>
           </div>
         </div>
-
+        
         <div className="mt-6 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
           <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">
             {getTranslation('routeInfo', language)}
           </h3>
-          <div className="flex gap-6">
+          <div className="flex flex-col lg:flex-row gap-6">
             {/* Table section */}
             <div className="flex-1">
               <div 
                 ref={tableContainerRef}
-                className="h-[400px] overflow-y-auto rounded-md border border-gray-200 dark:border-gray-700 scrollbar-thin scrollbar-thumb-gray-400 dark:scrollbar-thumb-gray-600 scrollbar-track-transparent hover:scrollbar-thumb-gray-500 dark:hover:scrollbar-thumb-gray-500"
+                className="h-[300px] md:h-[400px] overflow-y-auto rounded-md border border-gray-200 dark:border-gray-700 scrollbar-thin scrollbar-thumb-gray-400 dark:scrollbar-thumb-gray-600 scrollbar-track-transparent hover:scrollbar-thumb-gray-500 dark:hover:scrollbar-thumb-gray-500"
               >
                 <Table>
                   <TableHeader className="sticky top-0 bg-gray-100 dark:bg-gray-800 z-10">
@@ -278,7 +274,7 @@ const HomePageContent = () => {
                       <TableHead className="text-gray-900 dark:text-gray-100">
                         {getTranslation('location', language)}
                       </TableHead>
-                      <TableHead className="w-[200px] text-gray-900 dark:text-gray-100">
+                      <TableHead className="hidden md:table-cell w-[200px] text-gray-900 dark:text-gray-100">
                         {getTranslation('coordinates', language)}
                       </TableHead>
                       <TableHead className="w-[150px] text-gray-900 dark:text-gray-100">
@@ -310,7 +306,7 @@ const HomePageContent = () => {
                         <TableCell className="text-gray-900 dark:text-gray-100">
                           {frame.description[language]}
                         </TableCell>
-                        <TableCell className="text-sm text-gray-600 dark:text-gray-300">
+                        <TableCell className="hidden md:table-cell text-sm text-gray-600 dark:text-gray-300">
                           {frame.lat.toFixed(6)}, {frame.lng.toFixed(6)}
                         </TableCell>
                         <TableCell className="text-sm text-gray-600 dark:text-gray-300">
@@ -339,8 +335,8 @@ const HomePageContent = () => {
             </div>
 
             {/* Description section */}
-            <div className="w-[300px]">
-              <Card className="h-[400px]">
+            <div className="w-full lg:w-[300px]">
+              <Card className="h-[300px] md:h-[400px]">
                 <CardHeader>
                   <CardTitle className="text-lg">
                     {getTranslation('additionalInfo', language)}
