@@ -180,9 +180,18 @@
       }
     },
     {
-      "time": 300,
-      "lat": 51.7998297,
-      "lng": 19.4700616,
+      "time": 297,
+      "lat": 51.80013,
+      "lng": 19.46998,
+      "description": {
+        "pl": "ul. Inflancka, warsztaty PKS",
+        "en": "Inflancka Street, PKS workshops"
+      }
+    },
+    {
+      "time": 302,
+      "lat": 51.79963,
+      "lng": 19.46994,
       "description": {
         "pl": "ul. Inflancka, warsztaty PKS",
         "en": "Inflancka Street, PKS workshops"
@@ -190,35 +199,53 @@
     },
     {
       "time": 305,
-      "lat": 51.7997934,
-      "lng": 19.4710344,
+      "lat": 51.79961,
+      "lng": 19.47064,
       "description": {
         "pl": "ul. Inflancka, warsztaty PKS",
         "en": "Inflancka Street, PKS workshops"
       }
     },
     {
+      "time": 315,
+      "lat": 51.79846,
+      "lng": 19.47057,
+      "description": {
+        "pl": "ul. Kolińskiego",
+        "en": "Kolińskiego Street"
+      }
+    },
+    {
+      "time": 320,
+      "lat": 51.79794,
+      "lng": 19.47104,
+      "description": {
+        "pl": "ul. Okopowa, warsztaty",
+        "en": "Okopowa Street, workshops"
+      }
+    },
+    {
       "time": 325,
-      "lat": 51.7972522,
-      "lng": 19.470777,
+      "lat": 51.79738,
+      "lng": 19.47098,
       "description": {
         "pl": "ul. Okopowa, warsztaty",
         "en": "Okopowa Street, workshops"
       }
     },
     {
-      "time": 326,
-      "lat": 51.797229,
-      "lng": 19.4712397,
+      "time": 329,
+      "lat": 51.7968,
+      "lng": 19.47128,
       "description": {
         "pl": "ul. Okopowa, warsztaty",
         "en": "Okopowa Street, workshops"
       }
     },
     {
-      "time": 332,
-      "lat": 51.7963332,
-      "lng": 19.4711578,
+      "time": 331,
+      "lat": 51.79635,
+      "lng": 19.47124,
       "description": {
         "pl": "ul. Okopowa",
         "en": "Okopowa Street"
