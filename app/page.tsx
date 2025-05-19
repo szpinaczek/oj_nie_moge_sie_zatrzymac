@@ -292,12 +292,12 @@ const HomePageContent = () => {
   };
 
   return (
-    <div className="min-h-screen bg-brown-100 dark:bg-brown-800 transition-colors duration-200">
+    <div className="min-h-screen bg-brown-100 dark:bg-brown-900 transition-colors duration-200">
       <div className="container mx-auto px-4">
         {/* Sticky header */}
         <div className="sticky top-0 z-[1000] bg-brown-50 dark:bg-brown-700/80 backdrop-blur-sm border-b border-brown-100 dark:border-brown-700 py-4 px-4">
           <div className="flex justify-between items-center">
-            <h1 className="text-2xl font-bold text-brown-400 dark:text-brown-100">
+            <h1 className="text-2xl font-bold text-brown-900 dark:text-brown-100">
               {getTranslation('title', language)}
             </h1>
             <div className="flex items-center gap-2">
@@ -338,7 +338,7 @@ const HomePageContent = () => {
 
           <div className="flex flex-col lg:flex-row gap-6">
             {/* Video section */}
-            <div className="video-section w-full lg:w-auto scroll-mt-24" ref={videoSectionRef}>
+            <div className="video-section w-full scroll-mt-24 md:min-w-lg lg:min-w-lg" ref={videoSectionRef}>
               <div className="max-w-[1280px] mx-auto">
                 <VideoPlayer 
                   ref={videoPlayerRef} 
@@ -351,7 +351,7 @@ const HomePageContent = () => {
             </div>
             
             {/* Map section */}
-            <div className="map-section w-full lg:flex-1">
+            <div className="map-section w-full">
               <div className="h-[300px] md:h-[400px] lg:h-full bg-brown-100 dark:bg-brown-800 rounded-lg overflow-hidden relative">
                 {mapData && (
                   <MapComponent

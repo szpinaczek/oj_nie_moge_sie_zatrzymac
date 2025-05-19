@@ -17,7 +17,7 @@ export function AboutSection({ language }: AboutSectionProps) {
 
   return (
     <div className="w-full flex flex-col lg:flex-row justify-between gap-6 p-0 m-0 border-0">
-      <Card className="order-0 bg-brown-50 dark:bg-brown-700 backdrop-blur-sm flex-col md:flex-row border-0 m-0 w-full lg:min-w-[50%]">
+      <Card className="order-0 bg-brown-50 dark:bg-brown-700 flex-col md:flex-row shadow-md border-0 m-0 w-full lg:min-w-[50%]">
         <CardHeader>
           <CardTitle className="text-3xl font-bold tracking-tight text-brown-900 dark:text-brown-100">
             {getTranslation('about', language)}
@@ -29,7 +29,7 @@ export function AboutSection({ language }: AboutSectionProps) {
           </p>
         </CardContent>
       </Card>
-      <Card className="order-0 bg-brown-50 dark:bg-brown-700 backdrop-blur-sm flex-col md:flex-row border-0">
+      <Card className="order-1 bg-brown-50 dark:bg-brown-700 flex-col md:flex-row border-0">
         <CardHeader>
           <CardTitle className="text-3xl font-bold tracking-tight text-brown-900 dark:text-brown-100">
             {getTranslation('aboutMovie', language)}
@@ -54,7 +54,7 @@ export function AboutSection({ language }: AboutSectionProps) {
             <TabsContent value="film" className="space-y-4">
               <p className="text-md text-brown-900 dark:text-brown-100">
                 {getTranslation('filmDescription', language)}
-              </p>
+              </p> 
               <div className="grid gap-4">
                 <div className="flex items-top gap-2">
                   <span className="font-semibold text-brown-900 dark:text-brown-100">

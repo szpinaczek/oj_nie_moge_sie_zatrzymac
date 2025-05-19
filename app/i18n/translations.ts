@@ -51,7 +51,7 @@ const translations = {
     locationTodayValue: "Studio Se-ma-for nadal działa, kontynuując tradycję polskiej animacji i realizując nowe projekty."
   },
   en: {
-    title: "Oh! I Cannot Stop - interactive Map Following The Film's Footsteps",
+    title: "Oh! I Can't Stop - Interactive Map Following The Film's Footsteps",
     map: "Map",
     time: "Time",
     video: "Video",
