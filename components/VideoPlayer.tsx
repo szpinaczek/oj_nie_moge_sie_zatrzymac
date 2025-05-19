@@ -326,7 +326,7 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpd
   return (
     <div className="flex flex-col w-full">
       {/* Video container */}
-      <div className="relative w-full aspect-video bg-black rounded-lg overflow-hidden">
+      <div className="relative w-full aspect-video bg-black rounded-t-lg overflow-hidden">
         {!isFullscreen && (
           <>
       <video
@@ -370,7 +370,7 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpd
       </div>
 
       {/* Video controls below video */}
-      <div className="w-full bg-gray-100 dark:bg-gray-800 p-4 rounded-b-lg shadow-md">
+      <div className="w-full bg-brown-200/60 dark:bg-brown-700 p-4 rounded-b-lg shadow-md">
         {/* Progress bar */}
         <div className="w-full mb-4 relative">
             <Slider
@@ -378,7 +378,7 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpd
               min={0}
               max={duration}
               step={0.01}
-            className="flex-grow slider-track bg-gray-300 dark:bg-white/30"
+            className="flex-grow slider-track bg-brown-300 dark:bg-brown-200"
               onValueChange={handleSliderChange}
             />
           {/* Key frame markers - visible only on desktop */}
@@ -388,7 +388,7 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpd
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <button 
-                      className="absolute top-0 bottom-0 w-0.5 bg-gray-600 dark:bg-white/50 hover:bg-gray-800 dark:hover:bg-white hover:scale-x-150 transition-transform origin-center pointer-events-auto"
+                      className="absolute top-0 bottom-0 w-0.5 bg-brown-600 dark:bg-brown-50 hover:bg-brown-800 dark:hover:bg-brown-100 hover:scale-x-150 transition-transform origin-center pointer-events-auto"
                   style={{ left: `${(frame.time / duration) * 100}%` }}
                   onClick={(e) => {
                     e.stopPropagation();
@@ -406,7 +406,7 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpd
         </div>
 
         {/* Time display */}
-        <div className="flex justify-between items-center mb-4 text-sm text-gray-600 dark:text-gray-400">
+        <div className="flex justify-between items-center mb-4 text-sm text-brown-600 dark:text-brown-100">
           <span>{formatTime(currentTime)}</span>
           <span>{formatTime(duration)}</span>
         </div>
@@ -418,7 +418,7 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpd
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Button variant="ghost" size="icon" onClick={togglePlayPause} className="h-8 w-8 hover:bg-gray-200 dark:hover:bg-gray-700">
+                  <Button variant="ghost" size="icon" onClick={togglePlayPause} className="h-8 w-8 ">
                     {isPlaying ? <Pause className="h-6 w-6" /> : <Play className="h-6 w-6" />}
                   </Button>
                 </TooltipTrigger>
@@ -431,7 +431,7 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpd
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Button variant="ghost" size="icon" onClick={() => seekVideo(currentTime - 10)} className="h-8 w-8 hover:bg-gray-200 dark:hover:bg-gray-700">
+                  <Button variant="ghost" size="icon" onClick={() => seekVideo(currentTime - 10)} className="h-8 w-8 ">
                     <SkipBack className="h-6 w-6" />
                   </Button>
                 </TooltipTrigger>
@@ -444,7 +444,7 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpd
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Button variant="ghost" size="icon" onClick={() => seekVideo(currentTime + 10)} className="h-8 w-8 hover:bg-gray-200 dark:hover:bg-gray-700">
+                  <Button variant="ghost" size="icon" onClick={() => seekVideo(currentTime + 10)} className="h-8 w-8 ">
                     <SkipForward className="h-6 w-6" />
                   </Button>
                 </TooltipTrigger>
@@ -457,7 +457,7 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpd
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Button variant="ghost" size="icon" onClick={() => stepFrame('backward')} className="h-8 w-8 hover:bg-gray-200 dark:hover:bg-gray-700">
+                  <Button variant="ghost" size="icon" onClick={() => stepFrame('backward')} className="h-8 w-8 ">
                     <ChevronLeft className="h-6 w-6" />
                   </Button>
                 </TooltipTrigger>
@@ -470,7 +470,7 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpd
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Button variant="ghost" size="icon" onClick={() => stepFrame('forward')} className="h-8 w-8 hover:bg-gray-200 dark:hover:bg-gray-700">
+                  <Button variant="ghost" size="icon" onClick={() => stepFrame('forward')} className="h-8 w-8 ">
                     <ChevronRight className="h-6 w-6" />
                   </Button>
                 </TooltipTrigger>
@@ -486,7 +486,7 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpd
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Button variant="ghost" size="icon" onClick={toggleMute} className="h-8 w-8 hover:bg-gray-200 dark:hover:bg-gray-700">
+                  <Button variant="ghost" size="icon" onClick={toggleMute} className="h-8 w-8 ">
                     {isMuted ? <VolumeX className="h-6 w-6" /> : <Volume2 className="h-6 w-6" />}
                   </Button>
                 </TooltipTrigger>
@@ -499,7 +499,7 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpd
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Button variant="ghost" size="icon" onClick={toggleFullscreen} className="h-8 w-8 hover:bg-gray-200 dark:hover:bg-gray-700">
+                  <Button variant="ghost" size="icon" onClick={toggleFullscreen} className="h-8 w-8 ">
                     {isFullscreen ? <Minimize2 className="h-6 w-6" /> : <Maximize2 className="h-6 w-6" />}
                   </Button>
                 </TooltipTrigger>
@@ -569,9 +569,9 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpd
                 </div>
                 
                 {/* Progress bar */}
-                <div className="relative h-1 bg-white/30 rounded-full cursor-pointer" onClick={handleProgressBarClick}>
+                <div className="relative h-1 bg-brown-100/30 rounded-full cursor-pointer" onClick={handleProgressBarClick}>
                   <div 
-                    className="absolute h-full bg-white rounded-full"
+                    className="absolute h-full bg-brown-100 rounded-full"
                     style={{ width: `${(currentTime / duration) * 100}%` }}
                   />
                 </div>

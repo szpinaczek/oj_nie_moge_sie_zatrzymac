@@ -20,7 +20,8 @@ const translations = {
     fullscreen: "Pełny ekran",
     exitFullscreen: "Wyjdź z pełnego ekranu",
     currentPosition: "Aktualna pozycja",
-    about: "O filmie",
+    about: "O projekcie",
+    aboutMovie: "O filmie",
     aboutApp: "Interaktywna mapa śladami filmu",
     aboutFilm: "Film",
     aboutDirector: "Reżyser",
@@ -50,7 +51,7 @@ const translations = {
     locationTodayValue: "Studio Se-ma-for nadal działa, kontynuując tradycję polskiej animacji i realizując nowe projekty."
   },
   en: {
-    title: "Oh! I Cannot Stop - interactive map following the film",
+    title: "Oh! I Cannot Stop - interactive Map Following The Film's Footsteps",
     map: "Map",
     time: "Time",
     video: "Video",
@@ -68,7 +69,8 @@ const translations = {
     fullscreen: "Fullscreen",
     exitFullscreen: "Exit fullscreen",
     currentPosition: "Current position",
-    about: "About",
+    about: "About The Project",
+    aboutMovie: "About The Film",
     aboutApp: "Interactive map following the film's footsteps",
     aboutFilm: "Film",
     aboutDirector: "Director",

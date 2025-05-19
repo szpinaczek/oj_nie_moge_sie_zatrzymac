@@ -56,7 +56,7 @@ interface FrameData {
 const MapComponent = dynamic(() => import('@/components/MapComponent'), {
   ssr: false,
   loading: () => (
-    <div className="h-full w-full flex items-center justify-center bg-gray-100 dark:bg-gray-800">
+    <div className="h-full w-full flex items-center justify-center bg-brown-100 dark:bg-brown-800">
       <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
     </div>
   ),
@@ -292,21 +292,21 @@ const HomePageContent = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-200">
+    <div className="min-h-screen bg-brown-100 dark:bg-brown-800 transition-colors duration-200">
       <div className="container mx-auto px-4">
         {/* Sticky header */}
-        <div className="sticky top-0 z-[1000] bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border-b border-gray-200 dark:border-gray-800 py-4 -mx-4 px-4">
+        <div className="sticky top-0 z-[1000] bg-brown-50 dark:bg-brown-700/80 backdrop-blur-sm border-b border-brown-100 dark:border-brown-700 py-4 px-4">
           <div className="flex justify-between items-center">
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+            <h1 className="text-2xl font-bold text-brown-400 dark:text-brown-100">
               {getTranslation('title', language)}
             </h1>
             <div className="flex items-center gap-2">
-              <div className="flex items-center gap-1 bg-gray-100 dark:bg-gray-800 rounded-lg p-1">
+              <div className="flex items-center gap-1 bg-brown-100 dark:bg-brown-500 rounded-lg p-1">
                 <Button
                   variant="ghost"
                   size="icon"
                   onClick={() => setLanguage('pl')}
-                  className={`h-8 w-8 ${language === 'pl' ? 'bg-white dark:bg-gray-700' : ''}`}
+                  className={`h-8 w-8 ${language === 'pl' ? 'bg-brown-100 dark:bg-brown-500' : ''}`}
                 >
                   <FlagIcons.pl />
                 </Button>
@@ -314,16 +314,16 @@ const HomePageContent = () => {
                   variant="ghost"
                   size="icon"
                   onClick={() => setLanguage('en')}
-                  className={`h-8 w-8 ${language === 'en' ? 'bg-white dark:bg-gray-700' : ''}`}
+                  className={`h-8 w-8 ${language === 'en' ? 'bg-brown-100 dark:bg-brown-500' : ''}`}
                 >
                   <FlagIcons.en />
                 </Button>
               </div>
               <Button
-                variant="ghost"
+                variant="icon"
                 size="icon"
                 onClick={() => setIsDarkMode(!isDarkMode)}
-                className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+                className="h-5 w-5"
               >
                 {isDarkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
               </Button>
@@ -336,7 +336,7 @@ const HomePageContent = () => {
             <AboutSection language={language} />
           </div>
 
-          <div className="flex flex-col lg:flex-row gap-8">
+          <div className="flex flex-col lg:flex-row gap-6">
             {/* Video section */}
             <div className="video-section w-full lg:w-auto scroll-mt-24" ref={videoSectionRef}>
               <div className="max-w-[1280px] mx-auto">
@@ -352,7 +352,7 @@ const HomePageContent = () => {
             
             {/* Map section */}
             <div className="map-section w-full lg:flex-1">
-              <div className="h-[300px] md:h-[400px] lg:h-full bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden relative">
+              <div className="h-[300px] md:h-[400px] lg:h-full bg-brown-100 dark:bg-brown-800 rounded-lg overflow-hidden relative">
                 {mapData && (
                   <MapComponent
                     mapData={mapData}
@@ -365,8 +365,8 @@ const HomePageContent = () => {
               </div>
             </div>
             
-          <div className="mt-6 p-6 bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm rounded-lg border border-gray-200 dark:border-gray-800">
-            <h3 className="text-2xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">
+          <div className="mt-6 p-6 bg-brown-50 dark:bg-brown-700 backdrop-blur-sm rounded-lg border-0">
+            <h3 className="text-2xl font-bold tracking-tight mb-6 text-brown-900 dark:text-brown-100">
               {getTranslation('routeInfo', language)}
             </h3>
             <div className="flex flex-col lg:flex-row gap-6">
@@ -376,21 +376,21 @@ const HomePageContent = () => {
                   <CardContent className="p-0">
                     <div 
                       ref={scrollViewportRef}
-                      className="w-full overflow-y-auto max-h-[400px] pr-4 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-thumb]:bg-gray-700 [&::-webkit-scrollbar-thumb]:rounded-full"
+                      className="w-full overflow-y-auto max-h-[400px] pr-4 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-brown-100 dark:[&::-webkit-scrollbar-thumb]:bg-brown-400 [&::-webkit-scrollbar-thumb]:rounded-full"
                     >
                       <Table>
-                        <TableHeader className="sticky top-0 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm z-10 border-b border-gray-200 dark:border-gray-800">
+                        <TableHeader className="sticky top-0 bg-brown-100 dark:bg-brown-700/80 backdrop-blur-sm z-10">
                           <TableRow className="hover:bg-transparent">
-                            <TableHead className="w-[100px] text-gray-900 dark:text-gray-100 font-semibold">
+                            <TableHead className="w-[100px] text-brown-900 dark:text-brown-100 font-semibold">
                               {getTranslation('time', language)}
                             </TableHead>
-                            <TableHead className="text-gray-900 dark:text-gray-100 font-semibold">
+                            <TableHead className="text-brown-900 dark:text-brown-100 font-semibold">
                               {getTranslation('location', language)}
                             </TableHead>
-                            <TableHead className="hidden md:table-cell w-[200px] text-gray-900 dark:text-gray-100 font-semibold">
+                            <TableHead className="hidden md:table-cell w-[200px] text-brown-900 dark:text-brown-100 font-semibold">
                               {getTranslation('coordinates', language)}
                             </TableHead>
-                            <TableHead className="w-[150px] text-gray-900 dark:text-gray-100 font-semibold">
+                            <TableHead className="w-[150px] text-brown-900 dark:text-brown-100 font-semibold">
                               {getTranslation('distance', language)}
                             </TableHead>
                             <TableHead className="w-[100px] text-right">
@@ -402,29 +402,29 @@ const HomePageContent = () => {
                             <TableRow 
                               key={index}
                               ref={setRowRef(index)}
-                              className={`hover:bg-gray-50/50 dark:hover:bg-gray-800/30 transition-colors border-b border-gray-100 dark:border-gray-800/50 ${
+                              className={`hover:bg-brown-50/50 dark:hover:bg-brown-800/30 transition-colors border-b border-brown-100 dark:border-brown-400/50 ${
                                 currentTime >= frame.time && (index === keyFrames.length - 1 || currentTime < keyFrames[index + 1].time)
                                   ? "bg-primary/10 dark:bg-primary/20"
                                   : ""
                               }`}
                             >
-                              <TableCell className="font-medium text-gray-900 dark:text-gray-100">
+                              <TableCell className="font-medium text-brown-900 dark:text-brown-100">
                                 {formatTime(frame.time)}
                               </TableCell>
-                              <TableCell className="text-gray-700 dark:text-gray-300">
+                              <TableCell className="text-brown-900 dark:text-brown-100">
                                 {frame.description[language]}
                               </TableCell>
-                              <TableCell className="hidden md:table-cell text-gray-700 dark:text-gray-300">
+                              <TableCell className="hidden md:table-cell text-brown-900 dark:text-brown-100">
                                 {frame.lat.toFixed(6)}, {frame.lng.toFixed(6)}
                               </TableCell>
-                              <TableCell className="text-gray-700 dark:text-gray-300">
+                              <TableCell className="text-brown-900 dark:text-brown-100">
                                 {formatDistance(frame.totalDistance || 0)}
                               </TableCell>
                               <TableCell className="text-right">
                                 <Button
                                   variant="ghost"
-                                  size="sm"
-                                  className="text-primary hover:text-primary/80 dark:text-primary-foreground dark:hover:text-primary-foreground/80 transition-colors"
+                                  size="lg"
+                                  className="text-primary hover:text-primary/80 dark:text-primary dark:hover:text-primary/80 transition-colors font-bold"
                                   onClick={() => {
                                     if (videoPlayerRef.current) {
                                       videoPlayerRef.current.seekVideo(frame.time);
@@ -447,9 +447,9 @@ const HomePageContent = () => {
 
               {/* Description section */}
               <div className="w-full lg:w-[550px]">
-                <Card className="h-[400px] border border-gray-200 dark:border-gray-800 bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm">
-                  <CardHeader className="border-b border-gray-200 dark:border-gray-800">
-                    <CardTitle className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
+                <Card className="h-[400px] border border-brown-200 dark:border-brown-400 bg-brown-100/50 dark:bg-brown-700 backdrop-blur-sm">
+                  <CardHeader className="border-b border-brown-200 dark:border-brown-400 bg-brown-100 dark:bg-brown-700 rounded-t-lg">
+                    <CardTitle className="text-xl font-semibold tracking-tight text-brown-900 dark:text-brown-100">
                       {getTranslation('additionalInfo', language)}
                     </CardTitle>
                   </CardHeader>
@@ -461,7 +461,7 @@ const HomePageContent = () => {
                       
                       if (!currentFrame?.info) {
                         return (
-                          <div className="text-gray-500 dark:text-gray-400 italic">
+                          <div className="text-brown-500 dark:text-brown-400 italic">
                             {getTranslation('noInfo', language)}
                           </div>
                         );
@@ -469,7 +469,7 @@ const HomePageContent = () => {
 
                       return (
                         <div className="prose dark:prose-invert max-w-none">
-                          <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                          <p className="text-brown-900 dark:text-brown-100 leading-relaxed">
                             {currentFrame.info[language]}
                           </p>
                         </div>

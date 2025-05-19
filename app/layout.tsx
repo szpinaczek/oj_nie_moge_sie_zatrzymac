@@ -1,11 +1,18 @@
 import type { Metadata } from 'next'
-import { Inter, Cairo } from 'next/font/google'
+import { Inter, Cairo, Fraunces, Open_Sans } from 'next/font/google'
 import './globals.css'
 
-const inter = Inter({ subsets: ['latin'] })
+const openSans = Open_Sans({
+  subsets: ['latin'],
+  display: 'swap',
+})
 const cairo = Cairo({ 
   subsets: ['latin'],
   variable: '--font-cairo',
+})
+const fraunces = Fraunces({ 
+  subsets: ['latin'],
+  variable: '--font-fraunces',
 })
 
 export const metadata: Metadata = {
@@ -20,7 +27,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} ${cairo.variable}`}>{children}</body>
+      <body className={`${openSans.className}  ${cairo.variable} ${fraunces.variable}`}>{children}</body>
     </html>
   )
 }

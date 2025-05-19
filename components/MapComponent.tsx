@@ -13,11 +13,12 @@ const mapStyles = `
   }
   .leaflet-control-zoom {
     z-index: 1000 !important;
-  }
-  .leaflet-control-attribution {
-    z-index: 1000 !important;
-  }
-  .leaflet-control-home {
+    }
+    .leaflet-control-attribution {
+      z-index: 1000 !important;
+      }
+      .leaflet-control-home {
+        z-index: 1000 !important;
     background: white;
     width: 30px;
     height: 30px;
@@ -50,7 +51,7 @@ const mapStyles = `
   .dark .leaflet-control-zoom a {
     background-color: #1f2937 !important;
     color: white !important;
-    border-color: rgba(255,255,255,0.2) !important;
+    border-color: rgba(138, 100, 58, 0.2) !important;
   }
   .leaflet-control-attribution {
     background-color: rgba(255,255,255,0.8) !important;
@@ -61,10 +62,10 @@ const mapStyles = `
     color: white !important;
   }
   .leaflet-control-attribution a {
-    color: #2563eb !important;
+    color:rgb(56, 54, 41) !important;
   }
   .dark .leaflet-control-attribution a {
-    color: #60a5fa !important;
+    color:rgb(155, 147, 136) !important;
   }
 `;
 
@@ -90,7 +91,7 @@ const CurrentPositionIcon = L.icon({
 const createHomeControl = (initialPosition: [number, number], initialZoom: number) => {
   const HomeControl = L.Control.extend({
     options: {
-      position: 'topleft'
+      position: 'bottomleft'
     },
     onAdd: function(map: L.Map) {
       const container = L.DomUtil.create('div', 'leaflet-control leaflet-control-home');
@@ -208,7 +209,7 @@ const MapComponent = forwardRef<MapComponentHandle, MapComponentProps>(
           center={initialPosition}
           zoom={initialZoom}
           // minZoom={15}
-          // maxZoom={20}
+          // maxZoom={100}
           style={{ height: "100%", width: "100%" }}
           whenReady={() => {
             if (mapRef.current) {
@@ -227,8 +228,8 @@ const MapComponent = forwardRef<MapComponentHandle, MapComponentProps>(
           <Polyline
             positions={mapData.route}
             color="#d93472"
-            weight={3}
-            opacity={0.7}
+            weight={4}
+            opacity={0.9}
             eventHandlers={{
               click: (e) => {
                 const clickedLatLng = e.latlng;
