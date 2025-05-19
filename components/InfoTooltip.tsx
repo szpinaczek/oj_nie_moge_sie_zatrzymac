@@ -145,7 +145,7 @@ const InfoTooltip: React.FC<InfoTooltipProps> = ({
     };
   }, [isDragging]);
 
-  if (!isVisible) {
+  if (!isVisible && info) {
     return (
       <Button
         variant="ghost"
@@ -154,7 +154,7 @@ const InfoTooltip: React.FC<InfoTooltipProps> = ({
         onClick={() => onToggleVisibility(true)}
         title={getTranslation('additionalInfo', language)}
       >
-        <Info className="h-6 w-6" />
+        <Info className="h-8 w-8" />
       </Button>
     );
   }
@@ -162,7 +162,7 @@ const InfoTooltip: React.FC<InfoTooltipProps> = ({
   return (
     <div 
       ref={tooltipRef}
-      className="absolute z-20 max-w-md w-[calc(100%-40px)] sm:w-auto"
+      className={`absolute z-20 max-w-md w-[calc(100%-40px)] sm:w-auto ${info ? 'block' : 'hidden'}`}
       style={{ 
         left: `${position.x}px`, 
         top: `${position.y}px`,
@@ -170,29 +170,29 @@ const InfoTooltip: React.FC<InfoTooltipProps> = ({
         transition: isDragging ? 'none' : 'box-shadow 0.2s ease-in-out'
       }}
     >
-      <Card className={`border border-brown-200 dark:border-brown-600 bg-brown-50/95 dark:bg-brown-800/95 backdrop-blur-sm ${isDragging ? 'shadow-xl' : 'shadow-lg'}`}>
+      <Card className={`border border-brown-200 dark:border-brown-600 bg-brown-50/50 dark:bg-brown-800/50 backdrop-blur-sm ${isDragging ? 'shadow-xl' : 'shadow-lg'}`}>
         <div 
-          className="p-3 cursor-grab active:cursor-grabbing flex justify-between items-center border-b border-brown-200 dark:border-brown-600"
+          className="p-1 cursor-grab active:cursor-grabbing flex justify-end items-center border-b border-brown-200 dark:border-brown-600 dark:bg-brown-800/40"
           onMouseDown={handleMouseDown}
           onTouchStart={handleTouchStart}
           style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
         >
-          <div className="flex items-center gap-2">
-            <Info className="h-4 w-4 text-brown-500 dark:text-brown-300" />
+          {/* <div className="flex items-center gap-2">
             <h3 className="text-sm font-medium text-brown-900 dark:text-brown-100 select-none">
               {getTranslation('additionalInfo', language)}
-            </h3>
-          </div>
+              </h3>
+          </div> */}
           <Button
             variant="ghost"
-            size="icon"
-            className="h-6 w-6 rounded-full hover:bg-brown-200 dark:hover:bg-brown-700"
+            size="sm"
+            className="rounded-full hover:bg-brown-200 dark:hover:bg-brown-700 h-4 w-4"
             onClick={() => onToggleVisibility(false)}
           >
-            <X className="h-4 w-4" />
+            <X className='h-4 w-4'/>
           </Button>
         </div>
-        <CardContent className="p-4 overflow-auto max-h-[300px] sm:max-h-[200px] md:max-h-[300px]">
+        <CardContent className="p-4 overflow-auto max-h-[300px] sm:max-h-[200px] md:max-h-[300px] flex flex-row gap-3 items-start">
+              <Info className="h-4 w-4 text-brown-500 dark:text-brown-300 mt-[2px]" />
           {info ? (
             <div className="prose dark:prose-invert max-w-none">
               <p className="text-brown-900 dark:text-brown-100 leading-relaxed text-sm">
