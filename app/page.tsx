@@ -445,39 +445,7 @@ const HomePageContent = () => {
                 </Card>
               </div>
 
-              {/* Description section */}
-              <div className="w-full lg:w-[550px]">
-                <Card className="h-[400px] border border-brown-200 dark:border-brown-400 bg-brown-100/50 dark:bg-brown-700 backdrop-blur-sm">
-                  <CardHeader className="border-b border-brown-200 dark:border-brown-400 bg-brown-100 dark:bg-brown-700 rounded-t-lg">
-                    <CardTitle className="text-xl font-semibold tracking-tight text-brown-900 dark:text-brown-100">
-                      {getTranslation('additionalInfo', language)}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="p-6">
-                    {(() => {
-                      const currentFrame = keyFrames.find((frame, index) => 
-                        currentTime >= frame.time && (index === keyFrames.length - 1 || currentTime < keyFrames[index + 1].time)
-                      );
-                      
-                      if (!currentFrame?.info) {
-                        return (
-                          <div className="text-brown-500 dark:text-brown-400 italic">
-                            {getTranslation('noInfo', language)}
-                          </div>
-                        );
-                      }
-
-                      return (
-                        <div className="prose dark:prose-invert max-w-none">
-                          <p className="text-brown-900 dark:text-brown-100 leading-relaxed">
-                            {currentFrame.info[language]}
-                          </p>
-                        </div>
-                      );
-                    })()}
-                  </CardContent>
-                </Card>
-              </div>
+              {/* Removed Additional Information section - now displayed as floating tooltip */}
             </div>
           </div>
         </div>

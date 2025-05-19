@@ -6,6 +6,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 import { Separator } from '@/components/ui/separator';
 import { Volume2, VolumeX, SkipBack, SkipForward, Play, Pause, Maximize2, Minimize2, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import InfoTooltip from './InfoTooltip';
 
 // Define types for the props
 interface VideoPlayerProps {
@@ -30,6 +31,10 @@ interface KeyFrame {
     pl: string;
     en: string;
   };
+  info?: {
+    pl: string;
+    en: string;
+  };
 }
 
 const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpdate, onFrameChange, onFullscreenChange, language = 'pl' }, ref) => {
@@ -47,6 +52,8 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpd
 
   // State for key frames
   const [keyFrames, setKeyFrames] = useState<KeyFrame[]>([]);
+  const [currentFrame, setCurrentFrame] = useState<KeyFrame | null>(null);
+  const [showInfoTooltip, setShowInfoTooltip] = useState<boolean>(false);
 
   // Handle keyboard shortcuts
   useEffect(() => {
@@ -276,9 +283,18 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpd
 
   const handleTimeUpdate = () => {
     if (videoRef.current) {
-      setCurrentTime(videoRef.current.currentTime);
+      const time = videoRef.current.currentTime;
+      setCurrentTime(time);
+      
+      // Update current frame based on time
+      const frame = keyFrames.find((frame, index) => 
+        time >= frame.time && (index === keyFrames.length - 1 || time < keyFrames[index + 1].time)
+      ) || null;
+      
+      setCurrentFrame(frame);
+      
       if (onTimeUpdate) {
-        onTimeUpdate(videoRef.current.currentTime);
+        onTimeUpdate(time);
       }
     }
   };
@@ -301,15 +317,25 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpd
   useEffect(() => {
     fetch("/frames.json")
       .then(response => response.json())
-      .then((data: { frames: { time: number; description_pl: string; description_en: string }[] }) => {
+      .then((data) => {
         if (data && data.frames) {
-          setKeyFrames(data.frames.map((frame) => ({
+          const frames = data.frames.map((frame: any) => ({
             time: frame.time,
             description: {
-              pl: frame.description_pl,
-              en: frame.description_en
-            }
-          })));
+              pl: frame.description?.pl || "",
+              en: frame.description?.en || ""
+            },
+            info: frame.info ? {
+              pl: frame.info.pl || "",
+              en: frame.info.en || ""
+            } : undefined
+          }));
+          setKeyFrames(frames);
+          
+          // Auto-show info tooltip if first frame has info
+          if (frames.length > 0 && frames[0].info) {
+            setShowInfoTooltip(true);
+          }
         }
       })
       .catch(error => console.error("Error loading key frames:", error));
@@ -329,11 +355,11 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpd
       <div className="relative w-full aspect-video bg-black rounded-t-lg overflow-hidden">
         {!isFullscreen && (
           <>
-      <video
-        ref={videoRef}
+            <video
+              ref={videoRef}
               className="w-full h-full object-contain"
               poster="/images/splash-screen2.jpg"
-        onClick={togglePlayPause}
+              onClick={togglePlayPause}
               onTimeUpdate={handleTimeUpdate}
               onDurationChange={handleDurationChange}
               onPlay={() => setShowPoster(false)}
@@ -344,9 +370,17 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpd
               }}
             >
               <source src="/onmsz_medium_compressed.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
-      
+              Your browser does not support the video tag.
+            </video>
+            
+            {/* Info Tooltip */}
+            <InfoTooltip 
+              info={currentFrame?.info}
+              language={language}
+              isVisible={showInfoTooltip}
+              onToggleVisibility={setShowInfoTooltip}
+            />
+            
             {/* Splash screen overlay */}
             {showPoster && (
               <div 
@@ -537,6 +571,14 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(({ onTimeUpd
                   <source src="/onmsz_medium_compressed.mp4" type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
+                
+                {/* Info Tooltip in fullscreen mode */}
+                <InfoTooltip 
+                  info={currentFrame?.info}
+                  language={language}
+                  isVisible={showInfoTooltip}
+                  onToggleVisibility={setShowInfoTooltip}
+                />
                 
                 {/* Splash screen overlay in dialog */}
                 {showPoster && (
