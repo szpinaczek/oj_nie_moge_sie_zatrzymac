@@ -338,7 +338,7 @@ const HomePageContent = () => {
 
           <div className="flex flex-col lg:flex-row gap-6">
             {/* Video section */}
-            <div className="video-section w-full scroll-mt-24 md:min-w-lg lg:min-w-lg" ref={videoSectionRef}>
+            <div className="video-section w-full lg:w-2/3 scroll-mt-24" ref={videoSectionRef}>
               <div className="max-w-[1280px] mx-auto">
                 <VideoPlayer 
                   ref={videoPlayerRef} 
@@ -351,7 +351,7 @@ const HomePageContent = () => {
             </div>
             
             {/* Map section */}
-            <div className="map-section w-full">
+            <div className="map-section w-full lg:flex-1">
               <div className="h-[300px] md:h-[400px] lg:h-full bg-brown-100 dark:bg-brown-800 rounded-lg overflow-hidden relative">
                 {mapData && (
                   <MapComponent
@@ -404,7 +404,7 @@ const HomePageContent = () => {
                               ref={setRowRef(index)}
                               className={`hover:bg-brown-50/50 dark:hover:bg-brown-800/30 transition-colors border-b border-brown-100 dark:border-brown-400/50 ${
                                 currentTime >= frame.time && (index === keyFrames.length - 1 || currentTime < keyFrames[index + 1].time)
-                                  ? "bg-primary/10 dark:bg-primary/20"
+                                  ? "bg-primary/20 dark:bg-primary/30"
                                   : ""
                               }`}
                             >
