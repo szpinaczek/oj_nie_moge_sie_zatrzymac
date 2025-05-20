@@ -355,7 +355,6 @@ const HomePageContent = () => {
               <div className="h-[300px] md:h-[400px] lg:h-full bg-brown-100 dark:bg-brown-800 rounded-lg overflow-hidden relative">
                 {mapData && (
                   <MapComponent
-                    mapData={mapData}
                     currentTime={currentTime}
                     onTimeUpdate={handleMapTimeUpdate}
                     language={language}

@@ -6,6 +6,68 @@ import 'leaflet/dist/leaflet.css';
 import { Button } from '@/components/ui/button';
 import { Home } from 'lucide-react';
 
+const mapStyles = `
+  .leaflet-control-container .leaflet-control {
+    z-index: 1000 !important;
+  }
+  .leaflet-control-zoom {
+    z-index: 1000 !important;
+    }
+    .leaflet-control-attribution {
+      z-index: 1000 !important;
+      }
+      .leaflet-control-home {
+        z-index: 1000 !important;
+    background: white;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: 0px solid rgba(0,0,0,0.2);
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+  .leaflet-control-home:hover {
+    background: #f4f4f4;
+  }
+  .dark .leaflet-control-home {
+    background: #1f2937;
+    border-color: rgba(255,255,255,0.2);
+  }
+  .dark .leaflet-control-home:hover {
+    background: #374151;
+  }
+  .dark .leaflet-control-home svg {
+    stroke: white;
+  }
+  .leaflet-control-zoom a {
+    background-color: white !important;
+    color: black !important;
+    border: 0px solid rgba(0,0,0,0.2) !important;
+  }
+  .dark .leaflet-control-zoom a {
+    background-color: #1f2937 !important;
+    color: white !important;
+    border-color: rgba(138, 100, 58, 0.2) !important;
+  }
+  .leaflet-control-attribution {
+    background-color: rgba(255,255,255,0.8) !important;
+    color: black !important;
+  }
+  .dark .leaflet-control-attribution {
+    background-color: rgba(31,41,55,0.8) !important;
+    color: white !important;
+  }
+  .leaflet-control-attribution a {
+    color:rgb(56, 54, 41) !important;
+  }
+  .dark .leaflet-control-attribution a {
+    color:rgb(155, 147, 136) !important;
+  }
+`;
+
 // Tworzymy własną ikonę dla znacznika aktualnej pozycji
 const CurrentPositionIcon = L.icon({
   iconUrl: "/images/marker-icon-red.png",
@@ -332,6 +394,7 @@ const MapComponent = forwardRef<MapComponentHandle, MapComponentProps>(({ curren
 
   return (
     <div ref={containerRef} className="relative w-full h-full">
+      <style>{mapStyles}</style>
       <MapContainer
         center={defaultCenter}
         zoom={13}
@@ -344,13 +407,13 @@ const MapComponent = forwardRef<MapComponentHandle, MapComponentProps>(({ curren
         />
 
         <LayersControl position="bottomright">
-            <LayersControl.BaseLayer checked name="Mapa standardowa">
+            <LayersControl.BaseLayer checked name="Standard map">
               <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               />
             </LayersControl.BaseLayer>
-            <LayersControl.BaseLayer name="Zdjęcia satelitarne">
+            <LayersControl.BaseLayer name="Satellite map">
               <TileLayer
                 url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
                 attribution='&copy; <a href="https://www.esri.com/">Esri</a>, Maxar, Earthstar Geographics, and the GIS User Community'
@@ -425,7 +488,7 @@ const MapComponent = forwardRef<MapComponentHandle, MapComponentProps>(({ curren
       <div className="absolute top-4 right-4 flex flex-col gap-2 z-[1000]">
         <Button
           variant="outline"
-          size="icon"
+          size="sm"
           className="bg-white/90 dark:bg-gray-800/90 hover:bg-white dark:hover:bg-gray-800 text-gray-900 dark:text-gray-100"
           onClick={resetView}
         >
