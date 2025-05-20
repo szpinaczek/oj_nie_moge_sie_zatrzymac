@@ -9,8 +9,8 @@
         "en": "Arturówek, route start"
       },
       "info": {
-        "pl": "Zaczynamy w Arturówku",
-        "en": "Starting point of our route. This is where we begin our journey."
+        "pl": "Zaczynamy w brzozowym lasku w dzielnicy Arturówek. Na widocznym w oddali nasypie kolejowym obecnie znajduje się przystanek Łódź Warszawska.",
+        "en": "We start in a birch grove in the Arturówek district. On the railway embankment visible in the distance, there is currently the Łódź Warszawska stop."
       }
     },
     {
@@ -20,10 +20,6 @@
       "description": {
         "pl": "ul. Perlicza",
         "en": "Perlicza Street"
-      },
-      "info": {
-        "pl": "Dziś w tym miejscu znajduje się stacja Łódź Arturówek",
-        "en": "We've reached the first checkpoint. Time for a short break."
       }
     },
     {
@@ -186,6 +182,10 @@
       "description": {
         "pl": "ul. Inflancka, warsztaty PKS",
         "en": "Inflancka Street, PKS workshops"
+      },
+      "info": {
+        "pl": "Baza PKS, dziś w tym miejscu znajduje się parking hipermarketu.",
+        "en": "The headquarters and workshops of the Polish State Road Transportation Company - PKS. Today there is a hypermarket parking lot in this place."
       }
     },
     {

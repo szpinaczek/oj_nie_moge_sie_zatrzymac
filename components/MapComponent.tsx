@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, forwardRef, useImperativeHandle, useState } from "react";
-import { MapContainer, TileLayer, Marker, Polyline } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Polyline, LayersControl } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { MapComponentProps, MapComponentHandle, MapData } from "@/types/map";
@@ -221,10 +221,20 @@ const MapComponent = forwardRef<MapComponentHandle, MapComponentProps>(
             }
           }}
         >
-          <TileLayer
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          />
+          <LayersControl position="topright">
+            <LayersControl.BaseLayer checked name="Mapa standardowa">
+              <TileLayer
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              />
+            </LayersControl.BaseLayer>
+            <LayersControl.BaseLayer name="Zdjęcia satelitarne">
+              <TileLayer
+                url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+                attribution='&copy; <a href="https://www.esri.com/">Esri</a>, Maxar, Earthstar Geographics, and the GIS User Community'
+              />
+            </LayersControl.BaseLayer>
+          </LayersControl>
           <Polyline
             positions={mapData.route}
             color="#d93472"
