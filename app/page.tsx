@@ -295,7 +295,7 @@ const HomePageContent = () => {
     <div className="min-h-screen bg-brown-100 dark:bg-brown-900 transition-colors duration-200">
       <div className="container mx-auto px-4">
         {/* Sticky header */}
-        <div className="sticky top-0 z-[1000] bg-brown-50 dark:bg-brown-700/80 backdrop-blur-sm border-b border-brown-100 dark:border-brown-700 py-4 px-4">
+        <div className="sticky top-0 z-[1001] bg-brown-50 dark:bg-brown-700/80 backdrop-blur-sm border-b border-brown-100 dark:border-brown-700 py-4 px-4">
           <div className="flex justify-between items-center">
             <h1 className="text-2xl font-bold text-brown-900 dark:text-brown-100">
               {getTranslation('title', language)}

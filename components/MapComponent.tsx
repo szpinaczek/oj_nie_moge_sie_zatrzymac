@@ -39,6 +39,9 @@ const mapStyles = `
     background-color: rgb(230, 230, 230) !important;
     color: black !important;
   }
+  .leaflet-control-attribution a {
+    color: rgb(56, 54, 41) !important;
+  }
   .dark .leaflet-control-home {
     background-color: black !important;
   }
@@ -57,16 +60,12 @@ const mapStyles = `
     color: black !important;
   }
   .dark .leaflet-control-attribution {
-    background-color: white !important;
-    color: black !important;
-  }
-  .leaflet-control-attribution a {
-    color:rgb(56, 54, 41) !important;
+    background-color: black !important;
+    color: lightgray !important;
   }
   .dark .leaflet-control-attribution a {
-    color: black !important;
+    color: gray !important;
   }
-  /* Dark mode styles for map */
   .dark .leaflet-container {
     background: #000;
   }
@@ -103,7 +102,7 @@ const CurrentPositionIcon = L.icon({
 // Ikona dla punktów kluczowych (kropka)
 const KeyFrameIcon = L.divIcon({
   className: 'key-frame-marker',
-  html: '<div class="w-3 h-3 bg-primary rounded-full border-2 border-white shadow-md"></div>',
+  html: '<div class="w-3 h-3 bg-primary rounded-full border-2 border-white dark:border-gray-200 shadow-md"></div>',
   iconSize: [12, 12],
   iconAnchor: [6, 6]
 });
@@ -582,7 +581,7 @@ const MapComponent = forwardRef<MapComponentHandle, MapComponentProps>(({ curren
         <Button
           variant="outline"
           size="sm"
-          className="bg-white/90 dark:bg-gray-800/90 hover:bg-white dark:hover:bg-gray-800 text-gray-900 dark:text-gray-100"
+          className="bg-white/90 dark:bg-black hover:bg-white dark:hover:bg-black/90 text-gray-900 dark:text-gray-100"
           onClick={resetView}
         >
           <Home className="h-4 w-4" />
