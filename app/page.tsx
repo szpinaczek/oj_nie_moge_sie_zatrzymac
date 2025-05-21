@@ -297,7 +297,7 @@ const HomePageContent = () => {
         {/* Sticky header */}
         <div className="sticky top-0 z-[1001] bg-brown-50 dark:bg-brown-700/80 backdrop-blur-sm border-b border-brown-100 dark:border-brown-700 py-4 px-4">
           <div className="flex justify-between items-center">
-            <h1 className="text-2xl font-bold text-brown-900 dark:text-brown-100">
+            <h1 className="text-xl font-bold text-primary dark:text-brown-100">
               {getTranslation('title', language)}
             </h1>
             <div className="flex items-center gap-2">
@@ -403,7 +403,7 @@ const HomePageContent = () => {
                               ref={setRowRef(index)}
                               className={`hover:bg-brown-50/50 dark:hover:bg-brown-800/30 transition-colors border-b border-brown-100 dark:border-brown-400/50 ${
                                 currentTime >= frame.time && (index === keyFrames.length - 1 || currentTime < keyFrames[index + 1].time)
-                                  ? "bg-primary/20 dark:bg-primary/30"
+                                  ? "bg-primary/20 dark:bg-primary/20"
                                   : ""
                               }`}
                             >

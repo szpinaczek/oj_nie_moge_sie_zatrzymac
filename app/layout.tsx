@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Inter, Cairo, Fraunces, Open_Sans } from 'next/font/google'
+import { Inter, Cairo, Fraunces, Open_Sans, Cutive, Special_Elite } from 'next/font/google'
 import './globals.css'
 
 const openSans = Open_Sans({
@@ -14,6 +14,16 @@ const fraunces = Fraunces({
   subsets: ['latin'],
   variable: '--font-fraunces',
 })
+const cutive = Cutive({
+  weight: '400',
+  subsets: ['latin'],
+  variable: '--font-cutive',
+})
+const specialElite = Special_Elite({
+  weight: '400',
+  subsets: ['latin'],
+  variable: '--font-elite',
+})
 
 export const metadata: Metadata = {
   title: `I can't stop`,
@@ -27,7 +37,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${openSans.className}  ${cairo.variable} ${fraunces.variable}`}>{children}</body>
+      <body className={`${openSans.className}  ${cairo.variable} ${fraunces.variable} ${cutive.variable} ${specialElite.variable}`}>{children}</body>
     </html>
   )
 }

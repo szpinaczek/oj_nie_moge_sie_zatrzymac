@@ -517,7 +517,7 @@ const MapComponent = forwardRef<MapComponentHandle, MapComponentProps>(({ curren
         <Polyline
           positions={mapData.frames.map(frame => [frame.lat, frame.lng])}
           pathOptions={{
-            color: '#d93472',
+            color: '#B4225A',
             weight: 4,
             opacity: 0.7,
             lineJoin: 'round'

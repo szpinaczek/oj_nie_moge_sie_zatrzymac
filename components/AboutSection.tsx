@@ -19,7 +19,7 @@ export function AboutSection({ language }: AboutSectionProps) {
     <div className="w-full flex flex-col lg:flex-row justify-between gap-6 p-0 m-0 border-0">
       <Card className="order-0 bg-brown-50 dark:bg-brown-700 flex-col md:flex-row shadow-md border-0 m-0 w-full lg:min-w-[50%]">
         <CardHeader>
-          <CardTitle className="text-3xl font-bold tracking-tight text-brown-900 dark:text-brown-100">
+          <CardTitle className="text-2xl font-bold tracking-tight text-brown-900 dark:text-brown-100">
             {getTranslation('about', language)}
           </CardTitle>
         </CardHeader>
@@ -31,7 +31,7 @@ export function AboutSection({ language }: AboutSectionProps) {
       </Card>
       <Card className="order-1 bg-brown-50 dark:bg-brown-700 flex-col md:flex-row border-0">
         <CardHeader>
-          <CardTitle className="text-3xl font-bold tracking-tight text-brown-900 dark:text-brown-100">
+          <CardTitle className="text-2xl font-bold tracking-tight text-brown-900 dark:text-brown-100">
             {getTranslation('aboutMovie', language)}
           </CardTitle>
           {/* <p className="text-md text-brown-900 dark:text-brown-100">
