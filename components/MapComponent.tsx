@@ -74,7 +74,7 @@ const mapStyles = `
   .dark .leaflet-layer,
   .dark .leaflet-control-zoom-in,
   .dark .leaflet-control-zoom-out {
-    filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
+    filter: invert(100%) hue-rotate(140deg) brightness(95%) contrast(90%);
   }
   
   /* Remove filter for satellite map in dark mode */
@@ -85,7 +85,7 @@ const mapStyles = `
   /* Ensure zoom controls always have the filter */
   body.satellite-active.dark .leaflet-control-zoom-in,
   body.satellite-active.dark .leaflet-control-zoom-out {
-    filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
+    filter: invert(100%) hue-rotate(140deg) brightness(95%) contrast(90%);
   }
 `;
 
@@ -361,7 +361,7 @@ const MapComponent = forwardRef<MapComponentHandle, MapComponentProps>(({ curren
             const zoomControls = document.querySelectorAll('.leaflet-control-zoom-in, .leaflet-control-zoom-out');
             zoomControls.forEach(control => {
               if (control instanceof HTMLElement) {
-                control.style.filter = 'invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%)';
+                control.style.filter = 'invert(100%) hue-rotate(140deg) brightness(95%) contrast(90%)';
               }
             });
           }, 100);
@@ -399,7 +399,7 @@ const MapComponent = forwardRef<MapComponentHandle, MapComponentProps>(({ curren
           const zoomControls = document.querySelectorAll('.leaflet-control-zoom-in, .leaflet-control-zoom-out');
           zoomControls.forEach(control => {
             if (control instanceof HTMLElement) {
-              control.style.filter = 'invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%)';
+              control.style.filter = 'invert(100%) hue-rotate(140deg) brightness(95%) contrast(90%)';
             }
           });
         }, 100);
@@ -517,7 +517,7 @@ const MapComponent = forwardRef<MapComponentHandle, MapComponentProps>(({ curren
         <Polyline
           positions={mapData.frames.map(frame => [frame.lat, frame.lng])}
           pathOptions={{
-            color: '#B4225A',
+            color: '#D93472',
             weight: 4,
             opacity: 0.7,
             lineJoin: 'round'
