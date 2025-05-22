@@ -7,6 +7,9 @@ import { getTranslation } from "@/app/i18n/translations";
 import { Language } from "@/types/map";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Calendar, Clock, Award, Film, User, MapPin, Bookmark } from "lucide-react";
 
 interface AboutSectionProps {
   language: Language;
@@ -29,138 +32,259 @@ export function AboutSection({ language }: AboutSectionProps) {
           </p>
         </CardContent>
       </Card>
-      <Card className="order-1 bg-brown-50 dark:bg-brown-700 flex-col md:flex-row border-0">
-        <CardHeader>
-          <CardTitle className="text-2xl font-bold tracking-tight text-brown-900 dark:text-brown-100">
+      <Card className="order-1 bg-gradient-to-br from-brown-50 to-brown-100 dark:from-brown-700 dark:to-brown-800 flex-col md:flex-row border-0 shadow-lg hover:shadow-xl transition-all duration-300">
+        <CardHeader className="border-b border-brown-200 dark:border-brown-600">
+          <CardTitle className="text-2xl font-bold tracking-tight text-brown-900 dark:text-brown-100 flex items-center gap-2">
+            <Film className="h-6 w-6" />
             {getTranslation('aboutMovie', language)}
           </CardTitle>
-          {/* <p className="text-md text-brown-900 dark:text-brown-100">
-            {getTranslation('aboutApp', language)}
-          </p> */}
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-6">
           <Tabs defaultValue="film" className="w-full">
-            <TabsList className="mb-8">
-              <TabsTrigger value="film" className="text-base">
+            <TabsList className="mb-8 bg-brown-200/50 dark:bg-brown-600/50 p-1 rounded-xl">
+              <TabsTrigger 
+                value="film" 
+                className="text-base data-[state=active]:bg-brown-100 dark:data-[state=active]:bg-brown-500 data-[state=active]:text-brown-900 dark:data-[state=active]:text-brown-50 transition-all duration-200 rounded-lg flex items-center gap-2"
+              >
+                <Film className="h-4 w-4" />
                 {getTranslation('aboutFilm', language)}
               </TabsTrigger>
-              <TabsTrigger value="director" className="text-base">
+              <TabsTrigger 
+                value="director" 
+                className="text-base data-[state=active]:bg-brown-100 dark:data-[state=active]:bg-brown-500 data-[state=active]:text-brown-900 dark:data-[state=active]:text-brown-50 transition-all duration-200 rounded-lg flex items-center gap-2"
+              >
+                <User className="h-4 w-4" />
                 {getTranslation('aboutDirector', language)}
               </TabsTrigger>
-              <TabsTrigger value="location" className="text-base">
+              <TabsTrigger 
+                value="location" 
+                className="text-base data-[state=active]:bg-brown-100 dark:data-[state=active]:bg-brown-500 data-[state=active]:text-brown-900 dark:data-[state=active]:text-brown-50 transition-all duration-200 rounded-lg flex items-center gap-2"
+              >
+                <MapPin className="h-4 w-4" />
                 {getTranslation('location', language)}
               </TabsTrigger>
             </TabsList>
-            <TabsContent value="film" className="space-y-4">
-              <p className="text-md text-brown-900 dark:text-brown-100">
-                {getTranslation('filmDescription', language)}
-              </p> 
-              <div className="grid gap-4">
-                <div className="flex items-top gap-2">
-                  <span className="font-semibold text-brown-900 dark:text-brown-100">
-                    {getTranslation('filmYear', language)}:
-                  </span>
-                  <span className="text-brown-900 dark:text-brown-100">1975</span>
+            
+            <TabsContent value="film" className="space-y-6">
+              <ScrollArea className="h-[300px] pr-4">
+                <div className="bg-brown-100/50 dark:bg-brown-600/50 p-4 rounded-lg mb-6 border-l-4 border-brown-400 dark:border-brown-300">
+                  <p className="text-md text-brown-900 dark:text-brown-100 italic">
+                    {getTranslation('filmDescription', language)}
+                  </p>
                 </div>
-                <div className="flex items-top gap-2">
-                  <span className="font-semibold text-brown-900 dark:text-brown-100">
-                    {getTranslation('filmDuration', language)}:
-                  </span>
-                  <span className="text-brown-900 dark:text-brown-100">10:30</span>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <Card className="bg-brown-50/70 dark:bg-brown-800/70 border border-brown-200 dark:border-brown-600 shadow-sm hover:shadow-md transition-all duration-200">
+                    <CardContent className="p-4 flex items-center gap-3">
+                      <Calendar className="h-8 w-8 text-brown-700 dark:text-brown-300" />
+                      <div>
+                        <p className="text-sm font-medium text-brown-500 dark:text-brown-400">
+                          {getTranslation('filmYear', language)}
+                        </p>
+                        <p className="text-lg font-bold text-brown-900 dark:text-brown-100">1975</p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                  
+                  <Card className="bg-brown-50/70 dark:bg-brown-800/70 border border-brown-200 dark:border-brown-600 shadow-sm hover:shadow-md transition-all duration-200">
+                    <CardContent className="p-4 flex items-center gap-3">
+                      <Clock className="h-8 w-8 text-brown-700 dark:text-brown-300" />
+                      <div>
+                        <p className="text-sm font-medium text-brown-500 dark:text-brown-400">
+                          {getTranslation('filmDuration', language)}
+                        </p>
+                        <p className="text-lg font-bold text-brown-900 dark:text-brown-100">10:30</p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                  
+                  <Card className="bg-brown-50/70 dark:bg-brown-800/70 border border-brown-200 dark:border-brown-600 shadow-sm hover:shadow-md transition-all duration-200">
+                    <CardContent className="p-4">
+                      <div className="flex items-center gap-3 mb-2">
+                        <Film className="h-6 w-6 text-brown-700 dark:text-brown-300" />
+                        <p className="text-sm font-medium text-brown-500 dark:text-brown-400">
+                          {getTranslation('filmTechnique', language)}
+                        </p>
+                      </div>
+                      <p className="text-brown-900 dark:text-brown-100 pl-9">
+                        {getTranslation('filmTechniqueValue', language)}
+                      </p>
+                    </CardContent>
+                  </Card>
+                  
+                  <Card className="bg-brown-50/70 dark:bg-brown-800/70 border border-brown-200 dark:border-brown-600 shadow-sm hover:shadow-md transition-all duration-200">
+                    <CardContent className="p-4">
+                      <div className="flex items-center gap-3 mb-2">
+                        <Award className="h-6 w-6 text-brown-700 dark:text-brown-300" />
+                        <p className="text-sm font-medium text-brown-500 dark:text-brown-400">
+                          {getTranslation('filmAwards', language)}
+                        </p>
+                      </div>
+                      <p className="text-brown-900 dark:text-brown-100 pl-9">
+                        {getTranslation('filmAwardsValue', language)}
+                      </p>
+                    </CardContent>
+                  </Card>
                 </div>
-                <div className="flex items-top gap-2">
-                  <span className="font-semibold text-brown-900 dark:text-brown-100">
-                    {getTranslation('filmTechnique', language)}:
-                  </span>
-                  <span className="text-brown-900 dark:text-brown-100">
-                    {getTranslation('filmTechniqueValue', language)}
-                  </span>
+                
+                <div className="mt-6 flex justify-end">
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button variant="outline" className="text-brown-700 dark:text-brown-300 border-brown-300 dark:border-brown-600 hover:bg-brown-100 dark:hover:bg-brown-700">
+                        <Bookmark className="mr-2 h-4 w-4" />
+                        {getTranslation('learnMore', language) || 'Learn more'}
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-[425px] bg-brown-50 dark:bg-brown-800 text-brown-900 dark:text-brown-100">
+                      <DialogHeader>
+                        <DialogTitle>{getTranslation('aboutFilm', language)}</DialogTitle>
+                        <DialogDescription className="text-brown-700 dark:text-brown-300">
+                          {getTranslation('filmDescription', language)}
+                        </DialogDescription>
+                      </DialogHeader>
+                      <div className="py-4">
+                        <p className="text-brown-900 dark:text-brown-100">
+                          {getTranslation('filmAwardsValue', language)}
+                        </p>
+                      </div>
+                    </DialogContent>
+                  </Dialog>
                 </div>
-                <div className="flex items-top gap-2">
-                  <span className="font-semibold text-brown-900 dark:text-brown-100">
-                    {getTranslation('filmAwards', language)}:
-                  </span>
-                  <span className="text-brown-900 dark:text-brown-100">
-                    {getTranslation('filmAwardsValue', language)}
-                  </span>
-                </div>
-              </div>
+              </ScrollArea>
             </TabsContent>
+            
             <TabsContent value="director" className="space-y-4">
-              <p className="text-md text-brown-900 dark:text-brown-100">
-                {getTranslation('directorDescription', language)}
-              </p>
-              <div className="grid gap-4">
-                <div className="flex items-top gap-2">
-                  <span className="font-semibold text-brown-900 dark:text-brown-100">
-                    {getTranslation('directorBorn', language)}:
-                  </span>
-                  <span className="text-brown-900 dark:text-brown-100">1949</span>
+              <ScrollArea className="h-[300px] pr-4">
+                <div className="bg-brown-100/50 dark:bg-brown-600/50 p-4 rounded-lg mb-6 border-l-4 border-brown-400 dark:border-brown-300">
+                  <p className="text-md text-brown-900 dark:text-brown-100 italic">
+                    {getTranslation('directorDescription', language)}
+                  </p>
                 </div>
-                <div className="flex items-top gap-2">
-                  <span className="font-semibold text-brown-900 dark:text-brown-100">
-                    {getTranslation('directorEducation', language)}:
-                  </span>
-                  <span className="text-brown-900 dark:text-brown-100">
-                    {getTranslation('directorEducationValue', language)}
-                  </span>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <Card className="bg-brown-50/70 dark:bg-brown-800/70 border border-brown-200 dark:border-brown-600 shadow-sm hover:shadow-md transition-all duration-200">
+                    <CardContent className="p-4 flex items-center gap-3">
+                      <Calendar className="h-8 w-8 text-brown-700 dark:text-brown-300" />
+                      <div>
+                        <p className="text-sm font-medium text-brown-500 dark:text-brown-400">
+                          {getTranslation('directorBorn', language)}
+                        </p>
+                        <p className="text-lg font-bold text-brown-900 dark:text-brown-100">1949</p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                  
+                  <Card className="bg-brown-50/70 dark:bg-brown-800/70 border border-brown-200 dark:border-brown-600 shadow-sm hover:shadow-md transition-all duration-200">
+                    <CardContent className="p-4">
+                      <div className="flex items-center gap-3 mb-2">
+                        <User className="h-6 w-6 text-brown-700 dark:text-brown-300" />
+                        <p className="text-sm font-medium text-brown-500 dark:text-brown-400">
+                          {getTranslation('directorEducation', language)}
+                        </p>
+                      </div>
+                      <p className="text-brown-900 dark:text-brown-100 pl-9">
+                        {getTranslation('directorEducationValue', language)}
+                      </p>
+                    </CardContent>
+                  </Card>
+                  
+                  <Card className="bg-brown-50/70 dark:bg-brown-800/70 border border-brown-200 dark:border-brown-600 shadow-sm hover:shadow-md transition-all duration-200">
+                    <CardContent className="p-4">
+                      <div className="flex items-center gap-3 mb-2">
+                        <Award className="h-6 w-6 text-brown-700 dark:text-brown-300" />
+                        <p className="text-sm font-medium text-brown-500 dark:text-brown-400">
+                          {getTranslation('directorAchievements', language)}
+                        </p>
+                      </div>
+                      <p className="text-brown-900 dark:text-brown-100 pl-9">
+                        {getTranslation('directorAchievementsValue', language)}
+                      </p>
+                    </CardContent>
+                  </Card>
+                  
+                  <Card className="bg-brown-50/70 dark:bg-brown-800/70 border border-brown-200 dark:border-brown-600 shadow-sm hover:shadow-md transition-all duration-200">
+                    <CardContent className="p-4">
+                      <div className="flex items-center gap-3 mb-2">
+                        <Bookmark className="h-6 w-6 text-brown-700 dark:text-brown-300" />
+                        <p className="text-sm font-medium text-brown-500 dark:text-brown-400">
+                          {getTranslation('directorLegacy', language)}
+                        </p>
+                      </div>
+                      <p className="text-brown-900 dark:text-brown-100 pl-9">
+                        {getTranslation('directorLegacyValue', language)}
+                      </p>
+                    </CardContent>
+                  </Card>
                 </div>
-                <div className="flex items-top gap-2">
-                  <span className="font-semibold text-brown-900 dark:text-brown-100">
-                    {getTranslation('directorAchievements', language)}:
-                  </span>
-                  <span className="text-brown-900 dark:text-brown-100">
-                    {getTranslation('directorAchievementsValue', language)}
-                  </span>
-                </div>
-                <div className="flex items-top gap-2">
-                  <span className="font-semibold text-brown-900 dark:text-brown-100">
-                    {getTranslation('directorLegacy', language)}:
-                  </span>
-                  <span className="text-brown-900 dark:text-brown-100">
-                    {getTranslation('directorLegacyValue', language)}
-                  </span>
-                </div>
-              </div>
+              </ScrollArea>
             </TabsContent>
+            
             <TabsContent value="location" className="space-y-4">
-              <p className="text-md text-brown-900 dark:text-brown-100">
-                {getTranslation('locationDescription', language)}
-              </p>
-              <div className="grid gap-4">
-                <div className="flex items-top gap-2">
-                  <span className="font-semibold text-brown-900 dark:text-brown-100">
-                    {getTranslation('locationCity', language)}:
-                  </span>
-                  <span className="text-brown-900 dark:text-brown-100">
-                    {getTranslation('locationCityValue', language)}
-                  </span>
+              <ScrollArea className="h-[300px] pr-4">
+                <div className="bg-brown-100/50 dark:bg-brown-600/50 p-4 rounded-lg mb-6 border-l-4 border-brown-400 dark:border-brown-300">
+                  <p className="text-md text-brown-900 dark:text-brown-100 italic">
+                    {getTranslation('locationDescription', language)}
+                  </p>
                 </div>
-                <div className="flex items-top gap-2">
-                  <span className="font-semibold text-brown-900 dark:text-brown-100">
-                    {getTranslation('locationStudio', language)}:
-                  </span>
-                  <span className="text-brown-900 dark:text-brown-100">
-                    {getTranslation('locationStudioValue', language)}
-                  </span>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <Card className="bg-brown-50/70 dark:bg-brown-800/70 border border-brown-200 dark:border-brown-600 shadow-sm hover:shadow-md transition-all duration-200">
+                    <CardContent className="p-4">
+                      <div className="flex items-center gap-3 mb-2">
+                        <MapPin className="h-6 w-6 text-brown-700 dark:text-brown-300" />
+                        <p className="text-sm font-medium text-brown-500 dark:text-brown-400">
+                          {getTranslation('locationCity', language)}
+                        </p>
+                      </div>
+                      <p className="text-brown-900 dark:text-brown-100 pl-9">
+                        {getTranslation('locationCityValue', language)}
+                      </p>
+                    </CardContent>
+                  </Card>
+                  
+                  <Card className="bg-brown-50/70 dark:bg-brown-800/70 border border-brown-200 dark:border-brown-600 shadow-sm hover:shadow-md transition-all duration-200">
+                    <CardContent className="p-4">
+                      <div className="flex items-center gap-3 mb-2">
+                        <Film className="h-6 w-6 text-brown-700 dark:text-brown-300" />
+                        <p className="text-sm font-medium text-brown-500 dark:text-brown-400">
+                          {getTranslation('locationStudio', language)}
+                        </p>
+                      </div>
+                      <p className="text-brown-900 dark:text-brown-100 pl-9">
+                        {getTranslation('locationStudioValue', language)}
+                      </p>
+                    </CardContent>
+                  </Card>
+                  
+                  <Card className="bg-brown-50/70 dark:bg-brown-800/70 border border-brown-200 dark:border-brown-600 shadow-sm hover:shadow-md transition-all duration-200">
+                    <CardContent className="p-4">
+                      <div className="flex items-center gap-3 mb-2">
+                        <Bookmark className="h-6 w-6 text-brown-700 dark:text-brown-300" />
+                        <p className="text-sm font-medium text-brown-500 dark:text-brown-400">
+                          {getTranslation('locationSignificance', language)}
+                        </p>
+                      </div>
+                      <p className="text-brown-900 dark:text-brown-100 pl-9">
+                        {getTranslation('locationSignificanceValue', language)}
+                      </p>
+                    </CardContent>
+                  </Card>
+                  
+                  <Card className="bg-brown-50/70 dark:bg-brown-800/70 border border-brown-200 dark:border-brown-600 shadow-sm hover:shadow-md transition-all duration-200">
+                    <CardContent className="p-4">
+                      <div className="flex items-center gap-3 mb-2">
+                        <MapPin className="h-6 w-6 text-brown-700 dark:text-brown-300" />
+                        <p className="text-sm font-medium text-brown-500 dark:text-brown-400">
+                          {getTranslation('locationToday', language)}
+                        </p>
+                      </div>
+                      <p className="text-brown-900 dark:text-brown-100 pl-9">
+                        {getTranslation('locationTodayValue', language)}
+                      </p>
+                    </CardContent>
+                  </Card>
                 </div>
-                <div className="flex items-top gap-2">
-                  <span className="font-semibold text-brown-900 dark:text-brown-100">
-                    {getTranslation('locationSignificance', language)}:
-                  </span>
-                  <span className="text-brown-900 dark:text-brown-100">
-                    {getTranslation('locationSignificanceValue', language)}
-                  </span>
-                </div>
-                <div className="flex items-top gap-2">
-                  <span className="font-semibold text-brown-900 dark:text-brown-100">
-                    {getTranslation('locationToday', language)}:
-                  </span>
-                  <span className="text-brown-900 dark:text-brown-100">
-                    {getTranslation('locationTodayValue', language)}
-                  </span>
-                </div>
-              </div>
+              </ScrollArea>
             </TabsContent>
           </Tabs>
         </CardContent>
