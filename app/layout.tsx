@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Inter, Cairo, Fraunces, Open_Sans, Cutive, Special_Elite } from 'next/font/google'
 import './globals.css'
 import { ThemeProvider } from '@/components/theme-provider'
+import Background from '@/components/Background'
 
 const openSans = Open_Sans({
   subsets: ['latin'],
@@ -39,9 +40,9 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${openSans.className} ${cairo.variable} ${fraunces.variable} ${cutive.variable} ${specialElite.variable}`}>
-        <ThemeProvider defaultTheme="system">
-          
-        {children}
+        <ThemeProvider defaultTheme="light">
+          <Background />
+          {children}
         </ThemeProvider>
       </body>
     </html>
