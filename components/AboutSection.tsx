@@ -1,6 +1,6 @@
 "use client";
 
-import { useTheme } from "next-themes";
+// import { useTheme } from "next-themes";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getTranslation } from "@/app/i18n/translations";
@@ -16,7 +16,7 @@ interface AboutSectionProps {
 }
 
 export function AboutSection({ language }: AboutSectionProps) {
-  const { theme } = useTheme();
+  // const { theme } = useTheme();
 
   return (
     <div className="w-full flex flex-col lg:flex-row justify-between gap-6 p-0 m-0 border-0">

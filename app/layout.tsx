@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter, Cairo, Fraunces, Open_Sans, Cutive, Special_Elite } from 'next/font/google'
 import './globals.css'
+import { ThemeProvider } from '@/components/theme-provider'
 
 const openSans = Open_Sans({
   subsets: ['latin'],
@@ -36,8 +37,13 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={`${openSans.className}  ${cairo.variable} ${fraunces.variable} ${cutive.variable} ${specialElite.variable}`}>{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${openSans.className} ${cairo.variable} ${fraunces.variable} ${cutive.variable} ${specialElite.variable}`}>
+        <ThemeProvider defaultTheme="system">
+          
+        {children}
+        </ThemeProvider>
+      </body>
     </html>
   )
 }

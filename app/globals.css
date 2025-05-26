@@ -167,7 +167,58 @@ body {
     @apply border-border;
   }
   body {
-    @apply bg-brown-100 dark:bg-brown-800 text-foreground;
+    @apply bg-brown-100 dark:bg-brown-800 text-foreground relative;
+  }
+  
+  /* Gradient background styles */
+  .gradient-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0.3;
+  }
+  
+  /* Light mode gradient colors */
+  .light .gradient-background stop[class*="stop-color-brown-300"] {
+    stop-color: #947A66; /* brown-300 */
+  }
+  .light .gradient-background stop[class*="stop-color-brown-400"] {
+    stop-color: #615043; /* brown-400 */
+  }
+  .light .gradient-background stop[class*="stop-color-orange-400"] {
+    stop-color: #ED914A; /* orange-400 */
+  }
+  .light .gradient-background stop[class*="stop-color-orange-500"] {
+    stop-color: #E8741E; /* orange-500 */
+  }
+  .light .gradient-background stop[class*="stop-color-pink-300"] {
+    stop-color: #E987AC; /* pink-300 */
+  }
+  .light .gradient-background stop[class*="stop-color-pink-500"] {
+    stop-color: #D93472; /* pink-500 */
+  }
+  
+  /* Dark mode gradient colors */
+  .dark .gradient-background stop[class*="stop-color-brown-300"] {
+    stop-color: #B8A698; /* brown-200 - lighter for dark mode */
+  }
+  .dark .gradient-background stop[class*="stop-color-brown-400"] {
+    stop-color: #947A66; /* brown-300 - lighter for dark mode */
+  }
+  .dark .gradient-background stop[class*="stop-color-orange-400"] {
+    stop-color: #F1AD79; /* orange-300 - lighter for dark mode */
+  }
+  .dark .gradient-background stop[class*="stop-color-orange-500"] {
+    stop-color: #ED914A; /* orange-400 - lighter for dark mode */
+  }
+  .dark .gradient-background stop[class*="stop-color-pink-300"] {
+    stop-color: #F0ADC7; /* pink-200 - lighter for dark mode */
+  }
+  .dark .gradient-background stop[class*="stop-color-pink-500"] {
+    stop-color: #E987AC; /* pink-300 - lighter for dark mode */
   }
 }
 

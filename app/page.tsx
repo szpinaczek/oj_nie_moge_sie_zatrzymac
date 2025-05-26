@@ -28,7 +28,8 @@ import { getTranslation } from './i18n/translations';
 import { FlagIcons } from './components/FlagIcons';
 import L from 'leaflet';
 import dynamic from 'next/dynamic';
-import { useTheme } from 'next-themes';
+import { useTheme } from '@/components/theme-provider';
+import { ThemeToggle } from '@/components/theme-toggle';
 import type { MapData, Language } from '@/types/map';
 import { AboutSection } from '@/components/AboutSection';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -76,22 +77,10 @@ const HomePageContent = () => {
   const rowRefs = useRef<(HTMLTableRowElement | null)[]>([]);
   const tableRef = useRef<HTMLDivElement>(null);
   const [mapData, setMapData] = useState<MapData | null>(null);
-  const { theme } = useTheme();
+  const { theme, setTheme } = useTheme();
   const videoSectionRef = useRef<HTMLDivElement>(null);
 
-  // Handle dark mode
-  useEffect(() => {
-    const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    setIsDarkMode(isDark);
-  }, []);
-
-  useEffect(() => {
-    if (isDarkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, [isDarkMode]);
+  // Theme is now handled by ThemeProvider
 
   // Load frames data
   useEffect(() => {
@@ -292,7 +281,7 @@ const HomePageContent = () => {
   };
 
   return (
-    <div className="min-h-screen bg-brown-100 dark:bg-brown-900 transition-colors duration-200">
+    <div className="min-h-screen">
       <div className="container mx-auto px-4">
         {/* Sticky header */}
         <div className="sticky top-0 z-[1001] bg-brown-50 dark:bg-brown-700/80 backdrop-blur-sm border-b border-brown-100 dark:border-brown-700 py-4 px-4">
@@ -319,14 +308,7 @@ const HomePageContent = () => {
                   <FlagIcons.en />
                 </Button>
               </div>
-              <Button
-                variant="icon"
-                size="icon"
-                onClick={() => setIsDarkMode(!isDarkMode)}
-                className="h-5 w-5"
-              >
-                {isDarkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-              </Button>
+              <ThemeToggle />
             </div>
           </div>
         </div>
