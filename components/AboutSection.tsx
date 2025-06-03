@@ -9,7 +9,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Calendar, Clock, Award, Film, User, MapPin, Bookmark } from "lucide-react";
+import { Calendar, Clock, Award, Film, User, MapPin, Bookmark, Camera } from "lucide-react";
 
 interface AboutSectionProps {
   language: Language;
@@ -87,22 +87,22 @@ export function AboutSection({ language }: AboutSectionProps) {
               
               {/* External links */}
               <div className="flex flex-wrap gap-3 mt-4 justify-center md:justify-start">
-                <Button variant="outline" className="text-brown-700 dark:text-brown-300 border-brown-300 dark:border-brown-600 hover:bg-brown-100 dark:hover:bg-brown-700" 
-                  onClick={() => window.open('https://www.filmpolski.pl/fp/index.php?film=429295', '_blank')}>
+                <Button variant="outline" className="text-brown-700 dark:text-brown-100 border-brown-300 dark:border-brown-600 hover:bg-brown-100 dark:hover:bg-brown-700" 
+                  onClick={() => window.open('https://www.filmpolski.pl/fp/index.php?film=422453', '_blank')}>
                   <Film className="mr-2 h-4 w-4" />
                   {language === 'pl' ? 'Film Polski' : 'Polish Film Database'}
                 </Button>
                 
-                <Button variant="outline" className="text-brown-700 dark:text-brown-300 border-brown-300 dark:border-brown-600 hover:bg-brown-100 dark:hover:bg-brown-700"
+                <Button variant="outline" className="text-brown-700 dark:text-brown-100 border-brown-300 dark:border-brown-600 hover:bg-brown-100 dark:hover:bg-brown-700"
                   onClick={() => window.open('https://culture.pl/pl/tworca/zbigniew-rybczynski', '_blank')}>
                   <User className="mr-2 h-4 w-4" />
                   {language === 'pl' ? 'O reżyserze' : 'About the Director'}
                 </Button>
                 
-                <Button variant="outline" className="text-brown-700 dark:text-brown-300 border-brown-300 dark:border-brown-600 hover:bg-brown-100 dark:hover:bg-brown-700"
-                  onClick={() => window.open('https://www.se-ma-for.com/', '_blank')}>
-                  <Award className="mr-2 h-4 w-4" />
-                  {language === 'pl' ? 'Studio Se-Ma-For' : 'Se-Ma-For Studio'}
+                <Button variant="outline" className="text-brown-700 dark:text-brown-50 border-brown-300 dark:border-brown-600 hover:bg-brown-100 dark:hover:bg-brown-700"
+                  onClick={() => window.open('https://fototeka.fn.org.pl/pl/filmy/info/11199/oj-nie-moge-sie-zatrzymac.html', '_blank')}>
+                  <Camera className="mr-2 h-4 w-4" />
+                  {language === 'pl' ? 'Zdjęcia z planu filmowego' : 'Film Production Photos'}
                 </Button>
               </div>
               
@@ -219,7 +219,7 @@ export function AboutSection({ language }: AboutSectionProps) {
                 <div className="mt-6 flex justify-end">
                   <Dialog>
                     <DialogTrigger asChild>
-                      <Button variant="outline" className="text-brown-700 dark:text-brown-300 border-brown-300 dark:border-brown-600 hover:bg-brown-100 dark:hover:bg-brown-700">
+                      <Button variant="outline" className="text-brown-700 dark:text-brown-100 border-brown-300 dark:border-brown-600 hover:bg-brown-100 dark:hover:bg-brown-700">
                         <Bookmark className="mr-2 h-4 w-4" />
                         {getTranslation('learnMore', language) || 'Learn more'}
                       </Button>

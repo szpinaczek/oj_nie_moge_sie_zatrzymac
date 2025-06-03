@@ -62,7 +62,7 @@ const translations = {
       "Łódź była i jest ważnym ośrodkiem polskiej kinematografii, szczególnie w dziedzinie filmu animowanego.",
     locationToday: "Dziś",
     locationTodayValue:
-      "Studio Se-ma-for nadal działa, kontynuując tradycję polskiej animacji i realizując nowe projekty.",
+      "Studio Se-ma-for zakończyło działalnośc w 2018 roku.",
   },
   en: {
     title: "Oh! I Can't Stop! - Interactive Map Following The Film's Footsteps",
@@ -124,7 +124,7 @@ const translations = {
       "Łódź was and is an important center of Polish cinematography, especially in the field of animated film.",
     locationToday: "Today",
     locationTodayValue:
-      "The Se-ma-for Studio still operates, continuing the tradition of Polish animation and creating new projects.",
+      "Studio Se-ma-for ceased operations in 2018.",
   },
 } as const;
 
