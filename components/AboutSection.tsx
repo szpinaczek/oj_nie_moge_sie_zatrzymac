@@ -6,10 +6,20 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getTranslation } from "@/app/i18n/translations";
 import { Language } from "@/types/map";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Separator } from "@/components/ui/separator";
+// import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Calendar, Clock, Award, Film, User, MapPin, Bookmark, Camera } from "lucide-react";
+import { Calendar, Clock, Award, Film, User, MapPin, Bookmark, Camera, CalendarX, Table as TableIcon } from "lucide-react";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
+import Link from 'next/link';
 
 interface AboutSectionProps {
   language: Language;
@@ -94,7 +104,7 @@ export function AboutSection({ language }: AboutSectionProps) {
                 </Button>
                 
                 <Button variant="outline" className="text-brown-700 dark:text-brown-100 border-brown-300 dark:border-brown-600 hover:bg-brown-100 dark:hover:bg-brown-700"
-                  onClick={() => window.open('https://culture.pl/pl/tworca/zbigniew-rybczynski', '_blank')}>
+                  onClick={() => {language === 'pl' ? window.open('https://culture.pl/pl/tworca/zbigniew-rybczynski', '_blank') :  window.open('https://culture.pl/en/artist/zbigniew-rybczynski', '_blank')}}>
                   <User className="mr-2 h-4 w-4" />
                   {language === 'pl' ? 'O reżyserze' : 'About the Director'}
                 </Button>
@@ -107,7 +117,7 @@ export function AboutSection({ language }: AboutSectionProps) {
               </div>
               
               {/* Separator with quote */}
-              <div className="py-4">
+              {/* <div className="py-4">
                 <Separator className="my-4" />
                 <p className="text-center text-brown-600 dark:text-brown-400 italic text-sm">
                   {language === 'pl' 
@@ -115,7 +125,7 @@ export function AboutSection({ language }: AboutSectionProps) {
                     : '"Film is not just image and sound, it\'s a journey through time and space."'}
                 </p>
                 <Separator className="my-4" />
-              </div>
+              </div> */}
             </div>
           </ScrollArea>
         </CardContent>
@@ -221,21 +231,83 @@ export function AboutSection({ language }: AboutSectionProps) {
                     <DialogTrigger asChild>
                       <Button variant="outline" className="text-brown-700 dark:text-brown-100 border-brown-300 dark:border-brown-600 hover:bg-brown-100 dark:hover:bg-brown-700">
                         <Bookmark className="mr-2 h-4 w-4" />
-                        {getTranslation('learnMore', language) || 'Learn more'}
+                        {getTranslation('aboutAuthors', language) || 'About authors'}
                       </Button>
                     </DialogTrigger>
                     <DialogContent className="sm:max-w-[425px] bg-brown-50 dark:bg-brown-800 text-brown-900 dark:text-brown-100">
                       <DialogHeader>
-                        <DialogTitle>{getTranslation('aboutFilm', language)}</DialogTitle>
+                        <DialogTitle>{getTranslation('authors', language)}</DialogTitle>
                         <DialogDescription className="text-brown-700 dark:text-brown-300">
-                          {getTranslation('filmDescription', language)}
+                          <Table>
+                            <TableBody>
+                              <TableRow>
+                                <TableCell className="font-semibold">{getTranslation('authorDirector', language)}</TableCell>
+                                <TableCell>
+                                  {language === 'pl' ?
+                                    <Link href='https://culture.pl/pl/tworca/zbigniew-rybczynski' target="_blank" rel="noopener noreferrer">Zbigniew Rybczyński</Link> :
+                                    <Link href='https://culture.pl/en/artist/zbigniew-rybczynski' target="_blank" rel="noopener noreferrer">Zbigniew Rybczyński</Link>}
+                                </TableCell>
+                              </TableRow>
+                              <TableRow>
+                                <TableCell className="font-semibold">{getTranslation('authorMusic', language)}</TableCell>
+                                <TableCell>
+                                  {language === 'pl' ? <Link href="https://pl.wikipedia.org/wiki/Janusz_Hajdun">Janusz Hajdun</Link> : 'Janusz Hajdun'}
+                                </TableCell>
+                              </TableRow>
+                              <TableRow>
+                                <TableCell className="font-semibold">{getTranslation('authorSecondDirector', language)}</TableCell>
+                                <TableCell>
+                                  {language === 'pl' ? <Link href="https://culture.pl/pl/tworca/hieronim-neumann">Hieronim Nojman</Link> : 'Hieronim Nojman'}
+                                </TableCell>
+                              </TableRow>
+                              <TableRow>
+                                <TableCell className="font-semibold">{getTranslation('authorSecondOperator', language)}</TableCell>
+                                <TableCell>
+                                  {language === 'pl' ?
+                                    <Link href='https://filmpolski.pl/fp/index.php?osoba=1114024' target="_blank" rel="noopener noreferrer">Janusz Olszewski</Link> :
+                                    <Link href='https://www.imdb.com/name/nm2590520' target="_blank" rel="noopener noreferrer">Janusz Olszewski</Link>}
+                                </TableCell>
+                              </TableRow>
+                              <TableRow>
+                                <TableCell className="font-semibold">{getTranslation('authorProducer', language)}</TableCell>
+                                <TableCell>
+                                  {language === 'pl' ? <Link href="https://filmpolski.pl/fp/index.php?osoba=1123409">Andrzej Wawrzonowski</Link> : 'Andrzej Wawrzonowski'}
+                                </TableCell>
+                              </TableRow>
+                              <TableRow>
+                                <TableCell className="font-semibold">{getTranslation('authorSecondProducer', language)}</TableCell>
+                                <TableCell>
+                                  {language === 'pl' ?
+                                    <Link href='https://filmpolski.pl/fp/index.php?osoba=112028' target="_blank" rel="noopener noreferrer">Zygmunt Smyczek</Link> :
+                                    <Link href='https://www.imdb.com/name/nm4448574' target="_blank" rel="noopener noreferrer">Zygmunt Smyczek</Link>}
+                                </TableCell>
+                              </TableRow>
+                              <TableRow>
+                                <TableCell className="font-semibold">{getTranslation('authorSound', language)}</TableCell>
+                                <TableCell>
+                                  {language === 'pl' ?
+                                    <Link href='https://filmpolski.pl/fp/index.php?osoba=114230' target="_blank" rel="noopener noreferrer">Mieczysław Janik</Link> :
+                                    <Link href='https://www.imdb.com/name/nm0417614' target="_blank" rel="noopener noreferrer">Mieczysław Janik</Link>}
+                                </TableCell>
+                              </TableRow>
+                              <TableRow>
+                                <TableCell className="font-semibold">{getTranslation('authorEditor', language)}</TableCell>
+                                <TableCell>
+                                  {language === 'pl' ?
+                                    <Link href='https://filmpolski.pl/fp/index.php?osoba=11109578' target="_blank" rel="noopener noreferrer">Barbara Sarnocińska</Link> :
+                                    <Link href='https://www.imdb.com/name/nm1516261' target="_blank" rel="noopener noreferrer">Barbara Sarnocińska</Link>}
+                                </TableCell>
+                              </TableRow>
+                            </TableBody>
+                          </Table> 
+                          {/* {getTranslation('filmDescription', language)} */}
                         </DialogDescription>
                       </DialogHeader>
-                      <div className="py-4">
+                      {/* <div className="py-4">
                         <p className="text-brown-900 dark:text-brown-100">
                           {getTranslation('filmAwardsValue', language)}
                         </p>
-                      </div>
+                      </div> */}
                     </DialogContent>
                   </Dialog>
                 </div>
@@ -362,7 +434,7 @@ export function AboutSection({ language }: AboutSectionProps) {
                   <Card className="bg-brown-50/70 dark:bg-brown-800/70 border border-brown-200 dark:border-brown-600 shadow-sm hover:shadow-md transition-all duration-200">
                     <CardContent className="p-4">
                       <div className="flex items-center gap-3 mb-2">
-                        <MapPin className="h-6 w-6 text-brown-700 dark:text-brown-300" />
+                        <CalendarX className="h-6 w-6 text-brown-700 dark:text-brown-300" />
                         <p className="text-sm font-medium text-brown-500 dark:text-brown-400">
                           {getTranslation('locationToday', language)}
                         </p>

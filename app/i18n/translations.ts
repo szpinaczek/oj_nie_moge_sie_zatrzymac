@@ -22,6 +22,16 @@ const translations = {
     currentPosition: "Aktualna pozycja",
     learnMore: "Dowiedz się więcej",
     about: "O projekcie",
+    aboutAuthors: "O autorach",
+    authors: "Autorzy",
+    authorDirector: "Scenariusz, zdjęcia i reżyseria",
+    authorMusic: "Muzyka",
+    authorSecondDirector: "Współpraca reżyserska",
+    authorSecondOperator: "Współpraca operatorska",
+    authorProducer: "Kierownictwo produkcji",
+    authorSecondProducer: "Współpraca produkcyjna",
+    authorSound: "Dźwięk",
+    authorEditor: "Montaż",
     aboutMovie: "O filmie",
     aboutApp: `Było lato 1975 roku. Zajęci swoimi sprawami przechodnie, wędrujący pylistymi ulicami Łodzi, ze zdumieniem patrzyli na grupę długowłosych młodych ludzi, którzy dźwigając ciężkie, kilkunastokilogramowe kamery szli wytrwale przez ulice, place, ogrody i trawniki miasta. Znikali w bramach kamienic, aby wyłonić się z zupełnie innej bramy przy innej ulicy. Gdyby ciekawski przechodzień zechciał udać się za nimi, zapewne zdumiałby się widząc, że filmowcy wciągają ciężki sprzęt na dachy komórek, a nawet, nieraz wchodzą przez okna do prywatnych mieszkań. Trudno byłoby mu uwierzyć, że właśnie powstaje film animowany dla łódzkiego studia Se-Ma-For, znanego powszechnie z produkcji kreskówek dla dzieci.
 
@@ -31,7 +41,7 @@ const translations = {
     aboutFilm: "Film",
     aboutDirector: "Reżyser",
     filmDescription:
-      "'Oj! Nie mogę się zatrzymać!' to przełomowy film animowany z 1975 roku, który zrewolucjonizował polską animację. Film opowiada historię człowieka, który nie może się zatrzymać i ciągle biegnie przez różne przestrzenie, co symbolizuje nieustanny pęd współczesnego życia.",
+      "'Oj! Nie mogę się zatrzymać!' to eksperymentalny film animowany z 1975 roku, opowiadający historię potwora, który wypełza z lasu na przedmieściach i pędzi coraz szybciej przez miasto, niszcząc wszystko na swojej drodze. Wreszcie spotyka swój koniec, rozpryskując się na ścianie kamienicy.",
     filmYear: "Rok produkcji",
     filmDuration: "Czas trwania",
     filmTechnique: "Technika",
@@ -85,6 +95,16 @@ const translations = {
     currentPosition: "Current position",
     learnMore: "Learn more",
     about: "About The Project",
+    aboutAuthors: "Credits",
+    authors: "Credits",
+    authorDirector: "Screenplay, cinematography and direction",
+    authorMusic: "Music",
+    authorSecondDirector: "Assistant Director",
+    authorSecondOperator: "Assistant Camera",
+    authorProducer: "Producer",
+    authorSecondProducer: "Assistant Producer",
+    authorSound: "Sound",
+    authorEditor: "Editor",
     aboutMovie: "About The Film",
     aboutApp: `It was the summer of 1975. Busy with their own affairs, passersby wandering the dusty streets of Łódź looked on in astonishment at a group of long-haired young people, who, carrying heavy cameras weighing several kilograms, perseveringly walked through the streets, squares, gardens, and lawns of the city. They disappeared into the doorways of tenement houses, only to emerge from a completely different doorway on another street. If a curious passerby had decided to follow them, they would surely have been astonished to see the filmmakers hauling heavy equipment onto the roofs of buildings, and sometimes even entering private apartments through windows. It would have been hard for them to believe that an animated film was being created for the Łódź studio Se-Ma-For, widely known for producing cartoons for children.
 
@@ -94,7 +114,7 @@ const translations = {
     aboutFilm: "Film",
     aboutDirector: "Director",
     filmDescription:
-      '"Oh! I Can\'t Stop!" is a groundbreaking animated film from 1975 that revolutionized Polish animation. The film tells the story of a man who cannot stop and keeps running through different spaces, symbolizing the constant rush of modern life.',
+      '"Oh! I Can\'t Stop!" is an experimental animated film from 1975, telling the story of a monster that crawls out of the forest into the suburbs, racing faster and faster through the city, destroying everything in its path. Finally, it meets its end, splattering against the wall of an apartment building.',
     filmYear: "Production Year",
     filmDuration: "Duration",
     filmTechnique: "Technique",
