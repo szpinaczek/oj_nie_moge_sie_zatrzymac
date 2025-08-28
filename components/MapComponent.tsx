@@ -590,5 +590,5 @@ const MapComponent = forwardRef<MapComponentHandle, MapComponentProps>(({ curren
     </div>
   );
 });
-
+MapComponent.displayName = 'MapComponent';
 export default MapComponent;
