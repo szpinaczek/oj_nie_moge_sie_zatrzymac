@@ -22,8 +22,8 @@ const translations = {
     currentPosition: "Aktualna pozycja",
     learnMore: "Dowiedz się więcej",
     about: "O projekcie",
-    aboutAuthors: "O autorach",
-    authors: "Autorzy",
+    aboutAuthors: "Współautorzy filmu",
+    authors: "Współautorzy",
     authorDirector: "Scenariusz, zdjęcia i reżyseria",
     authorMusic: "Muzyka",
     authorSecondDirector: "Współpraca reżyserska",
@@ -45,7 +45,7 @@ const translations = {
     filmYear: "Rok produkcji",
     filmDuration: "Czas trwania",
     filmTechnique: "Technika",
-    filmTechniqueValue: "Animacja poklatkowa, technika mieszana",
+    filmTechniqueValue: "Animacja poklatkowa",
     filmAwards: "Nagrody",
     filmAwardsValue:
       "Grand Prix na Międzynarodowym Festiwalu Filmów Animowanych w Annecy (1976)",
@@ -118,7 +118,7 @@ const translations = {
     filmYear: "Production Year",
     filmDuration: "Duration",
     filmTechnique: "Technique",
-    filmTechniqueValue: "Stop-motion animation, mixed technique",
+    filmTechniqueValue: "Stop-motion animation",
     filmAwards: "Awards",
     filmAwardsValue:
       "Grand Prix at the International Animated Film Festival in Annecy (1976)",

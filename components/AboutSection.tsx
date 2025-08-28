@@ -37,7 +37,7 @@ export function AboutSection({ language }: AboutSectionProps) {
             {getTranslation('about', language)}
           </CardTitle>
           <CardDescription className="text-brown-700 dark:text-brown-300 italic">
-            {language === 'pl' ? 'Odkryj historię niezwykłego projektu filmowego' : 'Discover the history of an extraordinary film project'}
+            {language === "pl" ? 'Odkryj historię niezwykłego projektu filmowego' : 'Discover the history of an extraordinary film project'}
           </CardDescription>
         </CardHeader>
         <CardContent className="pt-6">
@@ -46,7 +46,7 @@ export function AboutSection({ language }: AboutSectionProps) {
               {/* Intro section with highlight */}
               <div className="bg-brown-100/50 dark:bg-brown-600/50 p-4 rounded-lg border-l-4 border-brown-400 dark:border-brown-300">
                 <p className="text-md text-brown-900 dark:text-brown-100 font-medium">
-                  {language === 'pl' 
+                  {language === "pl" 
                     ? 'Projekt "Oj! Nie mogę się zatrzymać" to interaktywna podróż śladami kultowego filmu animowanego z 1975 roku.' 
                     : 'The "Oh! I Can\'t Stop!" project is an interactive journey following the footsteps of the iconic animated film from 1975.'}
                 </p>
@@ -75,7 +75,7 @@ export function AboutSection({ language }: AboutSectionProps) {
                     <MapPin className="h-8 w-8 text-brown-700 dark:text-brown-300" />
                     <div>
                       <p className="text-sm font-medium text-brown-500 dark:text-brown-400">
-                        {language === 'pl' ? 'Lokalizacja' : 'Location'}
+                        {language === "pl" ? 'Lokalizacja' : 'Location'}
                       </p>
                       <p className="text-lg font-bold text-brown-900 dark:text-brown-100">Łódź, Polska</p>
                     </div>
@@ -87,7 +87,7 @@ export function AboutSection({ language }: AboutSectionProps) {
                     <Calendar className="h-8 w-8 text-brown-700 dark:text-brown-300" />
                     <div>
                       <p className="text-sm font-medium text-brown-500 dark:text-brown-400">
-                        {language === 'pl' ? 'Rok produkcji' : 'Production Year'}
+                        {language === "pl" ? 'Rok produkcji' : 'Production Year'}
                       </p>
                       <p className="text-lg font-bold text-brown-900 dark:text-brown-100">1975</p>
                     </div>
@@ -100,19 +100,19 @@ export function AboutSection({ language }: AboutSectionProps) {
                 <Button variant="outline" className="text-brown-700 dark:text-brown-100 border-brown-300 dark:border-brown-600 hover:bg-brown-100 dark:hover:bg-brown-700" 
                   onClick={() => window.open('https://www.filmpolski.pl/fp/index.php?film=422453', '_blank')}>
                   <Film className="mr-2 h-4 w-4" />
-                  {language === 'pl' ? 'Film Polski' : 'Polish Film Database'}
+                  {language === "pl" ? 'Film Polski' : 'Polish Film Database'}
                 </Button>
                 
                 <Button variant="outline" className="text-brown-700 dark:text-brown-100 border-brown-300 dark:border-brown-600 hover:bg-brown-100 dark:hover:bg-brown-700"
-                  onClick={() => {language === 'pl' ? window.open('https://culture.pl/pl/tworca/zbigniew-rybczynski', '_blank') :  window.open('https://culture.pl/en/artist/zbigniew-rybczynski', '_blank')}}>
+                  onClick={() => {language === "pl" ? window.open('https://culture.pl/pl/tworca/zbigniew-rybczynski', '_blank') :  window.open('https://culture.pl/en/artist/zbigniew-rybczynski', '_blank')}}>
                   <User className="mr-2 h-4 w-4" />
-                  {language === 'pl' ? 'O reżyserze' : 'About the Director'}
+                  {language === "pl" ? 'O reżyserze' : 'About the Director'}
                 </Button>
                 
                 <Button variant="outline" className="text-brown-700 dark:text-brown-50 border-brown-300 dark:border-brown-600 hover:bg-brown-100 dark:hover:bg-brown-700"
                   onClick={() => window.open('https://fototeka.fn.org.pl/pl/filmy/info/11199/oj-nie-moge-sie-zatrzymac.html', '_blank')}>
                   <Camera className="mr-2 h-4 w-4" />
-                  {language === 'pl' ? 'Zdjęcia z planu filmowego' : 'Film Production Photos'}
+                  {language === "pl" ? 'Zdjęcia z planu filmowego' : 'Film Production Photos'}
                 </Button>
               </div>
               
@@ -120,7 +120,7 @@ export function AboutSection({ language }: AboutSectionProps) {
               {/* <div className="py-4">
                 <Separator className="my-4" />
                 <p className="text-center text-brown-600 dark:text-brown-400 italic text-sm">
-                  {language === 'pl' 
+                  {language === "pl" 
                     ? '"Film to nie tylko obraz i dźwięk, to podróż przez czas i przestrzeń."' 
                     : '"Film is not just image and sound, it\'s a journey through time and space."'}
                 </p>
@@ -234,80 +234,171 @@ export function AboutSection({ language }: AboutSectionProps) {
                         {getTranslation('aboutAuthors', language) || 'About authors'}
                       </Button>
                     </DialogTrigger>
-                    <DialogContent className="sm:max-w-[425px] bg-brown-50 dark:bg-brown-800 text-brown-900 dark:text-brown-100">
+                    <DialogContent
+                      className="sm:max-w-[425px] bg-brown-50 dark:bg-brown-800 text-brown-900 dark:text-brown-100"
+                      onOpenAutoFocus={(e) => e.preventDefault()}
+                      >
                       <DialogHeader>
-                        <DialogTitle>{getTranslation('authors', language)}</DialogTitle>
+                        <DialogTitle className="sans-serif text-center mb-3">{getTranslation('authors', language)}</DialogTitle>
                         <DialogDescription className="text-brown-700 dark:text-brown-300">
                           <Table>
                             <TableBody>
                               <TableRow>
                                 <TableCell className="font-semibold">{getTranslation('authorDirector', language)}</TableCell>
                                 <TableCell>
-                                  {language === 'pl' ?
-                                    <Link href='https://culture.pl/pl/tworca/zbigniew-rybczynski' target="_blank" rel="noopener noreferrer">Zbigniew Rybczyński</Link> :
-                                    <Link href='https://culture.pl/en/artist/zbigniew-rybczynski' target="_blank" rel="noopener noreferrer">Zbigniew Rybczyński</Link>}
+                                  {language === "pl" ?
+                                    <Link
+                                      className="featured-link"
+                                      href="https://culture.pl/pl/tworca/zbigniew-rybczynski"
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                    >
+                                      Zbigniew Rybczyński
+                                    </Link> :
+                                    <Link
+                                    className="featured-link"
+                                    href="https://culture.pl/en/artist/zbigniew-rybczynski"
+                                    target="_blank"
+                                    rel="noopener noreferrer">
+                                      Zbigniew Rybczyński
+                                    </Link>}
                                 </TableCell>
                               </TableRow>
                               <TableRow>
                                 <TableCell className="font-semibold">{getTranslation('authorMusic', language)}</TableCell>
                                 <TableCell>
-                                  {language === 'pl' ? <Link href="https://pl.wikipedia.org/wiki/Janusz_Hajdun">Janusz Hajdun</Link> : 'Janusz Hajdun'}
+                                  {language === "pl" ? 
+                                  <Link
+                                    className="featured-link"
+                                    href="https://pl.wikipedia.org/wiki/Janusz_Hajdun"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                  >
+                                    Janusz Hajdun
+                                  </Link> :
+                                    'Janusz Hajdun'}
                                 </TableCell>
                               </TableRow>
                               <TableRow>
                                 <TableCell className="font-semibold">{getTranslation('authorSecondDirector', language)}</TableCell>
                                 <TableCell>
-                                  {language === 'pl' ? <Link href="https://culture.pl/pl/tworca/hieronim-neumann">Hieronim Nojman</Link> : 'Hieronim Nojman'}
+                                  {language === "pl" ?
+                                  <Link
+                                    className="featured-link"
+                                    href="https://culture.pl/pl/tworca/hieronim-neumann"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                  >
+                                    Hieronim Nojman
+                                  </Link> :
+                                    'Hieronim Nojman'}
                                 </TableCell>
                               </TableRow>
                               <TableRow>
                                 <TableCell className="font-semibold">{getTranslation('authorSecondOperator', language)}</TableCell>
                                 <TableCell>
-                                  {language === 'pl' ?
-                                    <Link href='https://filmpolski.pl/fp/index.php?osoba=1114024' target="_blank" rel="noopener noreferrer">Janusz Olszewski</Link> :
-                                    <Link href='https://www.imdb.com/name/nm2590520' target="_blank" rel="noopener noreferrer">Janusz Olszewski</Link>}
+                                  {language === "pl" ?
+                                    <Link
+                                      className="featured-link"
+                                      href="https://filmpolski.pl/fp/index.php?osoba=1114024"
+                                      target="_blank"
+                                      rel="noopener noreferrer">
+                                        Janusz Olszewski
+                                    </Link> :
+                                    <Link
+                                      className="featured-link"
+                                      href="https://www.imdb.com/name/nm2590520"
+                                      target="_blank"
+                                      rel="noopener noreferrer">
+                                        Janusz Olszewski
+                                    </Link>}
                                 </TableCell>
                               </TableRow>
                               <TableRow>
                                 <TableCell className="font-semibold">{getTranslation('authorProducer', language)}</TableCell>
                                 <TableCell>
-                                  {language === 'pl' ? <Link href="https://filmpolski.pl/fp/index.php?osoba=1123409">Andrzej Wawrzonowski</Link> : 'Andrzej Wawrzonowski'}
+                                  {language === "pl" ?
+                                    <Link
+                                      className="featured-link"
+                                      href="https://filmpolski.pl/fp/index.php?osoba=1123409"
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                    >
+                                      Andrzej Wawrzonowski
+                                    </Link> :
+                                      'Andrzej Wawrzonowski'}
                                 </TableCell>
                               </TableRow>
                               <TableRow>
                                 <TableCell className="font-semibold">{getTranslation('authorSecondProducer', language)}</TableCell>
                                 <TableCell>
-                                  {language === 'pl' ?
-                                    <Link href='https://filmpolski.pl/fp/index.php?osoba=112028' target="_blank" rel="noopener noreferrer">Zygmunt Smyczek</Link> :
-                                    <Link href='https://www.imdb.com/name/nm4448574' target="_blank" rel="noopener noreferrer">Zygmunt Smyczek</Link>}
+                                  {language === "pl" ?
+                                    <Link
+                                      className="featured-link"
+                                      href="https://filmpolski.pl/fp/index.php?osoba=112028"
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                    >
+                                      Zygmunt Smyczek
+                                    </Link> :
+                                    <Link
+                                      className="featured-link"
+                                      href="https://www.imdb.com/name/nm4448574"
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      >
+                                      Zygmunt Smyczek
+                                    </Link>}
                                 </TableCell>
                               </TableRow>
                               <TableRow>
                                 <TableCell className="font-semibold">{getTranslation('authorSound', language)}</TableCell>
                                 <TableCell>
-                                  {language === 'pl' ?
-                                    <Link href='https://filmpolski.pl/fp/index.php?osoba=114230' target="_blank" rel="noopener noreferrer">Mieczysław Janik</Link> :
-                                    <Link href='https://www.imdb.com/name/nm0417614' target="_blank" rel="noopener noreferrer">Mieczysław Janik</Link>}
+                                  {language === "pl" ?
+                                    <Link 
+                                      className="featured-link"
+                                      href="https://filmpolski.pl/fp/index.php?osoba=114230"
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      >
+                                      Mieczysław Janik
+                                    </Link> :
+                                    <Link
+                                      className="featured-link"
+                                      href="https://www.imdb.com/name/nm0417614"
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                    >
+                                      Mieczysław Janik
+                                    </Link>}
                                 </TableCell>
                               </TableRow>
                               <TableRow>
                                 <TableCell className="font-semibold">{getTranslation('authorEditor', language)}</TableCell>
                                 <TableCell>
-                                  {language === 'pl' ?
-                                    <Link href='https://filmpolski.pl/fp/index.php?osoba=11109578' target="_blank" rel="noopener noreferrer">Barbara Sarnocińska</Link> :
-                                    <Link href='https://www.imdb.com/name/nm1516261' target="_blank" rel="noopener noreferrer">Barbara Sarnocińska</Link>}
+                                  {language === "pl" ?
+                                    <Link
+                                    className="featured-link"
+                                    href="https://filmpolski.pl/fp/index.php?osoba=11109578"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                  >
+                                    Barbara Sarnocińska
+                                  </Link> :
+                                  <Link
+                                    className="featured-link"
+                                    href="https://www.imdb.com/name/nm1516261"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                  >
+                                    Barbara Sarnocińska
+                                  </Link>}
                                 </TableCell>
                               </TableRow>
                             </TableBody>
                           </Table> 
-                          {/* {getTranslation('filmDescription', language)} */}
                         </DialogDescription>
                       </DialogHeader>
-                      {/* <div className="py-4">
-                        <p className="text-brown-900 dark:text-brown-100">
-                          {getTranslation('filmAwardsValue', language)}
-                        </p>
-                      </div> */}
                     </DialogContent>
                   </Dialog>
                 </div>

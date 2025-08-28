@@ -7,6 +7,7 @@ import Background from '@/components/Background'
 const openSans = Open_Sans({
   subsets: ['latin'],
   display: 'swap',
+  variable: '--font-sans',
 })
 const cairo = Cairo({ 
   subsets: ['latin'],
@@ -39,7 +40,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${openSans.className} ${cairo.variable} ${fraunces.variable} ${cutive.variable} ${specialElite.variable}`}>
+      <body className={`${openSans.className} ${openSans.variable} ${cairo.variable} ${fraunces.variable} ${cutive.variable} ${specialElite.variable}`}>
         <ThemeProvider defaultTheme="light">
           <Background />
           {children}
